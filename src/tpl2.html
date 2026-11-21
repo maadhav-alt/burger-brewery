@@ -735,18 +735,20 @@ ScrollCraft.mount(document.body);
   document.querySelectorAll("dialog [data-close]").forEach(function (b) { b.addEventListener("click", function () { b.closest("dialog").close(); }); });
   document.querySelectorAll("dialog.bb-dialog:not(.bb-age)").forEach(function (d) { d.addEventListener("click", function (e) { if (e.target === d) d.close(); }); });
 
-  /* ---------- forms: honest until a backend exists ---------- */
-  var FORM_ENDPOINT = null;
+  /* ---------- franchise + team forms: saved to Supabase (enquiries) ---------- */
   document.querySelectorAll("form[data-form]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
       e.preventDefault();
       var status = f.querySelector(".bb-form__status");
       if (!f.checkValidity()) { f.reportValidity(); return; }
-      if (!FORM_ENDPOINT) {
-        var name = (f.elements.name && f.elements.name.value.trim().split(" ")[0]) || "there";
-        status.textContent = "Thanks, " + name + ". This form isn’t connected to our inbox yet, so nothing was sent. Please message us on Instagram @burger.brewery for now.";
-        return;
-      }
+      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };
+      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };
+      var first = row.name.split(" ")[0] || "there", btn = f.querySelector('[type="submit"]');
+      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }
+      btn.disabled = true; status.textContent = "Sending…";
+      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })
+        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })
+        .then(function () { btn.disabled = false; });
     });
   });
 

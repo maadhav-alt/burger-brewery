@@ -201,10 +201,12 @@
       if (bad.length) { bad[0].focus(); return; }
       var data = { name: f.elements.name.value.trim(), phone: f.elements.phone.value.replace(/[\s\-().]/g, ""), email: f.elements.email.value.trim(), location: f.elements.location.value, consent: true, consentText: f.querySelector(".bb-check span").textContent, at: new Date().toISOString() };
       var show = function (test) { f.hidden = true; done.hidden = false; done.querySelector("[data-community-test]").hidden = !test; done.focus(); };
-      if (typeof FORM_ENDPOINT !== "string" || !FORM_ENDPOINT) { show(true); return; }
-      fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
-        .then(function (r) { if (!r.ok) throw 0; show(false); })
-        .catch(function () { var s = f.querySelector('[type="submit"]'); s.insertAdjacentHTML("afterend", '<p class="bb-field__err" role="alert">That didn’t go through. Check your connection and try again.</p>'); });
+      if (!window.BB_SEND) { show(true); return; }
+      var sb = f.querySelector('[type="submit"]'); sb.disabled = true;
+      var old = f.querySelector('p[role="alert"]'); if (old) old.remove();
+      window.BB_SEND("community_signups", { name: data.name, phone: data.phone, email: data.email, location: data.location, consent: true, consent_text: data.consentText })
+        .then(function () { show(false); })
+        .catch(function () { var s = f.querySelector('[type="submit"]'); s.disabled = false; s.insertAdjacentHTML("afterend", '<p class="bb-field__err" role="alert">That didn’t go through. Check your connection and try again.</p>'); });
     });
   })();
 

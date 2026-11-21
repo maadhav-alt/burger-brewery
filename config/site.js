@@ -8,8 +8,17 @@
 // TODO VERIFY: rating must match the live Google listing (https://maps.app.goo.gl/BrSWiB4urYfC66M5A)
 var GOOGLE_RATING = 4.5;
 
-// TODO: set the endpoint for the BBY community (drops) form. Until then the form validates and shows a test-mode note; nothing is sent.
-var FORM_ENDPOINT = null;
+// Forms save to Supabase (tables community_signups and enquiries). The publishable key is meant to be public:
+// row-level security lets it ADD rows only, never read, change or delete them. Never put a secret key in this file.
+var SUPABASE_URL = "https://kjqmomejyibhutjudarv.supabase.co";
+var SUPABASE_KEY = "sb_publishable_PVMeo-sd1dqufrTg-BlBYw_G76-6eHx";
+window.BB_SEND = function (table, row) {
+  return fetch(SUPABASE_URL + "/rest/v1/" + table, {
+    method: "POST",
+    headers: { "apikey": SUPABASE_KEY, "Content-Type": "application/json", "Prefer": "return=minimal" },
+    body: JSON.stringify(row)
+  }).then(function (r) { if (!r.ok) throw new Error("save failed " + r.status); });
+};
 
 // TODO: set Zomato link. Every "Order now" / Zomato button stays hidden until this is a real URL.
 var ZOMATO_URL = null;

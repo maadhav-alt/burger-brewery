@@ -306,7 +306,6 @@ img { display: block; }
         <div class="bb-field"><label for="tm-email">Email</label><input id="tm-email" name="email" type="email" autocomplete="email" required></div>
       </div>
       <div class="bb-field"><label for="tm-city">Preferred outlet or city</label><input id="tm-city" name="city" value="Koramangala, Bangalore"></div>
-      <div class="bb-field"><label for="tm-cv">CV</label><input id="tm-cv" name="cv" type="file" accept=".pdf,.doc,.docx"><p class="bb-hint">PDF or Word.</p></div>
       <p class="bb-form__status" role="status" aria-live="polite"></p>
       <div><button class="bb-btn" type="submit">Send application</button></div>
     </form>
@@ -333,8 +332,17 @@ img { display: block; }
   document.querySelectorAll("dialog [data-close]").forEach(function (b) { b.addEventListener("click", function () { b.closest("dialog").close(); }); });
   document.querySelectorAll("form[data-form]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
-      e.preventDefault(); if (!f.checkValidity()) { f.reportValidity(); return; }
-      f.querySelector(".bb-form__status").textContent = "Thanks. This form isn’t connected to our inbox yet, so nothing was sent. Please message us on Instagram @burgerbrewery_official for now.";
+      e.preventDefault();
+      var status = f.querySelector(".bb-form__status");
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };
+      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };
+      var first = row.name.split(" ")[0] || "there", btn = f.querySelector('[type="submit"]');
+      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }
+      btn.disabled = true; status.textContent = "Sending…";
+      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })
+        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })
+        .then(function () { btn.disabled = false; });
     });
   });
 })();

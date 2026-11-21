@@ -1369,7 +1369,6 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
         <div class="bb-field"><label for="tm-email">Email</label><input id="tm-email" name="email" type="email" autocomplete="email" required></div>
       </div>
       <div class="bb-field"><label for="tm-city">Preferred outlet or city</label><input id="tm-city" name="city" value="Koramangala, Bangalore"></div>
-      <div class="bb-field"><label for="tm-cv">CV</label><input id="tm-cv" name="cv" type="file" accept=".pdf,.doc,.docx"><p class="bb-hint">PDF or Word.</p></div>
       <p class="bb-form__status" role="status" aria-live="polite"></p>
       <div><button class="bb-btn" type="submit">Send application</button></div>
     </form>
@@ -1413,7 +1412,7 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
     </form>
     <div class="bb-done" data-community-done hidden tabindex="-1">
       <p>You’re in. We’ll ask you before the next one drops.</p>
-      <small data-community-test hidden>Test mode: FORM_ENDPOINT is not set in config/site.js, so nothing was sent.</small>
+      <small data-community-test hidden>Test mode: the database connection is missing, so nothing was sent.</small>
     </div>
   </div>
 </dialog>
@@ -1632,18 +1631,20 @@ ScrollCraft.mount(document.body);
   document.querySelectorAll("dialog [data-close]").forEach(function (b) { b.addEventListener("click", function () { b.closest("dialog").close(); }); });
   document.querySelectorAll("dialog.bb-dialog:not(.bb-age)").forEach(function (d) { d.addEventListener("click", function (e) { if (e.target === d) d.close(); }); });
 
-  /* ---------- forms: honest until a backend exists ---------- */
-  var FORM_ENDPOINT = null;
+  /* ---------- franchise + team forms: saved to Supabase (enquiries) ---------- */
   document.querySelectorAll("form[data-form]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
       e.preventDefault();
       var status = f.querySelector(".bb-form__status");
       if (!f.checkValidity()) { f.reportValidity(); return; }
-      if (!FORM_ENDPOINT) {
-        var name = (f.elements.name && f.elements.name.value.trim().split(" ")[0]) || "there";
-        status.textContent = "Thanks, " + name + ". This form isn’t connected to our inbox yet, so nothing was sent. Please message us on Instagram @burgerbrewery_official for now.";
-        return;
-      }
+      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };
+      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };
+      var first = row.name.split(" ")[0] || "there", btn = f.querySelector('[type="submit"]');
+      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }
+      btn.disabled = true; status.textContent = "Sending…";
+      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })
+        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })
+        .then(function () { btn.disabled = false; });
     });
   });
 
@@ -1680,8 +1681,6 @@ ScrollCraft.mount(document.body);
     pmx += (tmx - pmx) * 0.08; pmy += (tmy - pmy) * 0.08;
     var hs = clamp(y, 0, hero.offsetHeight);
     planes.forEach(function (pl) { pl.el.style.transform = "translate3d(" + (pmx * pl.mx) + "px," + (hs * pl.lag + pmy * pl.mx * 0.6) + "px,0)"; });
-  }
-
 
   /* ---------- hero: Google rating + Do Together stamp, each once, when in view and after the headline lands ---------- */
   var T0 = performance.now(), HEADLINE_MS = 1300;
@@ -1885,10 +1884,12 @@ ScrollCraft.mount(document.body);
       if (bad.length) { bad[0].focus(); return; }
       var data = { name: f.elements.name.value.trim(), phone: f.elements.phone.value.replace(/[\s\-().]/g, ""), email: f.elements.email.value.trim(), location: f.elements.location.value, consent: true, consentText: f.querySelector(".bb-check span").textContent, at: new Date().toISOString() };
       var show = function (test) { f.hidden = true; done.hidden = false; done.querySelector("[data-community-test]").hidden = !test; done.focus(); };
-      if (typeof FORM_ENDPOINT !== "string" || !FORM_ENDPOINT) { show(true); return; }
-      fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
-        .then(function (r) { if (!r.ok) throw 0; show(false); })
-        .catch(function () { var s = f.querySelector('[type="submit"]'); s.insertAdjacentHTML("afterend", '<p class="bb-field__err" role="alert">That didn’t go through. Check your connection and try again.</p>'); });
+      if (!window.BB_SEND) { show(true); return; }
+      var sb = f.querySelector('[type="submit"]'); sb.disabled = true;
+      var old = f.querySelector('p[role="alert"]'); if (old) old.remove();
+      window.BB_SEND("community_signups", { name: data.name, phone: data.phone, email: data.email, location: data.location, consent: true, consent_text: data.consentText })
+        .then(function () { show(false); })
+        .catch(function () { var s = f.querySelector('[type="submit"]'); s.disabled = false; s.insertAdjacentHTML("afterend", '<p class="bb-field__err" role="alert">That didn’t go through. Check your connection and try again.</p>'); });
     });
   })();
 
@@ -1983,6 +1984,8 @@ ScrollCraft.mount(document.body);
   addEventListener("load", layoutThread);
   layoutThread();
 
+  })();
+
   /* ---------- menu: sticky category tabs (mobile) ---------- */
   (function () {
     var tabs = [].slice.call(document.querySelectorAll(".bb-cattabs a"));
@@ -2005,8 +2008,6 @@ ScrollCraft.mount(document.body);
   function indexFrame() {
     var vh = innerHeight, current = null;
     idx.forEach(function (it) { var reached = it.sec.getBoundingClientRect().top < vh * 0.6; it.a.classList.toggle("is-in", reached); if (reached) current = it; });
-    idx.forEach(function (it) { if (it === current) it.a.setAttribute("aria-current", "true"); else it.a.removeAttribute("aria-current"); });
-  }
 
   function frame() {
     heroFrame(scrollY);
