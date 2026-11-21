@@ -1681,6 +1681,8 @@ ScrollCraft.mount(document.body);
     pmx += (tmx - pmx) * 0.08; pmy += (tmy - pmy) * 0.08;
     var hs = clamp(y, 0, hero.offsetHeight);
     planes.forEach(function (pl) { pl.el.style.transform = "translate3d(" + (pmx * pl.mx) + "px," + (hs * pl.lag + pmy * pl.mx * 0.6) + "px,0)"; });
+  }
+
 
   /* ---------- hero: Google rating + Do Together stamp, each once, when in view and after the headline lands ---------- */
   var T0 = performance.now(), HEADLINE_MS = 1300;
@@ -1984,8 +1986,6 @@ ScrollCraft.mount(document.body);
   addEventListener("load", layoutThread);
   layoutThread();
 
-  })();
-
   /* ---------- menu: sticky category tabs (mobile) ---------- */
   (function () {
     var tabs = [].slice.call(document.querySelectorAll(".bb-cattabs a"));
@@ -2008,6 +2008,8 @@ ScrollCraft.mount(document.body);
   function indexFrame() {
     var vh = innerHeight, current = null;
     idx.forEach(function (it) { var reached = it.sec.getBoundingClientRect().top < vh * 0.6; it.a.classList.toggle("is-in", reached); if (reached) current = it; });
+    idx.forEach(function (it) { if (it === current) it.a.setAttribute("aria-current", "true"); else it.a.removeAttribute("aria-current"); });
+  }
 
   function frame() {
     heroFrame(scrollY);

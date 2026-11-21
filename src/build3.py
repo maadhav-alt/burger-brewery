@@ -101,6 +101,8 @@ def fill(tpl, p):
                .replace("<!--P_ORIG-->", p_orig).replace("<!--P_CRAFT-->", p_craft).replace("<!--P_SLIDER-->", p_slider)
                .replace("<!--P_GELATO-->", p_gelato).replace("<!--DIALOGS-->", dialogs).replace("<!--DIALOGS_NOAGE-->", dialogs_noage))
 
+FORMS_JS = '  /* ---------- franchise + team forms: saved to Supabase (enquiries) ---------- */\n  document.querySelectorAll("form[data-form]").forEach(function (f) {\n    f.addEventListener("submit", function (e) {\n      e.preventDefault();\n      var status = f.querySelector(".bb-form__status");\n      if (!f.checkValidity()) { f.reportValidity(); return; }\n      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };\n      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };\n      var first = row.name.split(" ")[0] || "there", btn = f.querySelector(\'[type="submit"]\');\n      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }\n      btn.disabled = true; status.textContent = "Sending…";\n      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })\n        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })\n        .then(function () { btn.disabled = false; });\n    });\n  });\n'
+
 for tplf, out, p in ((tpl_index, "index.html", ""), (tpl_deliv, "delivery.html", "index.html")):
     html = fill(open(tplf, encoding="utf-8").read(), p)
     # No prices anywhere on the site (they differ across India). The menu PDF is the only place prices live.
@@ -122,6 +124,11 @@ for tplf, out, p in ((tpl_index, "index.html", ""), (tpl_deliv, "delivery.html",
     html = html.replace("function probeFile(url) {\n", "function probeFile(url) {\n    if (BB_HAVE.indexOf(url) < 0) return Promise.resolve(false);\n", 1)
     assert "BB_HAVE.indexOf(url) < 0" in html or out == "delivery.html", "probe patch missed"
     html = html.replace(".bb-index a { position: relative; display: block; width: 46px;", ".bb-index a { position: relative; display: block; width: 46px; min-height: 24px;", 1)
+    # Forms save to Supabase. tpl2.html is sliced by fixed line numbers in mk3.py, so the handler is swapped here instead of edited there.
+    if out == "index.html":
+        _h = re.search(r'  /\* -+ forms: honest until a backend exists -+ \*/\n  var FORM_ENDPOINT = null;\n.*?\n    \}\);\n  \}\);\n', html, re.S)
+        assert _h, "forms handler not found"
+        html = html[:_h.start()] + FORMS_JS + html[_h.end():]
     body = re.sub(r"<dialog.*?</dialog>", "", html, flags=re.S)
     assert "₹" not in body, re.findall(r".{40}₹.{20}", body)[:5]
     left = re.findall(r"<!--[A-Z_]+-->|/\*CSS_[A-Z]+\*/", html)
