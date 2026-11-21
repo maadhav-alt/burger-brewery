@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Burger Brewery · Every burger built for a beer · Koramangala</title>
+<meta name="description" content="Smashed to order on brioche from our own bakery. Eight craft taps from Toit, Mannheim, Red Rhino and Geist. Ask us which one is yours. Koramangala 1st Block.">
+<meta property="og:title" content="Burger Brewery · Burgers deserve beer">
+<meta property="og:description" content="Smashed to order on brioche from our own bakery. Eight craft taps from Toit, Mannheim, Red Rhino and Geist. Ask us which one is yours. Koramangala 1st Block.">
+<meta property="og:image" content="assets/photos/combo.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F2F2E9">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23231F20'/><path d='M6 15c0-6 4.5-9 10-9s10 3 10 9z' fill='%23F26624'/><rect x='5' y='17' width='22' height='4' rx='2' fill='%23F2F2E9'/><rect x='6' y='22' width='20' height='4' rx='2' fill='%23F26624'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Mulish:wght@400;600;700;800&display=swap">
+<link rel="preload" as="image" href="assets/photos/live-kitchen.jpg">
+<link rel="stylesheet" href="scrollcraft.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"Burger Brewery","servesCuisine":["Burgers","Craft beer"],"address":{"@type":"PostalAddress","addressLocality":"Koramangala 1st Block, Bangalore","addressRegion":"Karnataka","addressCountry":"IN"},"hasMap":"https://maps.app.goo.gl/nVp8P1cLb46zQmfo7","sameAs":["https://www.instagram.com/burger.brewery/"],"acceptsReservations":"https://www.district.in/dining/bangalore/burger-brewery-koramangala-1st-block-bangalore","menu":"assets/burger-brewery-koramangala-menu.pdf"}
+</script>
+<style>
+:root {
+  --sc-canvas: #F2F2E9;  --sc-surface: #E9E7DA;
+  --sc-ink:    #231F20;  --sc-ink-soft: #5A5250;
+  --sc-accent: #F26624;  --sc-accent-ink: #231F20;
+  --sc-font-display: "Fraunces", Georgia, serif;
+  --sc-font-text: "Mulish", system-ui, sans-serif;
+  --bb-orange: #F26624; --bb-black: #231F20; --bb-cream: #F2F2E9; --bb-paper: #FBFAF4;
+  --bb-head: 68px;
+  --bb-veg: #2F8A43; --bb-nonveg: #C2352A;
+  --bb-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.g-cream  { background: var(--bb-cream); --sc-ink: #231F20; --sc-ink-soft: #5A5250; color: var(--sc-ink); }
+.g-paper  { background: var(--bb-paper); --sc-ink: #231F20; --sc-ink-soft: #5A5250; color: var(--sc-ink); }
+.g-black  { background: var(--bb-black); --sc-ink: #F2F2E9; --sc-ink-soft: #BDB5A8; color: var(--sc-ink); }
+.g-orange { background: var(--bb-orange); --sc-ink: #231F20; --sc-ink-soft: #231F20; color: var(--sc-ink); }
+.g-black :focus-visible { outline-color: var(--bb-orange); }
+.g-orange :focus-visible { outline-color: var(--bb-black); }
+body { background: var(--bb-cream); overflow-x: clip; }
+h1, h2, h3 { font-family: var(--sc-font-display); font-optical-sizing: auto; margin: 0; }
+em { font-style: italic; }
+img { display: block; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.bb-label { font: 800 .78rem/1 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--sc-ink-soft); margin: 0 0 var(--sc-4); }
+.g-black .bb-label { color: var(--bb-orange); }
+.ln { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* photos: blur-to-focus on entry */
+.bb-photo { position: relative; overflow: hidden; border-radius: 20px; background: #2c2627; }
+.bb-photo img { width: 100%; height: 100%; object-fit: cover; }
+@media (prefers-reduced-motion: no-preference) {
+  .bb-photo img { filter: blur(18px) saturate(.8); transform: scale(1.08); transition: filter 900ms var(--sc-ease-out), transform 1200ms var(--sc-ease-out); }
+  .bb-photo.is-seen img { filter: none; transform: none; }
+}
+
+/* ---------- buttons ---------- */
+.bb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  min-height: 48px; padding: 0 1.4rem; border-radius: 999px; border: 2px solid transparent;
+  font: 800 1rem/1 var(--sc-font-text); letter-spacing: .01em; text-decoration: none; white-space: nowrap;
+  background: var(--bb-orange); color: var(--bb-black); cursor: pointer;
+  transition: transform 140ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out), color 160ms var(--sc-ease-out), border-color 160ms var(--sc-ease-out);
+}
+.bb-btn:active { transform: scale(.97); }
+.bb-btn--line { background: transparent; border-color: currentColor; color: inherit; }
+.g-orange .bb-btn { background: var(--bb-black); color: var(--bb-cream); }
+@media (hover: hover) and (pointer: fine) {
+  .bb-btn:hover { background: var(--bb-black); color: var(--bb-cream); }
+  .g-black .bb-btn:hover { background: var(--bb-cream); color: var(--bb-black); }
+  .bb-btn--line:hover { background: var(--bb-black); color: var(--bb-cream); border-color: var(--bb-black); }
+  .g-black .bb-btn--line:hover { background: var(--bb-cream); color: var(--bb-black); border-color: var(--bb-cream); }
+}
+.bb-link { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 2px; font-weight: 800; }
+.bb-actions { display: flex; flex-wrap: wrap; gap: var(--sc-3); margin-top: var(--sc-6); }
+
+/* ---------- head bar ---------- */
+.bb-bar { position: fixed; inset: 0 0 auto; z-index: 60; height: var(--bb-head); display: flex; align-items: center; gap: var(--sc-5);
+  padding-inline: var(--sc-gutter); background: var(--bb-cream); color: var(--bb-black); border-bottom: 1px solid rgba(35,31,32,.14); }
+.bb-logo { display: block; width: 188px; aspect-ratio: 5211 / 832; background: var(--bb-black);
+  -webkit-mask: url(assets/logo-horizontal.png) center / contain no-repeat; mask: url(assets/logo-horizontal.png) center / contain no-repeat; }
+.bb-nav { margin-left: auto; display: flex; align-items: center; gap: var(--sc-2); }
+.bb-nav ul { display: flex; gap: var(--sc-1); list-style: none; margin: 0; padding: 0; }
+.bb-nav__link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .8rem; border: 0; background: none; border-radius: 999px;
+  font: 700 .95rem/1 var(--sc-font-text); color: inherit; text-decoration: none; cursor: pointer; transition: background-color 150ms var(--sc-ease-out); }
+@media (hover: hover) and (pointer: fine) { .bb-nav__link:hover { background: rgba(35,31,32,.07); } }
+.bb-nav .bb-btn { min-height: 44px; margin-left: var(--sc-2); }
+.bb-burgerbtn { display: none; width: 48px; height: 48px; border: 0; background: none; padding: 10px; cursor: pointer; border-radius: 12px; }
+.bb-burgerbtn span { display: block; height: 5px; border-radius: 3px; background: var(--bb-black); }
+.bb-burgerbtn span:nth-child(1) { background: var(--bb-orange); border-radius: 10px 10px 3px 3px; height: 7px; }
+.bb-burgerbtn span + span { margin-top: 4px; }
+.bb-burgerbtn span:nth-child(3) { background: var(--bb-orange); }
+@media (max-width: 1040px) {
+  .bb-nav ul { display: none; }
+  .bb-burgerbtn { display: block; }
+  .bb-nav .bb-btn { margin-left: 0; }
+  .bb-nav.is-open ul { display: flex; position: fixed; top: var(--bb-head); inset-inline: 0; flex-direction: column; gap: 0;
+    background: var(--bb-cream); border-bottom: 1px solid rgba(35,31,32,.14); padding: var(--sc-3) var(--sc-gutter) var(--sc-5); }
+  .bb-nav.is-open .bb-nav__link { width: 100%; min-height: 52px; font-size: 1.15rem; padding-inline: 0; border-radius: 0; border-bottom: 1px solid rgba(35,31,32,.1); }
+}
+@media (max-width: 520px) { .bb-logo { width: 132px; } .bb-nav .bb-btn { padding: 0 1rem; font-size: .92rem; } }
+
+/* ---------- stack index (signature) ---------- */
+.bb-index { position: fixed; z-index: 55; right: 14px; top: 50%; translate: 0 -50%; padding: 10px 7px; border-radius: 999px;
+  background: var(--bb-cream); border: 1px solid rgba(35,31,32,.16); box-shadow: 0 10px 24px -14px rgba(35,31,32,.45); }
+.bb-index ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.bb-index a { position: relative; display: block; width: 46px; border-radius: 6px; }
+.bb-index svg { display: block; width: 100%; height: auto; opacity: .2; filter: grayscale(1); transform: translateY(-7px);
+  transition: opacity 240ms var(--sc-ease-out), transform 260ms var(--sc-ease-out), filter 240ms var(--sc-ease-out); }
+.bb-index a.is-in svg { opacity: 1; filter: none; transform: none; }
+.bb-index__tip { position: absolute; right: calc(100% + 12px); top: 50%; translate: 0 -50%; white-space: nowrap; pointer-events: none;
+  font: 800 .78rem/1 var(--sc-font-text); letter-spacing: .04em; background: var(--bb-black); color: var(--bb-cream);
+  padding: 7px 10px; border-radius: 999px; opacity: 0; transition: opacity 150ms var(--sc-ease-out); }
+.bb-index a:focus-visible .bb-index__tip { opacity: 1; }
+@media (hover: hover) and (pointer: fine) { .bb-index a:hover .bb-index__tip { opacity: 1; } }
+@media (max-width: 760px) { .bb-index { right: 6px; top: auto; bottom: 14px; translate: none; padding: 6px 4px; } .bb-index a { width: 28px; } .bb-index__tip { display: none; } }
+
+/* ---------- 1 · hero ---------- */
+.bb-hero { position: relative; height: 100svh; min-height: 680px; overflow: hidden; }
+.bb-plane { position: absolute; will-change: transform; }
+.bb-lines { inset: -12% -10% -30% -10%; color: var(--bb-orange); -webkit-mask: linear-gradient(90deg, transparent 0 34%, #000 58%); mask: linear-gradient(90deg, transparent 0 34%, #000 58%); }
+.bb-lines svg { width: 100%; height: 100%; }
+.bb-word { right: 2vw; top: calc(var(--bb-head) + 4vh); width: min(54vw, 860px); aspect-ratio: 1763 / 1252; background: var(--bb-black);
+  -webkit-mask: url(assets/logo-burger-word.png) center / contain no-repeat; mask: url(assets/logo-burger-word.png) center / contain no-repeat; }
+.bb-frame { right: 9vw; bottom: 5vh; width: min(34vw, 540px); aspect-ratio: 4 / 5; border-radius: 999px 999px 28px 28px; overflow: hidden;
+  box-shadow: 0 30px 60px -30px rgba(35,31,32,.6); border: 6px solid var(--bb-cream); }
+.bb-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; transform: scale(1.06); }
+.bb-cutout { right: 2vw; bottom: 5vh; width: min(60vw, 940px); filter: drop-shadow(0 34px 34px rgba(35,31,32,.32)); }
+.bb-cutout img { width: 100%; height: auto; -webkit-mask: linear-gradient(#000 82%, transparent 99%); mask: linear-gradient(#000 82%, transparent 99%); }
+.bb-heart { position: relative; aspect-ratio: 622 / 610; }
+.bb-heart__shape { position: absolute; inset: 0; background: var(--bb-orange);
+  -webkit-mask: url(assets/heart-b.png) center / contain no-repeat; mask: url(assets/heart-b.png) center / contain no-repeat; }
+.bb-heart__text { position: absolute; left: 14%; top: 38%; font: italic 800 clamp(1rem, 1.55vw, 1.6rem)/1.02 var(--sc-font-display); color: var(--bb-black); }
+.bb-hero .bb-heart { position: absolute; right: calc(2vw + min(60vw, 940px) - 10vw); bottom: 3vh; width: clamp(120px, 12vw, 190px); }
+.bb-doodle { right: calc(2vw + min(60vw, 940px) * .3); bottom: calc(5vh + min(60vw, 940px) * .44); width: min(13vw, 190px); color: var(--bb-orange); }
+.bb-doodle svg { width: 100%; overflow: visible; }
+.bb-doodle .ln { stroke-width: 3.5; }
+@media (prefers-reduced-motion: no-preference) {
+  .bb-doodle .ln { stroke-dasharray: 1; stroke-dashoffset: 1; animation: bb-draw 1400ms var(--sc-ease-out) 500ms forwards; }
+  .bb-doodle .ln:nth-child(2) { animation-delay: 700ms; } .bb-doodle .ln:nth-child(3) { animation-delay: 900ms; } .bb-doodle .ln:nth-child(4) { animation-delay: 1100ms; }
+}
+@keyframes bb-draw { to { stroke-dashoffset: 0; } }
+.bb-hero__copy { position: absolute; left: var(--sc-gutter); bottom: 11vh; max-width: min(38rem, 42vw); z-index: 3; }
+.bb-hero h1 { font-size: clamp(3rem, 6.4vw, 6.4rem); font-weight: 900; line-height: .94; letter-spacing: -.025em; text-wrap: balance; }
+.bb-hero h1 em { display: block; font-weight: 700; color: var(--bb-orange); color: var(--bb-black); }
+.bb-hero h1 em span { background: linear-gradient(transparent 62%, rgba(242,102,36,.55) 62% 92%, transparent 92%); }
+.bb-hero__lede { margin: var(--sc-5) 0 0; max-width: 34ch; font-size: clamp(1.05rem, 1.25vw, 1.25rem); color: var(--sc-ink-soft); line-height: 1.5; }
+@media (max-width: 760px) {
+  .bb-hero { min-height: 720px; }
+  .bb-lines { -webkit-mask: none; mask: none; opacity: .6; inset: -20% -40% -10% -40%; }
+  .bb-word { right: auto; left: 50%; translate: -50% 0; top: calc(var(--bb-head) + 14px); width: 92vw; }
+  .bb-cutout { right: auto; left: 50%; margin-left: -54vw; width: 108vw; bottom: auto; top: calc(var(--bb-head) + 40vw); }
+  .bb-hero .bb-heart { right: auto; left: 5vw; bottom: auto; top: calc(var(--bb-head) + 82vw); width: 24vw; }
+  .bb-hero .bb-heart__text { font-size: 3.9vw; }
+  .bb-doodle { display: none; }
+  .bb-hero__copy { left: var(--sc-gutter); right: var(--sc-gutter); bottom: 3svh; max-width: none; }
+  .bb-hero h1 { font-size: clamp(2.3rem, 10.5vw, 3.2rem); }
+  .bb-hero__lede { font-size: .98rem; margin-top: var(--sc-3); }
+  .bb-hero .bb-actions { margin-top: var(--sc-4); }
+}
+@media (max-width: 760px) and (max-height: 760px) { .bb-hero__lede { display: none; } }
+
+/* hero v3: the live kitchen */
+.bb-hero.g-black { background: #1B1617; }
+.bb-kitchen { inset: -4% 0 -12% 0; }
+.bb-kitchen img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 38%; }
+.bb-hero__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(27,22,23,.94) 0%, rgba(27,22,23,.82) 30%, rgba(27,22,23,.25) 58%, rgba(27,22,23,0) 76%), linear-gradient(0deg, rgba(27,22,23,.7), rgba(27,22,23,0) 34%); }
+.bb-hero .bb-cutout { z-index: 2; right: -3vw; bottom: -5vh; width: min(50vw, 820px); }
+.bb-hero .bb-heart { z-index: 3; right: 7vw; bottom: 9vh; width: clamp(130px, 13vw, 200px); }
+.bb-hero .bb-doodle { z-index: 2; right: calc(min(50vw, 820px) * .36); bottom: calc(min(50vw, 820px) * .4); width: min(11vw, 160px); color: var(--bb-orange); }
+.bb-hero .bb-hero__copy { z-index: 4; }
+.bb-hero h1 em { color: var(--bb-cream); }
+.bb-hero h1 em span { background: linear-gradient(transparent 62%, rgba(242,102,36,.75) 62% 92%, transparent 92%); }
+.bb-hero .bb-btn--line { color: var(--bb-cream); }
+@media (max-width: 760px) {
+  .bb-kitchen img { object-position: 50% 30%; }
+  .bb-hero__scrim { background: linear-gradient(0deg, rgba(27,22,23,.96) 0%, rgba(27,22,23,.88) 34%, rgba(27,22,23,.2) 62%, rgba(27,22,23,.1) 100%); }
+  .bb-hero .bb-cutout { right: auto; left: 50%; margin-left: -50vw; width: 100vw; bottom: auto; top: calc(var(--bb-head) + 46vw); }
+  .bb-hero .bb-heart { right: 5vw; left: auto; bottom: auto; top: calc(var(--bb-head) + 18px); width: 24vw; }
+}
+
+/* ---------- 2 · about: burgers deserve beer ---------- */
+.bb-about [data-sc-stage] { background: var(--bb-cream); display: grid; grid-template-rows: minmax(0, 1fr) auto; align-items: center; gap: 2vh; padding: calc(var(--bb-head) + 2vh) var(--sc-gutter) 6vh; }
+.bb-cheers .fill { display: none; }
+.bb-cheers .ln { stroke-width: 3; }
+.bb-cheers { color: var(--bb-orange) !important; width: min(100%, 900px); height: 100%; max-height: 46vh; justify-self: center; color: var(--bb-black); overflow: visible; }
+.bb-about__copy { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--sc-3) clamp(2rem, 5vw, 5rem); align-items: end; max-width: 1200px; width: 100%; justify-self: center; padding-right: 64px; }
+.bb-about h2 { font-size: clamp(2.6rem, 5.4vw, 5.4rem); font-weight: 900; letter-spacing: -.03em; line-height: .92; }
+.bb-about h2 em { color: var(--bb-orange); }
+.bb-about__copy p { margin: 0; font-size: clamp(1rem, 1.25vw, 1.2rem); line-height: 1.6; color: var(--sc-ink-soft); max-width: 46ch; }
+.bb-about__copy p strong { color: var(--sc-ink); }
+.bb-fade { opacity: 0; transform: translateY(14px); }
+@media (max-width: 860px) {
+  .bb-about__copy { grid-template-columns: 1fr; padding-right: 36px; }
+  .bb-cheers { max-height: 44vh; }
+  .bb-about h2 { font-size: clamp(2.4rem, 11vw, 3.4rem); }
+  .bb-about__copy p { font-size: .95rem; }
+}
+.bb-more { padding-block: clamp(4rem, 10vh, 8rem); }
+.bb-more__grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.bb-more h3 { font-size: clamp(2rem, 4vw, 3.8rem); font-weight: 900; letter-spacing: -.02em; line-height: 1; text-wrap: balance; }
+.bb-more p { margin: 0 0 var(--sc-5); font-size: clamp(1.05rem, 1.3vw, 1.25rem); line-height: 1.6; }
+.bb-more__art { width: auto; height: min(34vh, 300px); margin-top: var(--sc-6); }
+.bb-more__icons { width: min(100%, 300px); height: auto; margin-top: var(--sc-4); }
+@media (max-width: 860px) { .bb-more__art { height: 180px; } }
+.bb-more p.big { font: italic 700 clamp(1.3rem, 1.8vw, 1.7rem)/1.35 var(--sc-font-display); }
+@media (max-width: 860px) { .bb-more__grid { grid-template-columns: 1fr; } }
+
+/* ---------- 3 · problem: assembled, circled, crossed ---------- */
+.bb-problem [data-sc-stage] { background: var(--bb-cream); display: grid; align-content: center; padding: var(--bb-head) calc(var(--sc-gutter) + 64px) 0 var(--sc-gutter); }
+.bb-problem h2 { font-size: clamp(3rem, 8.4vw, 9rem); font-weight: 900; letter-spacing: -.035em; line-height: .95; max-width: 12ch; text-wrap: balance; }
+.bb-asm { position: relative; display: inline-block; }
+.bb-asm__word { transition: none; }
+.bb-mark { position: absolute; pointer-events: none; overflow: visible; color: var(--bb-orange); }
+.bb-mark .ln { stroke-width: 9; }
+@media (max-width: 760px) { .bb-problem h2 { font-size: clamp(2.6rem, 12vw, 3.4rem); max-width: none; } .bb-problem [data-sc-stage] { padding-right: calc(var(--sc-gutter) + 30px); } }
+.bb-problem__note { margin: var(--sc-7) 0 0; font: italic 700 clamp(1.2rem, 2vw, 1.8rem)/1.3 var(--sc-font-display); color: var(--sc-ink-soft); }
+
+/* ---------- 4 · the rush ---------- */
+.bb-rush [data-sc-stage] { background: var(--bb-paper); display: grid; grid-template-columns: minmax(280px, 420px) 1fr; gap: clamp(2rem, 6vw, 7rem);
+  align-items: center; padding: var(--bb-head) calc(var(--sc-gutter) + 64px) 0 var(--sc-gutter); overflow: hidden; }
+.bb-printer { position: relative; justify-self: center; width: min(100%, 360px); height: min(78vh, 640px); }
+.bb-printer__head { position: absolute; top: 0; left: -14px; right: -14px; height: 64px; border-radius: 14px; background: var(--bb-black); z-index: 2;
+  box-shadow: 0 16px 30px -18px rgba(35,31,32,.6); display: flex; align-items: center; justify-content: space-between; padding: 0 18px; }
+.bb-printer__head i { display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--bb-orange); }
+.bb-printer__head span { font: 700 .72rem/1 var(--bb-mono); color: #8d8682; letter-spacing: .08em; }
+.bb-printer__slot { position: absolute; top: 56px; left: 6px; right: 6px; bottom: 0; overflow: hidden; z-index: 1; }
+.bb-receipt { position: relative; margin: 0 auto; width: 92%; background: #fff; color: #231F20; padding: 26px 22px 30px; font: 600 .86rem/1.55 var(--bb-mono);
+  box-shadow: 0 10px 24px -14px rgba(35,31,32,.35); transform: translateY(-100%);
+  -webkit-mask: linear-gradient(#000 calc(100% - 10px), transparent calc(100% - 10px)), radial-gradient(circle at 8px 100%, transparent 7px, #000 7.5px) 0 100% / 16px 10px repeat-x;
+  mask: linear-gradient(#000 calc(100% - 10px), transparent calc(100% - 10px)), radial-gradient(circle at 8px 100%, transparent 7px, #000 7.5px) 0 100% / 16px 10px repeat-x; }
+.bb-receipt h3 { font: 800 1rem/1.2 var(--bb-mono); text-align: center; letter-spacing: .08em; margin-bottom: 10px; }
+.bb-receipt hr { border: 0; border-top: 2px dashed #b8b1aa; margin: 10px 0; }
+.bb-receipt .row { display: flex; justify-content: space-between; gap: 10px; }
+.bb-receipt .row b { font-weight: 800; }
+.bb-timer { font: 800 clamp(2.2rem, 3.2vw, 3rem)/1 var(--bb-mono); color: var(--bb-orange); text-align: center; margin: 12px 0 2px; font-variant-numeric: tabular-nums; }
+.bb-stamp { position: absolute; left: 50%; top: 46%; translate: -50% -50%; rotate: -14deg; padding: 6px 16px; border: 5px solid var(--bb-orange); border-radius: 10px;
+  color: var(--bb-orange); font: 800 2.2rem/1 var(--bb-mono); letter-spacing: .12em; opacity: 0; scale: 1.6; }
+.bb-rush__lines { display: grid; gap: clamp(1rem, 3vh, 2rem); }
+.bb-rush__lines p { margin: 0; font-family: var(--sc-font-display); font-weight: 800; letter-spacing: -.02em; line-height: 1.02; opacity: .14; transition: opacity 200ms var(--sc-ease-out); }
+.bb-rush__lines p.is-on { opacity: 1; }
+.bb-rush__lines .l1 { font-size: clamp(2.2rem, 4.6vw, 4.6rem); }
+.bb-rush__lines .l2 { font-size: clamp(1.5rem, 2.6vw, 2.6rem); font-weight: 700; }
+.bb-rush__lines .l3 { font-size: clamp(1.7rem, 3.2vw, 3.2rem); font-style: italic; }
+@media (prefers-reduced-motion: no-preference) {
+  .bb-rush.is-rushing .bb-printer { animation: bb-shake 160ms steps(2) infinite; }
+}
+@keyframes bb-shake { 0% { transform: translate(0, 0) rotate(0); } 50% { transform: translate(1.5px, -1px) rotate(-.4deg); } 100% { transform: translate(-1px, 1px) rotate(.3deg); } }
+@media (max-width: 860px) {
+  .bb-rush [data-sc-stage] { grid-template-columns: 1fr; grid-template-rows: 1fr auto; gap: var(--sc-4); padding: calc(var(--bb-head) + 12px) calc(var(--sc-gutter) + 36px) 4vh var(--sc-gutter); }
+  .bb-printer { height: 46vh; width: min(84vw, 320px); }
+  .bb-receipt { font-size: .74rem; padding: 18px 16px 22px; }
+  .bb-rush__lines .l1 { font-size: 1.9rem; } .bb-rush__lines .l2 { font-size: 1.15rem; } .bb-rush__lines .l3 { font-size: 1.35rem; }
+}
+
+/* ---------- 5 · we do things differently ---------- */
+.bb-diff { min-height: 100svh; display: grid; align-content: center; padding: calc(var(--bb-head) + 4vh) calc(var(--sc-gutter) + 64px) 8vh var(--sc-gutter); position: relative; overflow: hidden; }
+.bb-diff h2 { font-size: clamp(3.4rem, 10vw, 11rem); font-weight: 900; letter-spacing: -.04em; line-height: .88; position: relative; z-index: 1; }
+.bb-diff h2 em { font-weight: 700; display: block; }
+.bb-diff p { margin: var(--sc-7) 0 0; font-size: clamp(1.1rem, 1.5vw, 1.4rem); max-width: 34ch; line-height: 1.5; position: relative; z-index: 1; font-weight: 600; }
+.bb-pop { position: absolute; right: 2vw; top: 50%; translate: 0 -48%; width: min(44vw, 640px); aspect-ratio: 1; }
+.bb-pop__burst { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform; }
+.bb-pop__glass { position: absolute; right: 12%; top: 6%; width: 34%; height: auto; rotate: 7deg; will-change: transform; filter: drop-shadow(0 16px 20px rgba(35,31,32,.3)); }
+.bb-pop__burger { position: absolute; left: 4%; bottom: 10%; width: 66%; height: auto; rotate: -4deg; will-change: transform; filter: drop-shadow(0 18px 22px rgba(35,31,32,.32)); }
+.bb-diff__heart { position: absolute; right: 4vw; top: 50%; translate: 0 -50%; width: min(46vw, 640px); color: var(--bb-black); opacity: .9; }
+.bb-diff__heart .ln { stroke-width: 3; }
+@media (max-width: 760px) { .bb-pop { position: relative; right: auto; top: auto; translate: none; width: 86vw; justify-self: center; order: 3; margin-top: var(--sc-5); } }
+
+/* ---------- 6 · inside: the seven layers ---------- */
+.bb-x [data-sc-stage] { background: var(--bb-cream); overflow: hidden; }
+.bb-x__col { position: absolute; left: var(--sc-gutter); top: calc(var(--bb-head) + 4vh); bottom: 5vh; width: min(44vw, 600px); display: flex; flex-direction: column; justify-content: center; z-index: 2; }
+.bb-x h2 { font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 900; letter-spacing: -.025em; line-height: .96; max-width: 14ch; }
+.bb-x__intro { margin: var(--sc-4) 0 var(--sc-6); color: var(--sc-ink-soft); font-size: 1.05rem; line-height: 1.5; max-width: 40ch; }
+.bb-x__list { list-style: none; margin: 0; padding: 0; counter-reset: x; }
+.bb-x__row { display: grid; grid-template-columns: 2.6rem 1fr; align-items: baseline; padding: .42rem 0; opacity: .32; transition: opacity 220ms var(--sc-ease-out); cursor: pointer; }
+.bb-x__row.is-active { opacity: 1; }
+.bb-x__num { font: 800 .82rem/1 var(--sc-font-text); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.bb-x__row h3 { font: 800 clamp(1.15rem, 1.6vw, 1.55rem)/1.15 var(--sc-font-display); letter-spacing: -.01em; }
+.bb-x__row p { grid-column: 2; margin: .3rem 0 0; display: flex; align-items: center; gap: .8rem; font: 600 .92rem/1.4 var(--sc-font-text); color: var(--sc-ink-soft); max-width: 46ch; }
+.bb-x__callout { margin: var(--sc-5) 0 0; padding: var(--sc-3) var(--sc-4); border-radius: 14px; background: var(--bb-paper); box-shadow: 0 10px 24px -18px rgba(35,31,32,.45); font: italic 700 clamp(1rem, 1.25vw, 1.2rem)/1.35 var(--sc-font-display); max-width: 40ch; }
+.bb-todo { color: var(--bb-orange); font-style: normal; }
+.bb-x__row p::before { content: ""; flex: 0 0 2.4rem; height: 1px; background: currentColor; opacity: .6; }
+.bb-x__row.is-active h3 { color: var(--sc-ink); }
+.bb-x__row.is-active .bb-x__num { color: var(--bb-orange); }
+.bb-x__burger { position: absolute; z-index: 1; aspect-ratio: 676 / 586; }
+.bb-x__slice { position: absolute; inset: 0; width: 100%; height: 100%; will-change: transform; filter: drop-shadow(0 18px 18px rgba(35,31,32,.22)); transition: filter 220ms var(--sc-ease-out); }
+.bb-x__slice.is-active { filter: drop-shadow(0 26px 26px rgba(35,31,32,.38)) brightness(1.04); }
+.bb-x__layer { position: absolute; left: 0; top: 0; width: 100%; will-change: transform; transform-origin: 50% 50%; cursor: pointer; }
+.bb-x__layer svg { display: block; width: 100%; height: auto; overflow: visible; transition: filter 220ms var(--sc-ease-out); }
+.bb-x__layer.is-active svg { filter: drop-shadow(0 0 0 transparent) drop-shadow(0 14px 18px rgba(35,31,32,.3)); }
+.bb-x__ring { position: absolute; z-index: 0; border-radius: 50%; border: 1.5px dashed rgba(242,102,36,.55); pointer-events: none; }
+.bb-x__end { position: absolute; display: flex; flex-wrap: wrap; gap: var(--sc-3); z-index: 3; opacity: 0; }
+.bb-x__end.is-hidden { visibility: hidden; }
+.bb-x.is-restacking .bb-x__slice { transition: transform 620ms var(--sc-ease-out), filter 220ms var(--sc-ease-out); }
+@media (max-width: 860px) {
+  .bb-x__col { left: var(--sc-gutter); right: 44px; width: auto; top: auto; bottom: 3vh; justify-content: flex-end; }
+  .bb-x h2 { font-size: 1.7rem; max-width: none; }
+  .bb-x__intro { display: none; }
+  .bb-x__row { padding: .22rem 0; grid-template-columns: 2rem 1fr; }
+  .bb-x__row h3 { font-size: 1rem; }
+  .bb-x__row p { display: none; }
+  .bb-x__row.is-active p { display: flex; font-size: .8rem; }
+  .bb-x__callout { font-size: .85rem; padding: 8px 12px; margin-top: 8px; }
+  .bb-x__end { display: none; }
+}
+
+/* ---------- 7 · beer: the tap ---------- */
+.bb-beer [data-sc-stage] { background: var(--bb-black); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(2rem, 5vw, 6rem);
+  padding: var(--bb-head) calc(var(--sc-gutter) + 64px) 0 var(--sc-gutter); }
+.bb-tapart { width: 100%; max-height: calc(100svh - var(--bb-head) - 6vh); justify-self: center; color: var(--bb-cream); overflow: visible; }
+.bb-tapart .ln { stroke-width: 3.5; }
+.bb-beer h2 { font-size: clamp(2.6rem, 5.2vw, 5.4rem); font-weight: 900; line-height: .94; letter-spacing: -.025em; color: var(--bb-orange); }
+.bb-beer h2 em { font-weight: 600; }
+.bb-beer__lede { margin: var(--sc-5) 0 0; font-size: clamp(1.05rem, 1.35vw, 1.3rem); line-height: 1.55; max-width: 36ch; }
+.bb-beer__copy { position: relative; }
+.bb-stampcream { position: absolute; right: 0; top: -150px; width: 130px; height: auto; opacity: .9; will-change: transform; }
+@media (max-width: 860px) { .bb-stampcream { display: none; } }
+.bb-brewers { margin: var(--sc-6) 0 0; display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+.bb-brewers li { border: 1.5px solid rgba(242,242,233,.35); border-radius: 999px; padding: 7px 14px; font: 800 .82rem/1 var(--sc-font-text); letter-spacing: .04em; }
+@media (prefers-reduced-motion: no-preference) {
+  .bb-bubble { animation: bb-rise 2.6s linear infinite; }
+}
+@keyframes bb-rise { from { transform: translateY(0); opacity: 0; } 15% { opacity: .9; } to { transform: translateY(-300px); opacity: 0; } }
+@media (max-width: 860px) {
+  .bb-beer [data-sc-stage] { grid-template-columns: 1fr; grid-template-rows: 1fr auto; gap: var(--sc-3); padding: calc(var(--bb-head) + 8px) calc(var(--sc-gutter) + 36px) 4vh var(--sc-gutter); }
+  .bb-tapart { max-height: 50svh; }
+  .bb-beer h2 { font-size: 2.2rem; }
+  .bb-beer__lede { font-size: .95rem; margin-top: var(--sc-3); }
+  .bb-brewers { display: none; }
+}
+.bb-taplist { padding-block: clamp(3rem, 8vh, 6rem) clamp(4rem, 10vh, 8rem); }
+.bb-taplist__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 6rem); align-items: start; padding-right: 64px; }
+.bb-taplist .bb-photo { aspect-ratio: 4 / 3; }
+.bb-taplist h3 { font: 900 clamp(1.8rem, 3vw, 2.6rem)/1 var(--sc-font-display); }
+.bb-taplist__sub { margin: var(--sc-3) 0 0; color: var(--sc-ink-soft); line-height: 1.6; }
+.bb-taps { list-style: none; margin: var(--sc-4) 0 0; padding: 0; }
+.bb-taps li { display: grid; grid-template-columns: 1fr auto; gap: 2px var(--sc-4); padding: 11px 0; border-bottom: 1px solid rgba(242,242,233,.14); }
+.bb-taps__name { font: 800 1.05rem/1.25 var(--sc-font-display); }
+.bb-taps__name small { font: 700 .82rem/1 var(--sc-font-text); color: var(--bb-orange); margin-left: .35em; letter-spacing: .02em; }
+.bb-taps__meta { grid-column: 1; font-size: .86rem; color: var(--sc-ink-soft); }
+.bb-taps__price { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .bb-taplist__grid { grid-template-columns: 1fr; padding-right: 30px; } }
+
+/* ---------- 7b · which beer is yours ---------- */
+.bb-pairs { padding-block: clamp(4rem, 11vh, 8rem); }
+.bb-pairs__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 6vw, 6rem); align-items: start; padding-right: 64px; }
+.bb-pairs h2 { font-size: clamp(2.6rem, 5vw, 5rem); font-weight: 900; letter-spacing: -.025em; line-height: .95; }
+.bb-pairs__list { list-style: none; margin: 0; padding: 0; border-top: 3px solid var(--bb-black); }
+.bb-pairs__list .bb-item { padding: var(--sc-5) 0; }
+.bb-pairs__list .bb-item__name { font-size: 1.3rem; }
+.bb-pairs__list .bb-item p { font-size: 1rem; }
+@media (max-width: 860px) { .bb-pairs__grid { grid-template-columns: 1fr; padding-right: 30px; } }
+
+/* ---------- 8 · do together ---------- */
+.bb-together { padding-block: clamp(4rem, 12vh, 9rem); }
+.bb-together__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 6vw, 7rem); align-items: center; padding-right: 64px; }
+.bb-together .bb-photo { aspect-ratio: 9 / 13; max-height: 82vh; }
+.bb-together__media { position: relative; }
+.bb-stampdo { position: absolute; right: -54px; bottom: -40px; width: clamp(130px, 13vw, 200px); height: auto; z-index: 2; background: var(--bb-cream); border-radius: 50%; padding: 6px; box-shadow: 0 10px 22px -8px rgba(35,31,32,.4); }
+@media (max-width: 860px) { .bb-stampdo { right: -10px; bottom: -30px; width: 120px; } }
+.bb-together__art { width: min(60%, 300px); height: auto; margin-bottom: var(--sc-3); }
+.bb-together h2 { font-size: clamp(2.6rem, 5vw, 5rem); font-weight: 900; letter-spacing: -.025em; line-height: .95; }
+.bb-together h2 span { color: var(--bb-orange); font-style: normal; display: block; }
+.bb-together h2 em { font-weight: 700; }
+.bb-together__lede { margin: var(--sc-5) 0 0; font-size: clamp(1.05rem, 1.3vw, 1.25rem); line-height: 1.55; max-width: 42ch; }
+.bb-flights { list-style: none; padding: 0; margin: var(--sc-6) 0 0; border-top: 3px solid var(--bb-black); }
+.bb-flights li { display: grid; grid-template-columns: 1fr auto; gap: 2px var(--sc-4); padding: var(--sc-4) 0; border-bottom: 1px solid rgba(35,31,32,.16); }
+.bb-flights b { font: 800 1.15rem/1.2 var(--sc-font-display); }
+.bb-flights span { grid-column: 1; font-size: .9rem; color: var(--sc-ink-soft); line-height: 1.45; }
+.bb-flights i { font-style: normal; grid-column: 2; grid-row: 1 / span 2; align-self: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .bb-together__grid { grid-template-columns: 1fr; padding-right: 30px; } .bb-together .bb-photo { aspect-ratio: 4 / 5; } }
+
+/* ---------- 9 · the room ---------- */
+.bb-room { padding-block: clamp(4rem, 12vh, 9rem); }
+.bb-room__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--sc-5); padding-right: 64px; margin-bottom: var(--sc-7); }
+.bb-room h2 { font-size: clamp(2.6rem, 5.6vw, 5.6rem); font-weight: 900; letter-spacing: -.03em; line-height: .92; }
+.bb-room h2 em { color: var(--bb-orange); font-weight: 700; }
+.bb-room__head p { margin: 0; max-width: 34ch; color: var(--sc-ink-soft); line-height: 1.6; }
+.bb-mosaic { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(120px, 14vw, 210px); gap: clamp(.6rem, 1.2vw, 1rem); padding-right: 64px; }
+.bb-mosaic figure { margin: 0; position: relative; }
+.bb-mosaic .bb-photo { height: 100%; border-radius: 16px; }
+.bb-mosaic figcaption { position: absolute; left: 12px; bottom: 12px; z-index: 2; padding: 7px 12px; border-radius: 999px; background: rgba(35,31,32,.78); color: var(--bb-cream);
+  font: 700 .82rem/1 var(--sc-font-text); }
+.m1 { grid-column: 1 / span 7; grid-row: span 3; } .m2 { grid-column: 8 / span 5; grid-row: span 2; } .m3 { grid-column: 8 / span 5; grid-row: span 1; }
+.m4 { grid-column: 1 / span 4; grid-row: span 2; } .m5 { grid-column: 5 / span 4; grid-row: span 2; } .m6 { grid-column: 9 / span 4; grid-row: span 2; }
+.bb-senses { margin-top: var(--sc-8); display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; padding-right: 64px; font: 800 clamp(1.4rem, 2.6vw, 2.4rem)/1.15 var(--sc-font-display); letter-spacing: -.01em; }
+.bb-senses span:nth-child(even) { font-style: italic; font-weight: 700; color: var(--bb-orange); }
+@media (max-width: 860px) {
+  .bb-room__head { grid-template-columns: 1fr; padding-right: 30px; }
+  .bb-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 42vw; padding-right: 30px; }
+  .m1 { grid-column: 1 / -1; grid-row: span 2; } .m2, .m3, .m4, .m5, .m6 { grid-column: span 1; grid-row: span 1; }
+  .bb-senses { padding-right: 30px; }
+}
+
+/* ---------- 10 · menu rail ---------- */
+.bb-menu [data-sc-stage] { background: var(--bb-cream); display: flex; align-items: center; }
+.bb-rail { gap: clamp(1rem, 2vw, 2rem); padding: calc(var(--bb-head) + 2vh) calc(var(--sc-gutter) + 64px) 4vh var(--sc-gutter); align-items: stretch; }
+.bb-rail > * { flex: 0 0 auto; }
+.bb-rail__lead { width: clamp(17rem, 26vw, 24rem); display: flex; flex-direction: column; justify-content: center; }
+.bb-rail__art { width: auto; height: min(24vh, 210px); align-self: flex-start; margin: 0 0 var(--sc-3) -10px; }
+@media (max-width: 760px) { .bb-rail__art { height: 15vh; } }
+.bb-rail__lead h2 { font-size: clamp(3rem, 6vw, 6rem); font-weight: 900; letter-spacing: -.03em; line-height: .9; }
+.bb-rail__lead p { margin: var(--sc-4) 0 0; color: var(--sc-ink-soft); line-height: 1.55; max-width: 30ch; }
+.bb-rail__lead .bb-actions { margin-top: var(--sc-5); }
+.bb-legend { display: flex; gap: var(--sc-4); margin-top: var(--sc-5); font: 700 .85rem/1 var(--sc-font-text); color: var(--sc-ink-soft); }
+.bb-panel { width: clamp(18rem, 27vw, 25rem); background: var(--bb-paper); border-radius: 20px; padding: var(--sc-6) var(--sc-6) var(--sc-5);
+  box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 18px 40px -26px rgba(35,31,32,.45); display: flex; flex-direction: column; }
+.bb-panel h3 { font-size: clamp(1.6rem, 2.2vw, 2.1rem); font-weight: 900; letter-spacing: -.01em; padding-bottom: var(--sc-3); border-bottom: 3px solid var(--bb-black); }
+.bb-panel ul { list-style: none; margin: var(--sc-2) 0 0; padding: 0; }
+.bb-item { padding: var(--sc-4) 0; border-bottom: 1px solid rgba(35,31,32,.14); }
+.bb-item:last-child { border-bottom: 0; }
+.bb-item__top { display: flex; align-items: baseline; gap: .5rem; }
+.bb-item__top .bb-diet { align-self: center; }
+.bb-item__name { font: 800 1.12rem/1.2 var(--sc-font-display); }
+.bb-item__price { margin-left: auto; font: 700 1rem/1 var(--sc-font-text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bb-item p { margin: .35em 0 0; font-size: .9rem; line-height: 1.45; color: var(--sc-ink-soft); }
+.bb-tag { font: 800 .7rem/1 var(--sc-font-text); letter-spacing: .06em; text-transform: uppercase; color: var(--sc-ink); margin-right: .3em; }
+.bb-panel__more { margin: auto 0 0; padding-top: var(--sc-3); font-size: .84rem; color: var(--sc-ink-soft); line-height: 1.45; }
+.bb-diet { display: inline-block; width: 11px; height: 11px; flex: 0 0 auto; }
+.bb-diet--veg { border-radius: 50%; background: var(--bb-veg); }
+.bb-diet--nonveg { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 11px solid var(--bb-nonveg); }
+.bb-panel--note { background: var(--bb-orange); justify-content: space-between; }
+.bb-panel--note p { line-height: 1.55; }
+.bb-panel--note .bb-actions { flex-direction: column; align-items: stretch; }
+.bb-panel--note .bb-btn { background: var(--bb-black); color: var(--bb-cream); }
+@media (prefers-reduced-motion: no-preference) {
+  .bb-rail > :not(:first-child) { opacity: max(.55, min(1, calc(var(--sc-p, 0) * 9 - var(--i, 0) * 1.1 + 1))); }
+}
+@media (max-width: 760px) {
+  .bb-rail { padding-right: calc(var(--sc-gutter) + 40px); }
+  .bb-rail__lead { width: 76vw; }
+  .bb-panel { width: 80vw; padding: var(--sc-5); }
+  .bb-item { padding: var(--sc-3) 0; }
+  .bb-item p { font-size: .84rem; }
+}
+@media (max-height: 760px) and (min-width: 761px) { .bb-item { padding: var(--sc-3) 0; } .bb-item p { font-size: .84rem; } }
+
+/* ---------- 11 · visit: the bottom bun ---------- */
+.bb-visit [data-sc-stage] { background: var(--bb-black); display: flex; flex-direction: column; padding-top: var(--bb-head); }
+.bb-visit__split { flex: 1; display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+.bb-half { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(1.5rem, 4vw, 3.5rem); color: var(--bb-cream); }
+.bb-half + .bb-half { border-left: 1px solid rgba(242,242,233,.14); }
+.bb-half img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.bb-half::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(35,31,32,.05) 20%, rgba(35,31,32,.72) 52%, rgba(35,31,32,.94) 86%); }
+.bb-half > :not(img) { position: relative; z-index: 2; }
+.bb-half .bb-label { color: #F6D9C4; }
+.bb-half h2 { font-size: clamp(2.4rem, 4.6vw, 4.8rem); font-weight: 900; letter-spacing: -.025em; line-height: .94; text-wrap: balance; }
+.bb-half p { margin: var(--sc-3) 0 0; max-width: 38ch; line-height: 1.55; color: #E3DDD3; }
+.bb-half .bb-actions { margin-top: var(--sc-5); }
+.bb-half:last-of-type { padding-right: calc(clamp(1.5rem, 4vw, 3.5rem) + 64px); }
+.bb-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-3) var(--sc-6); padding: var(--sc-5) calc(var(--sc-gutter) + 64px) var(--sc-5) var(--sc-gutter);
+  border-top: 1px solid rgba(242,242,233,.16); font-size: .9rem; color: var(--sc-ink-soft); }
+.bb-foot__mark { width: auto; height: 64px; }
+@media (max-width: 860px) { .bb-foot__mark { display: none; } }
+.bb-foot ul { display: flex; flex-wrap: wrap; gap: var(--sc-1) var(--sc-5); list-style: none; margin: 0; padding: 0; }
+.bb-foot button, .bb-foot a { background: none; border: 0; padding: 6px 0; color: var(--sc-ink); font: 700 .9rem/1.2 var(--sc-font-text); cursor: pointer; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .bb-foot button:hover, .bb-foot a:hover { text-decoration: underline; text-underline-offset: .2em; } }
+.bb-foot small { margin-left: auto; font-size: .82rem; }
+@media (max-width: 860px) {
+  .bb-visit__split { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  .bb-half + .bb-half { border-left: 0; border-top: 1px solid rgba(242,242,233,.14); }
+  .bb-half { padding: var(--sc-5) calc(var(--sc-gutter) + 36px) var(--sc-5) var(--sc-gutter); }
+  .bb-half h2 { font-size: 2rem; }
+  .bb-half p { font-size: .9rem; }
+  .bb-half .bb-actions { margin-top: var(--sc-3); }
+  .bb-half .bb-btn { min-height: 44px; padding: 0 1rem; font-size: .9rem; }
+  .bb-foot { padding: var(--sc-3) calc(var(--sc-gutter) + 36px) var(--sc-3) var(--sc-gutter); gap: var(--sc-1) var(--sc-4); }
+  .bb-foot .bb-logo { display: none; }
+  .bb-foot small { margin-left: 0; }
+}
+
+/* ---------- dialogs ---------- */
+.bb-dialog { border: 0; padding: 0; width: min(40rem, calc(100vw - 32px)); max-height: calc(100svh - 32px); border-radius: 20px; background: var(--bb-cream); color: var(--bb-black); box-shadow: 0 30px 80px -30px rgba(35,31,32,.6); }
+.bb-dialog::backdrop { background: rgba(35,31,32,.62); }
+.bb-dialog__in { padding: clamp(1.5rem, 4vw, 2.75rem); overflow: auto; max-height: calc(100svh - 32px); }
+.bb-dialog h2 { text-wrap: balance; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -.02em; line-height: 1; padding-right: 3rem; }
+.bb-dialog__x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(35,31,32,.08); font: 700 1.4rem/1 var(--sc-font-text); color: var(--bb-black); cursor: pointer; }
+.bb-dialog p { line-height: 1.65; margin: var(--sc-4) 0 0; }
+.bb-dialog .lead { font: italic 700 1.3rem/1.3 var(--sc-font-display); }
+.bb-form { margin-top: var(--sc-5); display: grid; gap: var(--sc-4); }
+.bb-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-4); }
+@media (max-width: 560px) { .bb-form .row2 { grid-template-columns: 1fr; } }
+.bb-field label { display: block; font: 800 .9rem/1.3 var(--sc-font-text); margin-bottom: 6px; }
+.bb-field input, .bb-field select, .bb-field textarea { width: 100%; min-height: 48px; border-radius: 12px; border: 1.5px solid rgba(35,31,32,.35); background: var(--bb-paper); padding: 10px 14px; font: 600 1rem/1.4 var(--sc-font-text); color: var(--bb-black); caret-color: var(--bb-orange); }
+.bb-field textarea { min-height: 96px; resize: vertical; }
+.bb-field input:focus-visible, .bb-field select:focus-visible, .bb-field textarea:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 2px; border-color: var(--bb-black); }
+.bb-form__status { margin: 0; padding: var(--sc-4); border-radius: 12px; background: #FBE3D6; font-weight: 600; line-height: 1.5; }
+.bb-form__status:empty { display: none; }
+.bb-hint { font-size: .85rem; color: var(--sc-ink-soft); margin: 4px 0 0; }
+.bb-age { width: min(30rem, calc(100vw - 32px)); text-align: center; }
+.bb-age .bb-heart { width: 120px; margin: 0 auto var(--sc-4); }
+.bb-age .bb-heart__text { font-size: 1.1rem; }
+.bb-age h2 { padding: 0; }
+.bb-age .bb-actions { justify-content: center; }
+.bb-age::backdrop { background: var(--bb-orange); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-plane, .bb-x__layer { transition: none !important; }
+  .bb-fade { opacity: 1 !important; transform: none !important; }
+  .bb-x__end { opacity: 1 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- the seven layers, in ink and colour, drawn once -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="ly0" viewBox="-6 -6 412 162">
+      <path d="M14 132C14 52 96 8 200 8s186 44 186 124q0 14-14 14H28q-14 0-14-14z" fill="#EFA65A" stroke="#231F20" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M16 120h368" stroke="#231F20" stroke-width="3" fill="none"/>
+      <path d="M78 54c34-26 88-34 132-32" stroke="#F8D2A0" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <g fill="#FBF3E4" stroke="#231F20" stroke-width="2.4">
+        <ellipse cx="128" cy="62" rx="8" ry="4" transform="rotate(-22 128 62)"/><ellipse cx="172" cy="44" rx="8" ry="4" transform="rotate(-8 172 44)"/>
+        <ellipse cx="216" cy="40" rx="8" ry="4" transform="rotate(10 216 40)"/><ellipse cx="260" cy="48" rx="8" ry="4" transform="rotate(24 260 48)"/>
+        <ellipse cx="300" cy="68" rx="8" ry="4" transform="rotate(34 300 68)"/><ellipse cx="96" cy="94" rx="8" ry="4" transform="rotate(-30 96 94)"/>
+        <ellipse cx="148" cy="84" rx="8" ry="4" transform="rotate(-12 148 84)"/><ellipse cx="196" cy="74" rx="8" ry="4" transform="rotate(4 196 74)"/>
+        <ellipse cx="242" cy="80" rx="8" ry="4" transform="rotate(16 242 80)"/><ellipse cx="286" cy="94" rx="8" ry="4" transform="rotate(28 286 94)"/>
+        <ellipse cx="326" cy="102" rx="8" ry="4" transform="rotate(38 326 102)"/><ellipse cx="176" cy="104" rx="8" ry="4" transform="rotate(-6 176 104)"/>
+        <ellipse cx="222" cy="104" rx="8" ry="4" transform="rotate(12 222 104)"/>
+      </g>
+    </symbol>
+    <symbol id="ly1" viewBox="-4 -4 408 48">
+      <path d="M24 6h352q12 0 10 10q-4 12-20 9q-16-3-22 9q-6 8-14-2q-12-12-34-6q-26 8-46-2q-14-6-26 6q-10 10-18-2q-14-12-46-4q-28 8-48-2q-16-6-28 8q-8 8-16-2q-12-12-34-2q-18 4-18-8q0-10 8-10z" fill="#F26624" stroke="#231F20" stroke-width="3.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ly2" viewBox="-4 -4 408 70">
+      <path d="M8 30q12-24 24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0q8 10 0 20q-12 16-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0t-24 0q-8-10 0-20z" fill="#94BC4E" stroke="#231F20" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M30 40q170-26 340 0M110 34l-10 14M200 30v16M290 34l10 14" stroke="#231F20" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="ly3" viewBox="-4 -4 408 58">
+      <rect x="20" y="5" width="178" height="40" rx="20" fill="#E0503A" stroke="#231F20" stroke-width="3.5"/><rect x="202" y="5" width="178" height="40" rx="20" fill="#E0503A" stroke="#231F20" stroke-width="3.5"/>
+      <rect x="36" y="13" width="146" height="24" rx="12" fill="#F2846A"/><rect x="218" y="13" width="146" height="24" rx="12" fill="#F2846A"/>
+      <g fill="#FCE1D2" stroke="#231F20" stroke-width="1.6"><ellipse cx="72" cy="25" rx="7" ry="4"/><ellipse cx="109" cy="25" rx="7" ry="4"/><ellipse cx="146" cy="25" rx="7" ry="4"/><ellipse cx="254" cy="25" rx="7" ry="4"/><ellipse cx="291" cy="25" rx="7" ry="4"/><ellipse cx="328" cy="25" rx="7" ry="4"/></g>
+    </symbol>
+    <symbol id="ly4" viewBox="-4 -4 408 72">
+      <path d="M16 6h368v24h-52l-16 28-16-28H198l-12 20-12-20H94l-12 16-12-16H16z" fill="#F6C344" stroke="#231F20" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M30 14h120M240 14h60" stroke="#FBE09A" stroke-width="5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ly5" viewBox="-6 -4 412 94">
+      <path d="M20 30q-6-10 6-14q14-10 34-4q20-8 44-2q26-8 56-1q30-6 60 0q32-7 60 1q28-6 50 2q22-6 40 4q18 6 12 20q10 14-2 26q4 14-16 16q-24 8-54 2q-30 8-60 1q-30 7-60 0q-30 7-60-1q-28 8-56 0q-28 6-42-6q-18-8-12-22q-10-12 2-22z" fill="#563226" stroke="#231F20" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M40 26q160-14 320 0" stroke="#8A5A45" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <g stroke="#2C1912" stroke-width="5" stroke-linecap="round"><path d="M96 36l24 28M156 34l24 30M216 34l24 30M276 36l24 28"/></g>
+      <g fill="#9A6A52"><circle cx="64" cy="52" r="4"/><circle cx="140" cy="62" r="3"/><circle cx="200" cy="48" r="3.5"/><circle cx="262" cy="64" r="3"/><circle cx="334" cy="50" r="4"/></g>
+    </symbol>
+    <symbol id="ly6" viewBox="-4 -4 408 82">
+      <path d="M20 8h360q12 0 10 14l-6 30q-4 18-28 18H44q-24 0-28-18l-6-30q-2-14 10-14z" fill="#EFA65A" stroke="#231F20" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M12 18h376" stroke="#231F20" stroke-width="2.6"/>
+      <path d="M22 10h356" stroke="#F8D2A0" stroke-width="7" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="bb-bar">
+  <a class="bb-logo" href="#top" aria-label="Burger Brewery, back to the top"></a>
+  <nav class="bb-nav" aria-label="Main">
+    <button class="bb-burgerbtn" type="button" aria-expanded="false" aria-controls="bb-navlist" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    <ul id="bb-navlist">
+      <li><a class="bb-nav__link" href="#about">About Us</a></li>
+      <li><a class="bb-nav__link" href="#menu">Menu</a></li>
+      <li><button class="bb-nav__link" type="button" data-open="dlg-franchise">Franchise with Us</button></li>
+      <li><button class="bb-nav__link" type="button" data-open="dlg-team">Join the Team</button></li>
+    </ul>
+    <a class="bb-btn" data-link="district" href="#visit" target="_blank" rel="noopener">Book a table</a>
+  </nav>
+</header>
+
+<nav class="bb-index" aria-label="Sections">
+  <ol>
+    <li><a href="#top" data-idx="top"><span class="bb-index__tip">Hello</span><svg viewBox="-6 -6 412 162" aria-hidden="true"><use href="#ly0"/></svg><span class="vh">Hello</span></a></li>
+    <li><a href="#about" data-idx="about"><span class="bb-index__tip">Burgers deserve beer</span><svg viewBox="-4 -4 408 48" aria-hidden="true"><use href="#ly1"/></svg><span class="vh">Burgers deserve beer</span></a></li>
+    <li><a href="#problem" data-idx="problem"><span class="bb-index__tip">Why we’re different</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg><span class="vh">Why we’re different</span></a></li>
+    <li><a href="#inside" data-idx="inside"><span class="bb-index__tip">Inside the burger</span><svg viewBox="-4 -4 408 58" aria-hidden="true"><use href="#ly3"/></svg><span class="vh">Inside the burger</span></a></li>
+    <li><a href="#beer" data-idx="beer"><span class="bb-index__tip">Craft on tap</span><svg viewBox="-4 -4 408 72" aria-hidden="true"><use href="#ly4"/></svg><span class="vh">Craft on tap</span></a></li>
+    <li><a href="#menu" data-idx="menu"><span class="bb-index__tip">Menu</span><svg viewBox="-6 -4 412 94" aria-hidden="true"><use href="#ly5"/></svg><span class="vh">Menu</span></a></li>
+    <li><a href="#visit" data-idx="visit"><span class="bb-index__tip">Visit</span><svg viewBox="-4 -4 408 82" aria-hidden="true"><use href="#ly6"/></svg><span class="vh">Visit</span></a></li>
+  </ol>
+</nav>
+
+<main>
+
+  <!-- 1 · HELLO -->
+  <section id="top" class="bb-hero g-black" aria-labelledby="hero-h">
+    <div class="bb-plane bb-kitchen" data-depth="far"><img src="assets/photos/live-kitchen.jpg" width="2000" height="2000" alt="The live kitchen at Burger Brewery Koramangala, under the It’s Hearty neon"></div>
+    <div class="bb-hero__scrim" aria-hidden="true"></div>
+    <div class="bb-plane bb-heart" data-depth="front" aria-hidden="true"><div class="bb-heart__shape"></div><span class="bb-heart__text">It’s<br>Hearty!</span></div>
+    <div class="bb-hero__copy">
+      <h1 id="hero-h">Every burger here was built for a beer.</h1>
+      <p class="bb-hero__lede"><!-- TODO verify: "brioche from our own bakery" (buns may come from the central commissary) -->Smashed to order on brioche from our own bakery. Eight craft taps from Toit, Mannheim, Red Rhino and Geist. Ask us which one is yours. Koramangala 1st Block.</p>
+      <div class="bb-actions">
+        <a class="bb-btn" data-link="district" href="#visit" target="_blank" rel="noopener">Book a table</a>
+        <a class="bb-btn bb-btn--line" href="#order">Order in</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · ABOUT: burgers deserve beer -->
+  <section id="about" class="bb-about g-cream" data-sc-act="pin" data-sc-span="2" data-scene="about" aria-labelledby="about-h">
+    <div data-sc-stage>
+      <svg class="bb-cheers" viewBox="0 0 1000 470" aria-hidden="true">
+        <g id="ch-burger" transform="translate(180 150)">
+          <g class="fill" opacity="0">
+            <path d="M12 118C12 40 82 8 150 8s138 32 138 110q0 12-12 12H24q-12 0-12-12z" fill="#F6CF96"/>
+            <path d="M14 150H286V164H240L230 184L220 164H124L114 180L104 164H14Z" fill="#F9D877"/>
+            <path d="M14 186Q10 172 32 170H268Q290 172 286 186Q292 204 268 208H32Q10 206 14 186Z" fill="#8B5A44"/>
+            <path d="M14 214H286Q296 214 294 226L288 244Q284 256 268 256H32Q16 256 12 244L6 226Q4 214 14 214Z" fill="#F6CF96"/>
+            <path d="M6 144q12-18 24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0v8H6z" fill="#C8DE97"/>
+          </g>
+          <path class="ln" pathLength="1" d="M12 118C12 40 82 8 150 8s138 32 138 110q0 12-12 12H24q-12 0-12-12z"/>
+          <path class="ln" pathLength="1" d="M88 54l12-5M128 36l12-2M170 36l12 2M210 48l11 5M108 82l12-3M150 68h12M192 76l12 3M236 88l10 5" style="stroke-width:3"/>
+          <path class="ln" pathLength="1" d="M6 144q12-18 24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0t24 0"/>
+          <path class="ln" pathLength="1" d="M14 150H286V164H240L230 184L220 164H124L114 180L104 164H14Z"/>
+          <path class="ln" pathLength="1" d="M14 186Q10 172 32 170H268Q290 172 286 186Q292 204 268 208H32Q10 206 14 186Z"/>
+          <path class="ln" pathLength="1" d="M14 214H286Q296 214 294 226L288 244Q284 256 268 256H32Q16 256 12 244L6 226Q4 214 14 214Z"/>
+        </g>
+        <g id="ch-glass" transform="translate(560 90)">
+          <g class="fill" opacity="0">
+            <path d="M8 16H172L156 296Q154 306 144 306H36Q26 306 24 296Z" fill="#F4B24A"/>
+            <path d="M-6 6Q2-26 28-16Q42-40 70-24Q92-42 116-24Q140-38 160-14Q188-16 186 8Z" fill="#FBF3E4"/>
+          </g>
+          <path class="ln" pathLength="1" d="M0 0H180L178 40Q176 62 168 80L152 302Q150 316 136 316H44Q30 316 28 302L12 80Q4 62 2 40Z"/>
+          <path class="ln" pathLength="1" d="M-6 6Q2-26 28-16Q42-40 70-24Q92-42 116-24Q140-38 160-14Q188-16 186 8"/>
+          <path class="ln" pathLength="1" d="M40 238V150C40 98 100 90 110 132M96 136C128 110 166 130 160 172C156 202 136 222 122 230" style="stroke-width:3"/>
+          <g class="lt" opacity="0" fill="#F26624" font-family="Mulish, system-ui, sans-serif" font-weight="800" text-anchor="middle"><text x="104" y="226" font-size="22">it’s</text><text x="96" y="254" font-size="27">Hearty</text></g>
+          <path class="ln" pathLength="1" d="M26 36l14 240" style="stroke-width:3;opacity:.5"/>
+        </g>
+        <g id="ch-burst" style="color:#F26624" opacity="0">
+          <path class="ln" d="M520 96l-16-30M548 88l4-36M576 102l24-24" style="stroke-width:6"/>
+        </g>
+      </svg>
+      <div class="bb-about__copy">
+        <h2 id="about-h" class="bb-fade" data-f="0">Burgers <em>deserve</em> beer.</h2>
+        <div class="bb-fade" data-f="1">
+          <p>You know the bite. Char, melted cheese, a little heat running toward your wrist. Then the sip: cold, sharp, and suddenly you want the next bite. That’s the whole idea. A kitchen built around the bite, a bar built around the sip, and a table nobody’s in a hurry to leave.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- the "So we built…" block and the ambition line were replaced by the About copy above; the ambition line now lives in the franchise modal -->
+
+  <!-- 3 · PROBLEM: just assembled -->
+  <section id="problem" class="bb-problem g-cream" data-sc-act="pin" data-sc-span="1.8" data-scene="problem" aria-labelledby="prob-h">
+    <div data-sc-stage>
+      <h2 id="prob-h">Most burgers are just <span class="bb-asm"><span class="bb-asm__word">assembled</span><svg class="bb-mark" aria-hidden="true"><path class="ln ring" pathLength="1"/><path class="ln x1" pathLength="1"/><path class="ln x2" pathLength="1"/></svg>,</span> right?</h2>
+      <p class="bb-problem__note bb-fade" data-f="2">Here’s how that usually goes.</p>
+    </div>
+  </section>
+
+  <!-- 4 · THE RUSH -->
+  <section id="rush" class="bb-rush g-paper" data-sc-act="pin" data-sc-span="2" data-scene="rush" aria-labelledby="rush-h">
+    <div data-sc-stage>
+      <div class="bb-printer" aria-hidden="true">
+        <div class="bb-printer__head"><i></i><span>KITCHEN PRINTER</span></div>
+        <div class="bb-printer__slot">
+          <div class="bb-receipt">
+            <h3>ORDER #0047</h3>
+            <hr>
+            <div class="row"><span>1 × BURGER</span><b>COMBO</b></div>
+            <div class="row"><span>PATTY</span><b>FROZEN</b></div>
+            <div class="row"><span>BUN</span><b>FROM A BAG</b></div>
+            <div class="row"><span>SAUCE</span><b>FROM A BOTTLE</b></div>
+            <div class="row"><span>LETTUCE</span><b>PRE-SHREDDED</b></div>
+            <hr>
+            <div class="row"><span>TIME TO ASSEMBLE</span><b>45 SEC</b></div>
+            <div class="bb-timer">00:45</div>
+            <hr>
+            <h3>NEXT!</h3>
+            <div class="bb-stamp">RUSHED</div>
+          </div>
+        </div>
+      </div>
+      <div class="bb-rush__lines">
+        <h2 id="rush-h" class="vh">How most burgers are made</h2>
+        <p class="l1">Order in. Order out.</p>
+        <p class="l2">A frozen patty. A bun from a bag. A sauce from a bottle.</p>
+        <p class="l3">Stacked in a hurry. Forgotten by the next bite.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · WE DO THINGS DIFFERENTLY -->
+  <section id="different" class="bb-diff g-orange" data-scene="diff" aria-labelledby="diff-h">
+    <div class="bb-pop" aria-hidden="true">
+      <svg class="bb-pop__burst" viewBox="-300 -300 600 600">
+        <defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="2.2" fill="#231F20"/></pattern></defs>
+        <path d="M0-262L44-170L148-224L118-120L246-118L150-38L268 44L144 62L194 182L84 132L40 262L-14 150L-112 236L-118 112L-250 140L-150 44L-262-40L-140-70L-210-186L-90-136L-60-250L-2-160Z" fill="url(#dots)" transform="translate(16 16)"/>
+        <path d="M0-262L44-170L148-224L118-120L246-118L150-38L268 44L144 62L194 182L84 132L40 262L-14 150L-112 236L-118 112L-250 140L-150 44L-262-40L-140-70L-210-186L-90-136L-60-250L-2-160Z" fill="#FBF3E4" stroke="#231F20" stroke-width="6" stroke-linejoin="round"/>
+        <g stroke="#231F20" stroke-width="5" stroke-linejoin="round"><path d="M-232-238l40 64-22 10z" fill="#F26624"/><path d="M236-252l-30 70 22 8z" fill="#F26624"/><path d="M262 210l-66-34 10-20z" fill="#FBF3E4"/><path d="M-268 196l62-38 12 20z" fill="#FBF3E4"/></g>
+      </svg>
+      <img class="bb-pop__glass" src="assets/brand/brand-glass.png" width="531" height="900" loading="lazy" alt="">
+      <img class="bb-pop__burger" src="assets/brand/pop-burger.png" width="1000" height="777" loading="lazy" alt="">
+    </div>
+    <h2 id="diff-h" data-sc-in>We do things <em>differently.</em></h2>
+    <!-- TODO verify: "nothing comes out of a box" claim --><p data-sc-in>Nothing here comes out of a box. Every layer is made, cut, ground or baked in our own kitchen. Here’s what goes into one.</p>
+  </section>
+
+  <!-- 6 · INSIDE: seven layers -->
+  <section id="inside" class="bb-x g-cream" data-sc-act="pin" data-sc-span="3.2" data-scene="inside" aria-labelledby="x-h">
+    <div data-sc-stage>
+      <div class="bb-x__col">
+        <p class="bb-label">What’s inside</p>
+        <h2 id="x-h">Every layer, from our kitchen.</h2>
+        <p class="bb-x__intro">Our smash burger, taken apart.</p>
+        <ol class="bb-x__list">
+          <li class="bb-x__row" data-l="0" data-s="0"><span class="bb-x__num">01</span><h3>Brioche bun</h3><p><!-- TODO verify: "our own bakery" -->Baked every morning by our own bakery, toasted in butter on the flat top.</p></li>
+          <li class="bb-x__row" data-l="1" data-s="1"><span class="bb-x__num">02</span><h3>House sauce</h3><p><!-- TODO verify: "made from scratch" -->Made from scratch in our kitchen. Never poured from a bottle.</p></li>
+          <li class="bb-x__row" data-l="2" data-s="1"><span class="bb-x__num">03</span><h3>Cheese</h3><p>Laid on the patty the second it’s smashed, so it melts into the char.</p></li>
+          <li class="bb-x__row" data-l="3" data-s="1"><span class="bb-x__num">04</span><h3>The patty</h3><p>A ball of fresh-ground meat, pressed hard into a screaming-hot plate until the edges lace and crackle.</p></li>
+          <li class="bb-x__row" data-l="4" data-s="2"><span class="bb-x__num">05</span><h3>Brioche base</h3><p>Toasted to hold every drop.</p></li>
+        </ol>
+        <!-- TODO: real cook time -->
+        <p class="bb-x__callout">Remember that 45 second ticket? Ours takes <span class="bb-todo">[TODO: real cook time]</span> minutes. That’s the part we refuse to rush.</p>
+      </div>
+      <div class="bb-x__ring" aria-hidden="true"></div>
+      <div class="bb-x__burger" aria-hidden="true">
+        <img class="bb-x__slice" data-s="2" src="assets/brand/burger-base.png" width="676" height="586" alt="">
+        <img class="bb-x__slice" data-s="1" src="assets/brand/burger-mid.png" width="676" height="586" alt="">
+        <img class="bb-x__slice" data-s="0" src="assets/brand/burger-top.png" width="676" height="586" alt="">
+      </div>
+      <div class="bb-x__end">
+        <button class="bb-btn bb-btn--line" type="button" data-restack>Stack it back</button>
+        <a class="bb-btn" data-link="district" href="#visit" target="_blank" rel="noopener">Book a table</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · CRAFT ON TAP: the pour -->
+  <section id="beer" class="bb-beer g-black" data-sc-act="pin" data-sc-span="2.4" data-scene="beer" aria-labelledby="beer-h">
+    <div data-sc-stage>
+      <svg class="bb-tapart" viewBox="0 -90 620 860" aria-hidden="true">
+        <defs>
+          <clipPath id="glassclip"><path d="M281 330H501L499 372Q497 396 488 414L466 712Q464 724 452 724H330Q318 724 316 712L294 414Q285 396 283 372Z"/></clipPath>
+          <linearGradient id="beergrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7C055"/><stop offset=".55" stop-color="#EE9F2E"/><stop offset="1" stop-color="#C9731B"/></linearGradient>
+          <linearGradient id="streamgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F4B347"/><stop offset=".5" stop-color="#FFD98A"/><stop offset="1" stop-color="#E5962A"/></linearGradient>
+        </defs>
+        <!-- tower -->
+        <rect class="ln" x="230" y="-10" width="100" height="250" rx="16"/>
+        <path class="ln" d="M246 30h68M246 200h68" style="stroke-width:2;opacity:.5"/>
+        <rect class="ln" x="180" y="240" width="200" height="22" rx="8"/>
+        <!-- faucet -->
+        <rect class="ln" x="328" y="70" width="80" height="28" rx="10"/>
+        <rect class="ln" x="381" y="98" width="24" height="46" rx="6"/>
+        <!-- handle -->
+        <g id="tap-handle" style="transform-box:view-box;transform-origin:394px 70px">
+          <rect x="381" y="-74" width="26" height="144" rx="12" fill="#F26624" stroke="#F2F2E9" stroke-width="3.5"/>
+          <path d="M394-56c-5-8-17-7-17 3c0 7 8 12 17 19c9-7 17-12 17-19c0-10-12-11-17-3z" fill="#231F20"/>
+        </g>
+        <!-- stream -->
+        <rect id="tap-stream" x="387" y="144" width="12" height="0" rx="6" fill="url(#streamgrad)"/>
+        <!-- glass contents -->
+        <g clip-path="url(#glassclip)">
+          <rect id="beer-fill" x="270" y="724" width="250" height="420" fill="url(#beergrad)"/>
+          <g id="beer-bubbles" fill="#FFE7A8">
+            <circle class="bb-bubble" cx="330" cy="720" r="3.5" style="animation-delay:0s"/><circle class="bb-bubble" cx="372" cy="724" r="2.5" style="animation-delay:.6s"/>
+            <circle class="bb-bubble" cx="420" cy="722" r="3" style="animation-delay:1.1s"/><circle class="bb-bubble" cx="452" cy="726" r="2.2" style="animation-delay:1.7s"/>
+            <circle class="bb-bubble" cx="350" cy="728" r="2" style="animation-delay:2.1s"/><circle class="bb-bubble" cx="398" cy="726" r="3.2" style="animation-delay:.3s"/>
+          </g>
+          <path id="beer-foam" d="M270 0q16-18 34-6q14-20 38-6q16-18 40-4q18-16 40-2q20-14 38 4q14-6 24 4q14-14 40 2v56H270z" fill="#FBF3E4"/>
+        </g>
+        <!-- print on the glass -->
+        <g opacity=".92" fill="none" stroke="#FBF3E4" stroke-width="4" stroke-linecap="round">
+          <path d="M326 640V506C326 444 404 432 416 484M400 488C442 458 490 484 482 538C476 576 452 600 432 610"/>
+        </g>
+        <g fill="#FBF3E4" font-family="Mulish, system-ui, sans-serif" font-weight="800" text-anchor="middle" opacity=".95"><text x="402" y="618" font-size="30">it’s</text><text x="392" y="656" font-size="36">Hearty</text></g>
+        <!-- glass -->
+        <path class="ln" d="M281 330H501L499 372Q497 396 488 414L466 712Q464 724 452 724H330Q318 724 316 712L294 414Q285 396 283 372Z"/>
+        <path d="M300 360l18 330" stroke="#FBF3E4" stroke-width="6" stroke-linecap="round" opacity=".35"/>
+        <!-- drip tray -->
+        <rect class="ln" x="230" y="732" width="320" height="20" rx="8"/>
+      </svg>
+      <div class="bb-beer__copy">
+        <img class="bb-stampcream" src="assets/brand/stamp-cream.png" width="500" height="497" alt="">
+        <p class="bb-label">Craft on tap</p>
+        <h2 id="beer-h">Eight taps, always rotating.</h2>
+        <p class="bb-beer__lede">Not sure where to start? Pick four 120ml tasters for ₹499 and we’ll tell you what to eat with each one.</p>
+        <ul class="bb-brewers" aria-label="Partner breweries"><li>Mannheim</li><li>Toit</li><li>Red Rhino</li><li>Geist</li></ul>
+      </div>
+    </div>
+  </section>
+  <section class="bb-taplist g-black" aria-labelledby="taps-h">
+    <div class="sc-wrap bb-taplist__grid">
+      <figure class="bb-photo" style="margin:0"><img src="assets/photos/beer-taps-corner.jpg" width="2000" height="1500" loading="lazy" alt="The taps corner at Burger Brewery Koramangala, with the Craft On Tap board above the bar"></figure>
+      <div>
+        <h3 id="taps-h">On tap now</h3>
+        <p class="bb-taplist__sub">A rotating line-up, poured fresh. Pick any four as 120ml samplers for a tasting flight, ₹499.</p>
+        <ul class="bb-taps">
+          <li><span class="bb-taps__name">Pilsner <small>Mannheim</small></span><span class="bb-taps__meta">Pilsner · 4.8% · IBU 30</span><span class="bb-taps__price">₹379</span></li>
+          <li><span class="bb-taps__name">Banger Lager <small>Toit</small></span><span class="bb-taps__meta">Lager · 4.5% · IBU 15</span><span class="bb-taps__price">₹379</span></li>
+          <li><span class="bb-taps__name">Kolsch <small>Red Rhino</small></span><span class="bb-taps__meta">Kolsch · 4.2% · IBU 20</span><span class="bb-taps__price">₹379</span></li>
+          <li><span class="bb-taps__name">Soul Surfer <small>Red Rhino</small></span><span class="bb-taps__meta">Hefeweizen · 4.9% · IBU 15</span><span class="bb-taps__price">₹399</span></li>
+          <li><span class="bb-taps__name">Witty Wit <small>Geist</small></span><span class="bb-taps__meta">Witbier · 5% · IBU 10</span><span class="bb-taps__price">₹449</span></li>
+          <li><span class="bb-taps__name">New England IPA <small>Mannheim</small></span><span class="bb-taps__meta">Hazy IPA · 6.8% · IBU 25</span><span class="bb-taps__price">₹379</span></li>
+          <li><span class="bb-taps__name">Nitro Stout <small>Toit</small></span><span class="bb-taps__meta">Nitro stout · 4.5% · IBU 33</span><span class="bb-taps__price">₹379</span></li>
+          <li><span class="bb-taps__name">Doppelbock <small>Mannheim</small></span><span class="bb-taps__meta">Doppelbock · 7.1% · IBU 32</span><span class="bb-taps__price">₹379</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7b · WHICH BEER IS YOURS? (moved here from the menu rail) -->
+  <section id="pairings" class="bb-pairs g-paper" aria-labelledby="pairs-h">
+    <div class="sc-wrap bb-pairs__grid">
+      <h2 id="pairs-h" data-sc-in>Which beer is yours?</h2>
+      <ul class="bb-pairs__list" data-sc-in>
+        <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--veg"></i><span class="bb-item__name">Pesto Paneer + Witbier</span><span class="bb-item__price">₹720</span></div><p>Citrus and wheat lift the fresh pesto.</p></li>
+        <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Nashville Hot Chicken + Pilsner</span><span class="bb-item__price">₹770</span></div><p>Sharp crispness cuts through the heat.</p></li>
+        <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">The Brewery Cheeseburger + Lager</span><span class="bb-item__price">₹920</span></div><p>The classic pairing. Cold, clean and easy.</p></li>
+        <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">The Do Together Board</span><span class="bb-item__price">₹1,200</span></div><p>All six sliders, paired with six 120ml beer tasters.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 · DO TOGETHER -->
+  <section id="together" class="bb-together g-cream" aria-labelledby="tog-h">
+    <div class="sc-wrap bb-together__grid">
+      <div class="bb-together__media">
+        <figure class="bb-photo" style="margin:0"><img src="assets/photos/do-together-platter.jpg" width="1125" height="2000" loading="lazy" alt="The Do Together board: three sliders, three beer tasters and pairing cards"></figure>
+        <img class="bb-stampdo" src="assets/brand/stamp-do-together.png" width="600" height="597" loading="lazy" alt="Do Together. Burgers, beers, good times.">
+      </div>
+      <div>
+        <h2 id="tog-h"><em>The</em> <span>Do Together</span> <em>experience.</em></h2>
+        <p class="bb-together__lede" data-sc-in>A curated tray of sliders and 120ml beer samplers, designed to explore, pair and share.</p>
+        <ul class="bb-flights" data-sc-in>
+          <li><b>Veg flight</b><span>Hop Express + IPA, Truffle Shroom + Stout or Doppelbock, Pesto Paneer + Witbier</span><i>₹790</i></li>
+          <li><b>Non-veg flight</b><span>Nashville Hot Chicken + Pilsner, Jalapeño Smokehouse Smash + Hefeweizen, Brewery Cheeseburger + Lager</span><i>₹860</i></li>
+          <li><b>The Do Together Board</b><span>All six sliders, paired with six beer tasters</span><i>₹1,200</i></li>
+          <li><b>Chef’s omakase</b><span>We got you. A burger and beer pairing chosen by the kitchen. Veg ₹720, non-veg ₹840.</span><i>₹720+</i></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · THE ROOM -->
+  <section id="room" class="bb-room g-black" aria-labelledby="room-h">
+    <div class="sc-wrap">
+      <div class="bb-room__head">
+        <h2 id="room-h">A table made for <em>staying longer.</em></h2>
+        <p>An upscale diner that never takes itself too seriously. Lively, but calm enough to talk.</p>
+      </div>
+      <div class="bb-mosaic">
+        <figure class="m1"><div class="bb-photo"><img src="assets/photos/live-kitchen.jpg" width="2000" height="2000" loading="lazy" alt="The live kitchen counter under the It’s Hearty neon sign"></div><figcaption>The live kitchen</figcaption></figure>
+        <figure class="m2"><div class="bb-photo"><img src="assets/photos/left-side.jpg" width="2000" height="1500" loading="lazy" alt="The long bar and booths along the left side of the room"></div><figcaption>The bar</figcaption></figure>
+        <figure class="m3"><div class="bb-photo"><img src="assets/photos/combo.jpg" width="2000" height="2000" loading="lazy" alt="A pint glass printed with “it’s Hearty” beside a smash burger"></div></figure>
+        <figure class="m4"><div class="bb-photo"><img src="assets/photos/art-corner.jpg" width="2000" height="2000" loading="lazy" alt="The art corner with community tables and a brick wall"></div><figcaption>The art corner</figcaption></figure>
+        <figure class="m5"><div class="bb-photo"><img src="assets/photos/left-corner.jpg" width="2000" height="1500" loading="lazy" alt="Tan leather booths in the left corner"></div></figure>
+        <figure class="m6"><div class="bb-photo"><img src="assets/photos/mirrors.jpg" width="2000" height="1500" loading="lazy" alt="The kitchen pass and mirrored ceiling"></div></figure>
+      </div>
+      <p class="bb-senses" data-sc-in><span>The clang of a spatula.</span><span>The hiss, then the smash.</span><span>Music behind it.</span><span>Char, smoke, melting cheese.</span><span>Gelato at the end.</span><span>By the second round, the phones are face down.</span></p>
+    </div>
+  </section>
+
+  <!-- 10 · MENU -->
+  <section id="menu" class="bb-menu g-cream" data-sc-act="pan" data-sc-span="3" aria-labelledby="menu-h">
+    <div data-sc-stage>
+      <div class="bb-rail" data-sc-pan="0.04">
+        <div class="bb-rail__lead">
+          <img class="bb-rail__art" src="assets/brand/burger-hearty.png" width="525" height="900" loading="lazy" alt="">
+          <h2 id="menu-h">The menu</h2>
+          <p>Koramangala, in rupees. Every burger comes with house-made hot and sweet potato crisps.</p>
+          <div class="bb-actions"><a class="bb-btn" href="assets/burger-brewery-koramangala-menu.pdf" target="_blank" rel="noopener">Full menu (PDF)</a></div>
+          <div class="bb-legend"><span><i class="bb-diet bb-diet--veg"></i> Vegetarian</span><span><i class="bb-diet bb-diet--nonveg"></i> Non-vegetarian</span></div>
+        </div>
+        <article class="bb-panel" style="--i:1"><h3>BB Originals</h3><ul>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--veg"></i><span class="bb-item__name">Hop Express</span><span class="bb-item__price">₹330</span></div><p><span class="bb-tag">Veg</span> Railway-cutlet-inspired patty, lettuce, masala onion, mint mayo.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--veg"></i><span class="bb-item__name">Truffle Shroom</span><span class="bb-item__price">₹480</span></div><p><span class="bb-tag">Veg</span> Creamy mushroom patty, truffle mayo, peppery arugula.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Jalapeño Smokehouse Smash</span><span class="bb-item__price">₹480</span></div><p><span class="bb-tag">Chicken</span> Smoked patties smashed into jalapeños, chilli-cheddar sauce, pickles.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Oklahoma Smash</span><span class="bb-item__price">₹520</span></div><p><span class="bb-tag">Lamb / Buff</span> Double patties smashed with white onions, double Cheddar, chimichurri.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">The Brewery Cheeseburger</span><span class="bb-item__price">₹650</span></div><p><span class="bb-tag">Lamb / Buff</span> Melted Cheddar, sautéed onions, pickles, BB Hot Mayo, garlic butter bun.</p></li>
+        </ul><p class="bb-panel__more">Five more Originals in the full menu.</p></article>
+        <article class="bb-panel" style="--i:2"><h3>Craft rotation</h3><ul>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--veg"></i><span class="bb-item__name">The Med Beet</span><span class="bb-item__price">₹320</span></div><p><span class="bb-tag">Veg</span> Beetroot-chickpea patty, labneh, sumac onions, rocket, feta.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">BLR Ghee Roast Pull</span><span class="bb-item__price">₹480</span></div><p><span class="bb-tag">Chicken</span> Pulled ghee-roast chicken, fried onions, curry leaves, house curry mayo.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">The Jam Session</span><span class="bb-item__price">₹650</span></div><p><span class="bb-tag">Lamb / Buff</span> Double smash patties, raspberry bacon jam, Cheddar.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">The Forbidden PBJ</span><span class="bb-item__price">₹650</span></div><p><span class="bb-tag">Lamb / Buff</span> Peanut butter bacon jam, white onion, Cheddar. Contains peanuts.</p></li>
+        </ul><p class="bb-panel__more">Two new burgers are in R&amp;D right now. Only one makes the menu. <a class="bb-link" data-link="instagram" href="https://www.instagram.com/burger.brewery/" target="_blank" rel="noopener">Watch it get decided on Instagram</a>.</p></article>
+
+        <article class="bb-panel" style="--i:3"><h3>Sliders &amp; snacks</h3><ul>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--veg"></i><span class="bb-item__name">Veg slider trio</span><span class="bb-item__price">₹490</span></div><p>Hop Express, Truffle Shroom, Pesto Paneer.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Non-veg slider trio</span><span class="bb-item__price">₹540</span></div><p>Nashville Hot Chicken, Jalapeño Smokehouse Smash, Brewery Cheeseburger.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--veg"></i><span class="bb-item__name">Skin-on fries</span><span class="bb-item__price">₹120 · 180 · 210</span></div><p>Salted, cheesy or truffle.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">BB Dirty Fries</span><span class="bb-item__price">₹280 · 340</span></div><p>Cheddar, ranch, BB Hot Mayo, salsa, jalapeños, gherkins.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Wings</span><span class="bb-item__price">₹320</span></div><p>Chilli garlic, cola BBQ or habanero.</p></li>
+        </ul></article>
+        <article class="bb-panel" style="--i:4"><h3>Gelato</h3><ul>
+          <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">The Brewery Cookie Dream</span><span class="bb-item__price">₹420</span></div><p>A warm skillet cookie with vanilla gelato and chocolate fondue.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">One scoop</span><span class="bb-item__price">₹150 · 210</span></div><p>Belgian chocolate or French vanilla. Sicilian pistachio, ₹210.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">The Scoop Flight</span><span class="bb-item__price">₹350</span></div><p>Three small scoops, one of each. Built to taste all three.</p></li>
+          <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">The Dubai Kunafa shake</span><span class="bb-item__price">₹340</span></div><p>Pistachio gelato, white chocolate, toasted kunafa.</p></li>
+        </ul><!-- TODO verify: gelato source --><p class="bb-panel__more">Small-batch gelato. Govt taxes as applicable; 10% discretionary service charge.</p></article>
+        <article class="bb-panel bb-panel--note" style="--i:5">
+          <div><h3>Staying in?</h3><!-- TODO verify delivery cities --><p>We deliver across Bangalore, Delhi NCR and Mumbai. Or see everything we make, from add-ons to cold coffee.</p></div>
+          <div class="bb-actions">
+            <a class="bb-btn" href="assets/burger-brewery-koramangala-menu.pdf" target="_blank" rel="noopener">Full menu (PDF)</a>
+            <a class="bb-btn" data-link="zomato" href="#visit" target="_blank" rel="noopener">Order on Zomato</a>
+            <a class="bb-btn" data-link="swiggy" href="#visit" target="_blank" rel="noopener">Order on Swiggy</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · VISIT: split close, holds -->
+  <section id="visit" class="bb-visit g-black" data-sc-act="pin" data-sc-span="1.2" aria-labelledby="visit-h">
+    <div data-sc-stage>
+      <div class="bb-visit__split" data-sc-cue="0 1 0 0">
+        <div class="bb-half">
+          <img src="assets/photos/outside.jpg" width="2000" height="1500" loading="lazy" alt="The Burger Brewery storefront in Koramangala at night">
+          <p class="bb-label">Koramangala 1st Block, Bangalore</p>
+          <h2 id="visit-h">Pull up a chair.</h2>
+          <p><!-- TODO: opening hours -->Koramangala 1st Block, open <span class="bb-todo">[TODO: opening hours]</span>. Weekends fill up by 8, so book ahead. <a class="bb-link" data-link="maps" href="https://maps.app.goo.gl/nVp8P1cLb46zQmfo7" target="_blank" rel="noopener">Find us on Google Maps</a>.</p>
+          <div class="bb-actions"><a class="bb-btn" data-link="district" href="#visit" target="_blank" rel="noopener">Book a table</a></div>
+        </div>
+        <div class="bb-half" id="order">
+          <img src="assets/brand/do-together-poster.jpg" width="992" height="1500" loading="lazy" alt="Burger Brewery poster: a burger on a plate beside an it’s Hearty pint" style="object-position:50% 46%">
+          <!-- TODO verify delivery cities --><p class="bb-label">Bangalore · Delhi NCR · Mumbai</p>
+          <h2>Order in.</h2>
+          <p>Burgers, sliders and loaded fries, delivered.</p>
+          <div class="bb-actions">
+            <a class="bb-btn" data-link="zomato" href="#visit" target="_blank" rel="noopener">Zomato</a>
+            <a class="bb-btn bb-btn--line" data-link="swiggy" href="#visit" target="_blank" rel="noopener">Swiggy</a>
+          </div>
+        </div>
+      </div>
+      <footer class="bb-foot">
+        <img class="bb-foot__mark" src="assets/brand/bb-stacked.png" width="353" height="500" alt="Burger Brewery">
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><button type="button" data-open="dlg-franchise">Franchise with Us</button></li>
+          <li><button type="button" data-open="dlg-team">Join the Team</button></li>
+          <li><a href="assets/burger-brewery-koramangala-menu.pdf" target="_blank" rel="noopener">Menu (PDF)</a></li>
+          <li><a data-link="instagram" href="https://www.instagram.com/burger.brewery/" target="_blank" rel="noopener">Instagram</a></li>
+          <li data-only-link="linkedin"><a data-link="linkedin" href="#visit" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+        <small>© 2026 Burger Brewery. Please drink responsibly.</small>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<!-- Franchise with Us -->
+<dialog class="bb-dialog" id="dlg-franchise" aria-labelledby="fr-h">
+  <div class="bb-dialog__in">
+    <button class="bb-dialog__x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="fr-h">Franchise with Us</h2>
+    <p>Bring Burger Brewery to your city. We’re building India’s favourite burger and beer table, one city at a time, and we’re choosy about who builds it with us. Tell us about you.</p>
+    <form class="bb-form" method="post" action="#" data-form="franchise">
+      <div class="row2">
+        <div class="bb-field"><label for="fr-name">Your name</label><input id="fr-name" name="name" autocomplete="name" required></div>
+        <div class="bb-field"><label for="fr-city">City</label><input id="fr-city" name="city" autocomplete="address-level2" required></div>
+      </div>
+      <div class="row2">
+        <div class="bb-field"><label for="fr-phone">Phone</label><input id="fr-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="bb-field"><label for="fr-email">Email</label><input id="fr-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="bb-field"><label for="fr-inv">Investment range</label>
+        <select id="fr-inv" name="investment" required><option value="">Choose one</option><option>Under ₹50 lakh</option><option>₹50 lakh to ₹1 crore</option><option>Over ₹1 crore</option><option>Not sure yet</option></select></div>
+      <div class="bb-field"><label for="fr-msg">Anything else?</label><textarea id="fr-msg" name="message"></textarea></div>
+      <p class="bb-form__status" role="status" aria-live="polite"></p>
+      <div><button class="bb-btn" type="submit">Send enquiry</button></div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Join the Team -->
+<dialog class="bb-dialog" id="dlg-team" aria-labelledby="tm-h">
+  <div class="bb-dialog__in">
+    <button class="bb-dialog__x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="tm-h">Join the Team</h2>
+    <p>Kitchen, floor or bar. If a rushed burger bothers you, we should talk.</p>
+    <form class="bb-form" method="post" action="#" enctype="multipart/form-data" data-form="team">
+      <div class="row2">
+        <div class="bb-field"><label for="tm-name">Your name</label><input id="tm-name" name="name" autocomplete="name" required></div>
+        <div class="bb-field"><label for="tm-role">Role</label>
+          <select id="tm-role" name="role" required><option value="">Choose one</option><option>Kitchen</option><option>Floor and service</option><option>Bar</option><option>Management</option></select></div>
+      </div>
+      <div class="row2">
+        <div class="bb-field"><label for="tm-phone">Phone</label><input id="tm-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="bb-field"><label for="tm-email">Email</label><input id="tm-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="bb-field"><label for="tm-city">Preferred outlet or city</label><input id="tm-city" name="city" value="Koramangala, Bangalore"></div>
+      <div class="bb-field"><label for="tm-cv">CV</label><input id="tm-cv" name="cv" type="file" accept=".pdf,.doc,.docx"><p class="bb-hint">PDF or Word.</p></div>
+      <p class="bb-form__status" role="status" aria-live="polite"></p>
+      <div><button class="bb-btn" type="submit">Send application</button></div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Age gate -->
+<dialog class="bb-dialog bb-age" id="dlg-age" aria-labelledby="age-h">
+  <div class="bb-dialog__in">
+    <div class="bb-heart" aria-hidden="true"><div class="bb-heart__shape"></div><span class="bb-heart__text">It’s<br>Hearty!</span></div>
+    <h2 id="age-h">Before you come in</h2>
+    <p data-age-q>We pour craft beer here. Are you of legal drinking age where you live?</p>
+    <div class="bb-actions" data-age-a>
+      <button class="bb-btn" type="button" data-age="yes">Yes, I am</button>
+      <button class="bb-btn bb-btn--line" type="button" data-age="no">Not yet</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="scrollcraft.js"></script>
+<script>
+ScrollCraft.mount(document.body);
+
+(function () {
+  "use strict";
+
+  // TODO: Burger Brewery Zomato listing URL
+  var ZOMATO_URL = "[TODO: Burger Brewery Zomato listing URL]";
+  // TODO: Burger Brewery Swiggy listing URL
+  var SWIGGY_URL = "[TODO: Burger Brewery Swiggy listing URL]";
+  /* ---- destinations ---- */
+  var LINKS = {
+    maps:      "https://maps.app.goo.gl/nVp8P1cLb46zQmfo7",
+    instagram: "https://www.instagram.com/burger.brewery/",
+    district:  "https://www.district.in/dining/bangalore/burger-brewery-koramangala-1st-block-bangalore",
+    zomato:    ZOMATO_URL,
+    swiggy:    SWIGGY_URL,
+    linkedin:  null                                           // PLACEHOLDER: hidden until supplied
+  };
+  var FORM_ENDPOINT = null; // forms post here once a backend exists; until then nothing is sent and the page says so
+
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+  var sm = function (t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); };
+  var win = function (p, a, b) { return reduce ? 1 : sm((p - a) / (b - a)); };
+
+  document.querySelectorAll("[data-link]").forEach(function (a) {
+    var url = LINKS[a.getAttribute("data-link")];
+    if (url && url.indexOf("[TODO") === 0) { a.href = "#order"; a.removeAttribute("target"); a.setAttribute("data-todo", url); return; } // placeholder: keep the button, never link to a broken URL
+    if (url) a.href = url;
+    else { var li = a.closest("[data-only-link]"); if (li) li.hidden = true; }
+  });
+
+  /* concentric heart line-work behind the hero */
+  (function () {
+    var NS = "http://www.w3.org/2000/svg", svg = document.getElementById("hero-lines"); if (!svg) return; var g = document.createElementNS(NS, "g");
+    g.setAttribute("transform", "translate(120 260)");
+    for (var i = 1; i <= 30; i++) {
+      var u = document.createElementNS(NS, "path");
+      u.setAttribute("d", "M0-18C-12-34-42-30-42-6C-42 14-20 26 0 42C20 26 42 14 42-6C42-30 12-34 0-18Z");
+      u.setAttribute("transform", "scale(" + (i * 0.62) + ")"); u.setAttribute("fill", "none"); u.setAttribute("stroke", "currentColor");
+      u.setAttribute("stroke-width", "1.15"); u.setAttribute("vector-effect", "non-scaling-stroke"); g.appendChild(u);
+    }
+    svg.appendChild(g);
+  })();
+
+  /* line drawing helper: pathLength=1 strokes */
+  function drawAll(root, t) { root.querySelectorAll('[pathLength="1"]').forEach(function (el) { el.style.strokeDasharray = 1; el.style.strokeDashoffset = 1 - t; }); }
+
+  /* head bar */
+  var nav = document.querySelector(".bb-nav"), toggle = document.querySelector(".bb-burgerbtn");
+  toggle.addEventListener("click", function () { var open = nav.classList.toggle("is-open"); toggle.setAttribute("aria-expanded", open); toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation"); });
+  nav.querySelectorAll("ul a, ul button").forEach(function (el) { el.addEventListener("click", function () { nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); }); });
+
+  /* dialogs */
+  document.querySelectorAll("[data-open]").forEach(function (b) { b.addEventListener("click", function () { var d = document.getElementById(b.getAttribute("data-open")); if (d && !d.open) d.showModal(); }); });
+  document.querySelectorAll("dialog [data-close]").forEach(function (b) { b.addEventListener("click", function () { b.closest("dialog").close(); }); });
+  document.querySelectorAll("dialog.bb-dialog:not(.bb-age)").forEach(function (d) { d.addEventListener("click", function (e) { if (e.target === d) d.close(); }); });
+
+  /* forms: honest until a backend exists */
+  document.querySelectorAll("form[data-form]").forEach(function (f) {
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = f.querySelector(".bb-form__status");
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      if (!FORM_ENDPOINT) {
+        var name = (f.elements.name && f.elements.name.value.trim().split(" ")[0]) || "there";
+        status.textContent = "Thanks, " + name + ". This form isn’t connected to our inbox yet, so nothing was sent. Please message us on Instagram @burger.brewery for now.";
+        return;
+      }
+      var btn = f.querySelector("[type=submit]"); btn.disabled = true;
+      fetch(FORM_ENDPOINT, { method: "POST", body: new FormData(f) }).then(function (r) {
+        status.textContent = r.ok ? "Thanks. We’ve got your details and will be in touch." : "That didn’t go through. Please try again.";
+        if (r.ok) f.reset();
+      }).catch(function () { status.textContent = "That didn’t go through. Please try again."; }).finally(function () { btn.disabled = false; });
+    });
+  });
+
+  /* age gate: 30 days. ?qa skips it for automated checks. */
+  (function () {
+    var d = document.getElementById("dlg-age"), KEY = "bb-age-ok", ok = false;
+    try { ok = Date.now() - Number(localStorage.getItem(KEY) || 0) < 30 * 864e5; } catch (e) {}
+    if (ok || /[?&]qa\b/.test(location.search)) return;
+    d.addEventListener("cancel", function (e) { e.preventDefault(); });
+    d.showModal();
+    d.querySelector('[data-age="yes"]').addEventListener("click", function () { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} d.close(); });
+    d.querySelector('[data-age="no"]').addEventListener("click", function () {
+      d.querySelector("[data-age-q]").textContent = "Then the beer will have to wait. Come back when you’re of age. The burgers will still be here.";
+      d.querySelector("[data-age-a]").hidden = true;
+    });
+  })();
+
+  /* photos: blur to focus on first sight */
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-seen"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -15% 0px" });
+  document.querySelectorAll(".bb-photo").forEach(function (el) { io.observe(el); });
+
+  /* progress of a pinned scene: 0 at pin start, 1 at pin end */
+  function pinP(el) { var r = el.getBoundingClientRect(), t = Math.max(1, el.offsetHeight - innerHeight); return clamp(-r.top / t, 0, 1); }
+  function near(el) { var r = el.getBoundingClientRect(); return r.bottom > -innerHeight * 0.5 && r.top < innerHeight * 1.5; }
+
+  /* ---- 1 · hero planes ---- */
+  var hero = document.getElementById("top");
+  var planes = [].map.call(hero.querySelectorAll("[data-depth]"), function (el) {
+    var k = el.getAttribute("data-depth");
+    return { el: el, lag: { far: 0.36, mid: 0.12, subject: -0.06, front: -0.2 }[k], mx: { far: 6, mid: 12, subject: 18, front: 26 }[k] };
+  });
+  var pmx = 0, pmy = 0, tmx = 0, tmy = 0;
+  if (fine && !reduce) hero.addEventListener("pointermove", function (e) { tmx = e.clientX / innerWidth - 0.5; tmy = e.clientY / innerHeight - 0.5; });
+  function heroFrame(y) {
+    if (reduce) return;
+    pmx += (tmx - pmx) * 0.08; pmy += (tmy - pmy) * 0.08;
+    var hs = clamp(y, 0, hero.offsetHeight);
+    planes.forEach(function (pl) { pl.el.style.transform = "translate3d(" + (pmx * pl.mx) + "px," + (hs * pl.lag + pmy * pl.mx * 0.6) + "px,0)"; });
+  }
+
+  /* ---- 2 · about: the cheers ---- */
+  var A = document.getElementById("about"), chB = A.querySelector("#ch-burger"), chG = A.querySelector("#ch-glass"), chBurst = A.querySelector("#ch-burst");
+  var fades = A.querySelectorAll(".bb-fade");
+  function setFade(el, t) { el.style.opacity = t; el.style.transform = "translateY(" + ((1 - t) * 14) + "px)"; }
+  function aboutFrame(p) {
+    var d = win(p, 0, 0.36), m = win(p, 0.3, 0.6), c = reduce ? 0 : win(p, 0.58, 0.66) * (1 - win(p, 0.7, 0.82));
+    drawAll(chB, d); drawAll(chG, d);
+    chB.querySelectorAll(".fill").forEach(function (f) { f.setAttribute("opacity", win(p, 0.22, 0.42)); });
+    chG.querySelectorAll(".fill").forEach(function (f) { f.setAttribute("opacity", win(p, 0.22, 0.42)); });
+    chB.setAttribute("transform", "translate(" + (214 - 200 * (1 - m)) + " 150) rotate(" + (-6 * (1 - m) + 3 * m) + " 150 130)");
+    chG.setAttribute("transform", "translate(" + (548 + 200 * (1 - m)) + " 90) rotate(" + (8 * (1 - m) - 14 * m) + " 90 316)");
+    chG.querySelector(".lt").setAttribute("opacity", win(p, 0.22, 0.42));
+    chBurst.setAttribute("opacity", c);
+    setFade(fades[0], win(p, 0.6, 0.72)); setFade(fades[1], win(p, 0.7, 0.84));
+  }
+
+  /* ---- 3 · problem: ring, then the X ---- */
+  var P = document.getElementById("problem"), asm = P.querySelector(".bb-asm"), word = P.querySelector(".bb-asm__word"), mark = P.querySelector(".bb-mark");
+  var ring = mark.querySelector(".ring"), x1 = mark.querySelector(".x1"), x2 = mark.querySelector(".x2"), note = P.querySelector(".bb-fade");
+  function layoutMark() {
+    var w = word.offsetWidth, h = word.offsetHeight, padX = Math.max(18, w * 0.08), padY = Math.max(14, h * 0.22);
+    var W = w + padX * 2, H = h + padY * 2;
+    mark.setAttribute("viewBox", "0 0 " + W + " " + H); mark.style.left = (-padX) + "px"; mark.style.top = (-padY) + "px"; mark.style.width = W + "px"; mark.style.height = H + "px";
+    var cx = W / 2, cy = H / 2, rx = W / 2 - 6, ry = H / 2 - 6, d = "";
+    for (var i = 0; i <= 64; i++) {
+      var t = -0.35 + (i / 64) * (Math.PI * 2 + 0.75), wob = 1 + 0.035 * Math.sin(t * 3) + (i / 64) * 0.05;
+      d += (i ? "L" : "M") + (cx + Math.cos(t) * rx * wob).toFixed(1) + " " + (cy + Math.sin(t) * ry * wob * 0.98).toFixed(1);
+    }
+    ring.setAttribute("d", d);
+    x1.setAttribute("d", "M" + (padX * 0.6) + " " + (padY * 0.8) + "L" + (W - padX * 0.6) + " " + (H - padY * 0.8));
+    x2.setAttribute("d", "M" + (W - padX * 0.6) + " " + (padY * 0.8) + "L" + (padX * 0.6) + " " + (H - padY * 0.8));
+  }
+  function problemFrame(p) {
+    var r = win(p, 0.1, 0.42), a = win(p, 0.48, 0.6), b = win(p, 0.56, 0.68);
+    ring.style.strokeDasharray = 1; ring.style.strokeDashoffset = 1 - r;
+    x1.style.strokeDasharray = 1; x1.style.strokeDashoffset = 1 - a;
+    x2.style.strokeDasharray = 1; x2.style.strokeDashoffset = 1 - b;
+    word.style.opacity = 1 - 0.55 * win(p, 0.6, 0.72);
+    setFade(note, win(p, 0.7, 0.82));
+  }
+
+  /* ---- 4 · the rush ---- */
+  var R = document.getElementById("rush"), receipt = R.querySelector(".bb-receipt"), timer = R.querySelector(".bb-timer"), stamp = R.querySelector(".bb-stamp");
+  var rl = R.querySelectorAll(".bb-rush__lines p");
+  function rushFrame(p) {
+    receipt.style.transform = "translateY(" + (-100 + 100 * win(p, 0.02, 0.45)) + "%)";
+    var secs = reduce ? 0 : Math.max(0, Math.round(45 * (1 - win(p, 0.08, 0.78))));
+    timer.textContent = "00:" + (secs < 10 ? "0" : "") + secs;
+    var s = win(p, 0.7, 0.78); stamp.style.opacity = s; stamp.style.scale = 1.6 - 0.6 * s;
+    rl[0].classList.toggle("is-on", reduce || p > 0.04); rl[1].classList.toggle("is-on", reduce || p > 0.3); rl[2].classList.toggle("is-on", reduce || p > 0.58);
+    R.classList.toggle("is-rushing", !reduce && p > 0.06 && p < 0.78);
+  }
+
+  /* ---- 5 · differently: the heart draws as the section passes ---- */
+  var D = document.getElementById("different"), burst = D.querySelector(".bb-pop__burst"), popG = D.querySelector(".bb-pop__glass"), popB = D.querySelector(".bb-pop__burger");
+  function diffFrame() {
+    if (reduce) return;
+    var r = D.getBoundingClientRect(), t = sm(clamp((innerHeight - r.top) / (innerHeight * 1.05), 0, 1));
+    burst.style.transform = "scale(" + (0.7 + 0.3 * t) + ") rotate(" + (-18 + 18 * t) + "deg)";
+    popG.style.transform = "translate(" + (90 * (1 - t)) + "px," + (-40 * (1 - t)) + "px)";
+    popB.style.transform = "translate(" + (-110 * (1 - t)) + "px," + (40 * (1 - t)) + "px)";
+  }
+
+  /* ---- 6 · inside: a real burger, split along its own seams ---- */
+  var X = document.getElementById("inside"), xStage = X.querySelector("[data-sc-stage]");
+  var slices = [], rows = [];
+  X.querySelectorAll(".bb-x__slice").forEach(function (el) { slices[+el.getAttribute("data-s")] = el; });
+  X.querySelectorAll(".bb-x__row").forEach(function (el) { rows[+el.getAttribute("data-l")] = el; });
+  var burgerBox = X.querySelector(".bb-x__burger"), ringEl = X.querySelector(".bb-x__ring"), endRow = X.querySelector(".bb-x__end");
+  var G = {}, manual = -1, manualY = 0, restacked = false, restackY = 0;
+  function layoutX() {
+    var W = xStage.clientWidth, H = xStage.clientHeight, narrow = W < 861, head = 68, bw, cx, top, avail;
+    if (narrow) {
+      var colTop = X.querySelector(".bb-x__col").getBoundingClientRect().top - xStage.getBoundingClientRect().top;
+      top = head + 10; avail = Math.max(220, colTop - top - 10); cx = W / 2 - 12;
+      bw = Math.min(W * 0.84, avail / (586 / 676 * 1.5));
+    } else {
+      top = head + Math.max(20, H * 0.04); avail = H - top - 110; cx = W * 0.7 - 20;
+      bw = Math.min(600, W * 0.42, avail / (586 / 676 * 1.45));
+    }
+    var bh = bw * 586 / 676;
+    G = { bw: bw, bh: bh, g: Math.min(bh * 0.24, (avail - bh) / 2), narrow: narrow };
+    burgerBox.style.width = bw + "px"; burgerBox.style.left = (cx - bw / 2) + "px"; burgerBox.style.top = (top + (avail - bh) / 2) + "px";
+    var rr = bh * 1.12; ringEl.style.width = ringEl.style.height = rr + "px"; ringEl.style.left = (cx - rr / 2) + "px"; ringEl.style.top = (top + avail / 2 - rr / 2) + "px";
+    endRow.style.left = (cx - 150) + "px"; endRow.style.top = (top + avail + 18) + "px";
+  }
+  function insideFrame(p) {
+    var e = restacked ? 0 : win(p, 0.04, 0.3);
+    var a0 = 0.32, n = rows.length, activeRow = manual >= 0 ? manual : (reduce ? -1 : (p > a0 ? clamp(Math.floor((p - a0) / (0.9 - a0) * n), 0, n - 1) : -1));
+    var activeSlice = activeRow >= 0 ? +rows[activeRow].getAttribute("data-s") : -1;
+    var off = [-G.g, 0, G.g], rot = [-3, 1.2, 2.4];
+    for (var i = 0; i < 3; i++) {
+      var dx = (i === activeSlice ? (G.narrow ? 8 : 22) : 0) * e;
+      slices[i].style.transform = "translate3d(" + dx + "px," + (off[i] * e) + "px,0) rotate(" + (rot[i] * e) + "deg)";
+      slices[i].classList.toggle("is-active", i === activeSlice);
+    }
+    rows.forEach(function (r, k) { r.classList.toggle("is-active", activeRow < 0 || k === activeRow); });
+    ringEl.style.opacity = 0.9 * (1 - e);
+    var eo = win(p, 0.9, 0.97); endRow.style.opacity = restacked ? 1 : eo; endRow.classList.toggle("is-hidden", !reduce && !restacked && eo < 0.02);
+  }
+  X.querySelector("[data-restack]").addEventListener("click", function () {
+    if (reduce) return; restacked = true; restackY = scrollY; manual = -1; X.classList.add("is-restacking");
+    X.querySelector("[data-restack]").textContent = "Take it apart"; setTimeout(function () { X.classList.remove("is-restacking"); }, 700);
+  });
+  rows.forEach(function (r, i) { r.addEventListener("click", function () { manual = manual === i ? -1 : i; manualY = scrollY; }); });
+
+  /* ---- 7 · beer: pull the handle, pour the glass ---- */
+  var Bsec = document.getElementById("beer"), handle = Bsec.querySelector("#tap-handle"), stream = Bsec.querySelector("#tap-stream"),
+      fill = Bsec.querySelector("#beer-fill"), foam = Bsec.querySelector("#beer-foam"), bubbles = Bsec.querySelector("#beer-bubbles");
+  var stampC = Bsec.querySelector(".bb-stampcream");
+  function beerFrame(p) {
+    if (!reduce) stampC.style.transform = "rotate(" + (p * 160).toFixed(1) + "deg)";
+    var pull = reduce ? 0 : win(p, 0.04, 0.14) * (1 - win(p, 0.82, 0.9));
+    handle.style.transform = "rotate(" + (-28 * pull) + "deg)";
+    var level = reduce ? 1 : win(p, 0.12, 0.84);
+    var bottom = 724, top = 404, surf = bottom - (bottom - top) * level;
+    var foamH = 8 + 22 * win(p, 0.4, 0.88);
+    fill.setAttribute("y", surf); fill.setAttribute("height", bottom - surf + 2);
+    foam.setAttribute("transform", "translate(0 " + (surf - foamH) + ") scale(1 " + (foamH / 30).toFixed(3) + ")");
+    foam.style.opacity = level > 0.02 ? 1 : 0;
+    var flowing = pull > 0.5 && level < 0.999;
+    stream.setAttribute("height", flowing ? Math.max(0, surf - foamH - 144) : 0);
+    bubbles.style.opacity = level > 0.1 ? 1 : 0;
+  }
+
+  var T = document.getElementById("together"), stampEl = T.querySelector(".bb-stampdo");
+  function togetherFrame() { if (reduce) return; var r = T.getBoundingClientRect(); stampEl.style.transform = "rotate(" + ((innerHeight - r.top) * 0.12).toFixed(1) + "deg)"; }
+
+  /* ---- index: the side burger builds as you read ---- */
+  var idx = [].map.call(document.querySelectorAll(".bb-index a"), function (a) { return { a: a, sec: document.getElementById(a.getAttribute("data-idx")) }; });
+  function indexFrame() {
+    var vh = innerHeight, current = null;
+    idx.forEach(function (it) { var reached = it.sec.getBoundingClientRect().top < vh * 0.6; it.a.classList.toggle("is-in", reached); if (reached) current = it; });
+    idx.forEach(function (it) { if (it === current) it.a.setAttribute("aria-current", "true"); else it.a.removeAttribute("aria-current"); });
+  }
+
+  /* ---- one loop ---- */
+  function frame() {
+    var y = scrollY;
+    heroFrame(y);
+    if (near(A)) aboutFrame(pinP(A));
+    if (near(P)) problemFrame(pinP(P));
+    if (near(R)) rushFrame(pinP(R));
+    if (near(D)) diffFrame();
+    if (restacked && Math.abs(y - restackY) > 6) { restacked = false; X.querySelector("[data-restack]").textContent = "Stack it back"; }
+    if (manual >= 0 && Math.abs(y - manualY) > 140) manual = -1;
+    if (near(X)) insideFrame(pinP(X));
+    if (near(Bsec)) beerFrame(pinP(Bsec));
+    if (near(T)) togetherFrame();
+    indexFrame();
+    requestAnimationFrame(frame);
+  }
+  var cheersSvg = A.querySelector(".bb-cheers");
+  function relayout() { cheersSvg.setAttribute("viewBox", innerWidth < 761 ? "150 40 680 420" : "0 0 1000 470"); layoutMark(); layoutX(); }
+  addEventListener("resize", relayout);
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(relayout);
+  relayout();
+  // first paint for every scene, even off-screen ones
+  aboutFrame(pinP(A)); problemFrame(pinP(P)); rushFrame(pinP(R)); diffFrame(); insideFrame(pinP(X)); beerFrame(pinP(Bsec));
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

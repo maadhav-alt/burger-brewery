@@ -1,0 +1,50 @@
+  <!-- CRAFT ON TAP: the tap pours as you scroll; each beer appears as you reach it -->
+  <section id="craft-on-tap" class="bb-tap g-black" aria-labelledby="tap-h">
+    <div class="bb-tap__grid">
+      <div class="bb-tap__stage" aria-hidden="true">
+        <!-- The engraved tap from page 5 of the menu. An "empty glass" layer drops away as you scroll, so the beer fills; a tint takes the colour of the beer in focus. -->
+        <svg class="bb-tap__svg" viewBox="0 0 467 1000" focusable="false">
+          <defs>
+            <clipPath id="tInside"><path d="M112 520 L348 520 L346 560 L340 640 L332 720 L325 800 L316 880 L312 906 L150 906 L144 880 L136 800 L130 720 L124 640 L117 560 Z"/></clipPath>
+            <clipPath id="tEmptyClip"><rect class="tp-emptyclip" x="100" y="500" width="260" height="406"/></clipPath>
+            <pattern id="tEmptyHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><line x1="0" y1="0" x2="0" y2="9" stroke="#F0A46E" stroke-width="1" opacity=".55"/></pattern>
+          </defs>
+          <image href="assets/lineart/tap-pour-960.webp" width="467" height="1000" preserveAspectRatio="none"/>
+          <g clip-path="url(#tInside)">
+            <rect class="tp-tint" x="100" y="906" width="260" height="0" style="fill:var(--beer, #E3A52B)"/>
+            <g class="tp-empty"><rect x="100" y="500" width="260" height="406" fill="#FBE6CF"/><rect x="100" y="500" width="260" height="406" fill="url(#tEmptyHatch)"/>
+              <path d="M150 520 L160 900 M300 520 L292 900" stroke="#fff" stroke-width="5" opacity=".55" stroke-linecap="round"/></g>
+            <g class="tp-surface"><rect x="100" y="-7" width="260" height="9" fill="#FFF6E8"/><path d="M100 2 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0" fill="none" stroke="#E2742F" stroke-width="1.6"/></g>
+          </g>
+          <!-- the it's Hearty print, redrawn on the empty part of the glass so the logo never disappears -->
+          <g clip-path="url(#tEmptyClip)" fill="none" stroke="#E2742F" stroke-width="3.2" stroke-linecap="round">
+            <path transform="translate(-45 190) scale(1.15)" d="M178 486 C168 440 182 404 206 404 C222 404 228 418 230 432 M230 432 C236 420 248 414 258 418 C276 426 270 458 244 478"/>
+            <text x="212" y="768" text-anchor="middle" fill="#E2742F" stroke="none" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="900" font-size="30">it’s</text>
+            <text x="232" y="800" text-anchor="middle" fill="#E2742F" stroke="none" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="36" letter-spacing="-.5">Hearty</text>
+          </g>
+        </svg>
+      </div>
+      <div class="bb-tap__copy">
+        <p class="bb-label">Craft on Tap</p>
+        <h2 id="tap-h">Craft on tap.</h2>
+        <p class="bb-tap__lead">Eight taps from Toit, Mannheim, Red Rhino and Geist, always rotating. Keep scrolling and we’ll pour.</p>
+        <p class="bb-tap__note"><span aria-hidden="true">●</span> Available only at our Bangalore outlet, Koramangala 1st Block.</p>
+        <!-- Beer list from the Koramangala menu PDF. No prices on the site (they differ across India). -->
+        <ol class="bb-beers">
+          <li class="bb-beer" data-beer="#E8B53A" data-hi="#F6D872" data-foam="#FFF8E8"><span class="bb-beer__sw" aria-hidden="true"></span><div><h3>Pilsner <small>Mannheim</small></h3><p>Pilsner · 4.8% ABV · IBU 30</p></div></li>
+          <li class="bb-beer" data-beer="#DE9F27" data-hi="#F2C556" data-foam="#FFF8E8"><span class="bb-beer__sw" aria-hidden="true"></span><div><h3>Banger Lager <small>Toit</small></h3><p>Lager · 4.5% ABV · IBU 15</p></div></li>
+          <li class="bb-beer" data-beer="#EBC251" data-hi="#F8E08F" data-foam="#FFFBEF"><span class="bb-beer__sw" aria-hidden="true"></span><div><h3>Kolsch <small>Red Rhino</small></h3><p>Kolsch · 4.2% ABV · IBU 20</p></div></li>
+          <li class="bb-beer" data-beer="#E2A23E" data-hi="#F3CB7A" data-foam="#FFF9EC"><span class="bb-beer__sw" aria-hidden="true"></span><div><h3>Soul Surfer <small>Red Rhino</small></h3><p>Hefeweizen · 4.9% ABV · IBU 15</p></div></li>
+          <li class="bb-beer" data-beer="#EDCB73" data-hi="#F8E6AE" data-foam="#FFFDF5"><span class="bb-beer__sw" aria-hidden="true"></span><div><h3>Witty Wit <small>Geist</small></h3><p>Witbier · 5% ABV · IBU 10</p></div></li>
+          <li class="bb-beer" data-beer="#EBA238" data-hi="#F7C86E" data-foam="#FFF6E2"><span class="bb-beer__sw" aria-hidden="true"></span><div><h3>New England IPA <small>Mannheim</small></h3><p>Hazy IPA · 6.8% ABV · IBU 25</p></div></li>
+          <li class="bb-beer" data-beer="#1C1311" data-hi="#3B241B" data-foam="#D8C29F"><span class="bb-beer__sw" aria-hidden="true"></span><div><h3>Nitro Stout <small>Toit</small></h3><p>Nitro stout · 4.5% ABV · IBU 33</p></div></li>
+          <li class="bb-beer" data-beer="#6E2A12" data-hi="#9A4A22" data-foam="#EBD8B6"><span class="bb-beer__sw" aria-hidden="true"></span><div><h3>Doppelbock <small>Mannheim</small></h3><p>Doppelbock · 7.1% ABV · IBU 32</p></div></li>
+        </ol>
+        <div class="bb-tap__end">
+          <p>Can’t pick one? Try any four as 120ml tasters.</p>
+          <a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a>
+        </div>
+      </div>
+    </div>
+  </section>
+

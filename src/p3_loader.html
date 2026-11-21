@@ -1,0 +1,68 @@
+<!-- LOADER: "Built for a beer". The burger stacks and the pint fills to a real 0-100; at 100 they meet, the heart stamps, the screen splits open onto the hero. -->
+<div class="bb-load" id="bb-load" role="status" aria-live="polite">
+  <div class="bb-load__half bb-load__half--l" aria-hidden="true"></div>
+  <div class="bb-load__half bb-load__half--r" aria-hidden="true"></div>
+  <div class="bb-load__in">
+    <div class="bb-load__top">
+      <span class="bb-load__logo" aria-hidden="true"></span>
+      <button class="bb-load__skip" type="button">Skip</button>
+    </div>
+    <div class="bb-load__stage" aria-hidden="true">
+      <svg class="bb-load__pint" viewBox="0 0 200 300">
+        <defs>
+          <clipPath id="ldGlass"><path d="M45 26 L155 26 C158 35 160 45 158 58 L143 274 Q142 280 136 280 L64 280 Q58 280 57 274 L42 58 C40 45 42 35 45 26 Z"/></clipPath>
+          <pattern id="ldBeerHatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><line x1="0" y1="0" x2="0" y2="7" stroke="#E2742F" stroke-width="1.1" opacity=".55"/></pattern>
+        </defs>
+        <g clip-path="url(#ldGlass)">
+          <rect class="ld-beer" x="30" y="282" width="140" height="10" fill="#F4B740"/>
+          <rect class="ld-beer-h" x="30" y="282" width="140" height="10" fill="url(#ldBeerHatch)"/>
+          <g class="ld-foam">
+            <rect x="30" y="0" width="140" height="22" fill="#FFF8E9"/>
+            <path d="M30 2 q8 -9 16 0 q8 -10 17 0 q8 -9 16 0 q9 -10 17 0 q8 -9 16 0 q8 -10 17 0 q8 -9 16 0 q8 -9 15 0" fill="#FFF8E9" stroke="#F26624" stroke-width="2"/>
+            <circle cx="62" cy="10" r="2.4" fill="none" stroke="#F26624" stroke-width="1.2"/><circle cx="98" cy="13" r="1.8" fill="none" stroke="#F26624" stroke-width="1.2"/><circle cx="132" cy="9" r="2.2" fill="none" stroke="#F26624" stroke-width="1.2"/>
+          </g>
+        </g>
+        <path d="M40 18 L160 18 C164 30 167 42 165 58 L150 278 Q148 292 136 292 L64 292 Q52 292 50 278 L35 58 C33 42 36 30 40 18 Z" fill="none" stroke="#F26624" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M58 280 L142 280" stroke="#F26624" stroke-width="1.6"/>
+        <path d="M50 70 L62 250 M56 60 L60 120" stroke="#F26624" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+        <path d="M84 196 C77 166 88 142 104 142 C114 142 118 151 119 160 M119 160 C123 152 131 148 138 151 C150 156 146 177 128 190" fill="none" stroke="#F26624" stroke-width="2.4" stroke-linecap="round"/>
+        <text x="110" y="206" text-anchor="middle" fill="#F26624" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="900" font-size="17">it’s</text>
+        <text x="112" y="226" text-anchor="middle" fill="#F26624" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="20">Hearty</text>
+      </svg>
+      <svg class="bb-load__burger" viewBox="0 10 260 210">
+        <defs>
+          <pattern id="ldHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><line x1="0" y1="0" x2="0" y2="6" stroke="#F26624" stroke-width="1.3"/></pattern>
+          <pattern id="ldX" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><path d="M0 0 V6 M0 3 H6" stroke="#F26624" stroke-width="1.2"/></pattern>
+        </defs>
+        <g class="ld-l" data-at="6">
+          <path d="M28 182 H232 Q244 182 244 194 Q244 216 220 216 H40 Q16 216 16 194 Q16 182 28 182 Z" fill="#FFF8E9" stroke="#F26624" stroke-width="3"/>
+          <path d="M32 204 Q130 214 228 204" fill="none" stroke="url(#ldHatch)" stroke-width="10" opacity=".7"/>
+        </g>
+        <g class="ld-l" data-at="18">
+          <path d="M20 160 Q22 148 40 150 Q52 142 66 149 Q82 141 98 148 Q114 140 130 147 Q146 140 162 148 Q178 141 194 149 Q210 142 222 150 Q240 150 240 162 Q242 176 226 178 H34 Q18 176 20 160 Z" fill="url(#ldX)" stroke="#F26624" stroke-width="3" stroke-linejoin="round"/>
+        </g>
+        <g class="ld-l" data-at="30">
+          <path d="M22 138 H238 L226 152 H206 L198 168 L190 152 H118 L110 164 L102 152 H34 Z" fill="#FCE3B8" stroke="#F26624" stroke-width="3" stroke-linejoin="round"/>
+        </g>
+        <g class="ld-l" data-at="40">
+          <path d="M16 134 q10 -14 22 -2 q10 -14 22 -2 q10 -14 22 -2 q10 -14 22 -2 q10 -14 22 -2 q10 -14 22 -2 q10 -14 22 -2 q10 -14 22 -2 q10 -14 22 -2 q10 -14 22 -2" fill="none" stroke="#F26624" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M26 132 l6 -6 M70 132 l6 -6 M114 132 l6 -6 M158 132 l6 -6 M202 132 l6 -6" stroke="#F26624" stroke-width="1.4"/>
+        </g>
+        <g class="ld-l" data-at="50">
+          <path d="M26 122 Q60 112 92 122 T158 122 T234 120" fill="none" stroke="#F26624" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+        </g>
+        <g class="ld-l" data-at="60">
+          <path d="M22 116 C22 14 238 14 238 116 Q238 120 232 120 H28 Q22 120 22 116 Z" fill="#FFF8E9" stroke="#F26624" stroke-width="3"/>
+          <path d="M168 50 C200 62 220 86 226 110" fill="none" stroke="url(#ldHatch)" stroke-width="14" opacity=".6"/>
+          <g fill="none" stroke="#F26624" stroke-width="1.6"><ellipse cx="86" cy="58" rx="4" ry="2.2" transform="rotate(-20 86 58)"/><ellipse cx="112" cy="44" rx="4" ry="2.2"/><ellipse cx="140" cy="46" rx="4" ry="2.2" transform="rotate(18 140 46)"/><ellipse cx="164" cy="60" rx="4" ry="2.2" transform="rotate(30 164 60)"/><ellipse cx="70" cy="84" rx="4" ry="2.2" transform="rotate(-30 70 84)"/><ellipse cx="124" cy="68" rx="4" ry="2.2" transform="rotate(8 124 68)"/><ellipse cx="98" cy="88" rx="4" ry="2.2" transform="rotate(-10 98 88)"/><ellipse cx="150" cy="92" rx="4" ry="2.2" transform="rotate(24 150 92)"/></g>
+        </g>
+      </svg>
+      <div class="bb-load__heart"><i>×</i></div>
+    </div>
+    <div class="bb-load__foot">
+      <p class="bb-load__status"><span data-ld-status>Stacking your burger</span></p>
+      <p class="bb-load__count"><span data-ld-count>0</span><small>%</small></p>
+    </div>
+  </div>
+  <span class="bb-vh">Loading Burger Brewery</span>
+</div>

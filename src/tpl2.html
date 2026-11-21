@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Burger Brewery · Every burger built for a beer · Koramangala</title>
+<meta name="description" content="Smashed to order on brioche from our own bakery. Eight craft taps from Toit, Mannheim, Red Rhino and Geist. Ask us which one is yours. Koramangala 1st Block.">
+<meta property="og:title" content="Burger Brewery · Every burger built for a beer">
+<meta property="og:description" content="Smashed to order on brioche from our own bakery. Eight craft taps from Toit, Mannheim, Red Rhino and Geist. Ask us which one is yours. Koramangala 1st Block.">
+<meta property="og:image" content="assets/photos/resp/combo-1600.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1B1617">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23231F20'/><path d='M6 15c0-6 4.5-9 10-9s10 3 10 9z' fill='%23F26624'/><rect x='5' y='17' width='22' height='4' rx='2' fill='%23F2F2E9'/><rect x='6' y='22' width='20' height='4' rx='2' fill='%23F26624'/></svg>">
+<link rel="preload" as="image" href="assets/photos/resp/live-kitchen-1600.webp" imagesrcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Mulish:wght@400;600;700;800&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Mulish:wght@400;600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="scrollcraft.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"Burger Brewery","servesCuisine":["Burgers","Craft beer"],"address":{"@type":"PostalAddress","addressLocality":"Koramangala 1st Block, Bangalore","addressRegion":"Karnataka","addressCountry":"IN"},"hasMap":"https://maps.app.goo.gl/nVp8P1cLb46zQmfo7","sameAs":["https://www.instagram.com/burger.brewery/"],"acceptsReservations":"https://www.district.in/dining/bangalore/burger-brewery-koramangala-1st-block-bangalore","menu":"assets/burger-brewery-koramangala-menu.pdf"}
+</script>
+<style>
+/*CSS_BASE*/
+[hidden] { display: none !important; }
+
+/* ---------- 1 · hero: video loop, still fallback ---------- */
+.bb-hero { position: relative; height: 100svh; min-height: 640px; overflow: hidden; background: #1B1617; }
+.bb-plane { position: absolute; will-change: transform; }
+.bb-kitchen { inset: -4% 0 -10% 0; }
+.bb-kitchen img, .bb-kitchen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 38%; }
+.bb-hero__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(27,22,23,.94) 0%, rgba(27,22,23,.82) 30%, rgba(27,22,23,.25) 58%, rgba(27,22,23,0) 76%), linear-gradient(0deg, rgba(27,22,23,.7), rgba(27,22,23,0) 34%); }
+.bb-heart { position: relative; aspect-ratio: 622 / 610; }
+.bb-heart__shape { position: absolute; inset: 0; background: var(--bb-orange); -webkit-mask: url(assets/heart-b.png) center / contain no-repeat; mask: url(assets/heart-b.png) center / contain no-repeat; }
+.bb-heart__text { position: absolute; left: 14%; top: 38%; font: italic 800 clamp(1rem, 1.55vw, 1.6rem)/1.02 var(--sc-font-display); color: var(--bb-black); }
+.bb-hero .bb-heart { position: absolute; z-index: 3; right: 7vw; bottom: 9vh; width: clamp(130px, 13vw, 200px); }
+.bb-hero__copy { position: absolute; left: var(--sc-gutter); bottom: 11vh; max-width: min(38rem, 44vw); z-index: 4; }
+.bb-hero h1 { font-size: clamp(2.8rem, 5.6vw, 5.8rem); font-weight: 900; line-height: .95; letter-spacing: -.025em; text-wrap: balance; }
+.bb-hero__lede { margin: var(--sc-5) 0 0; max-width: 40ch; font-size: clamp(1rem, 1.15vw, 1.15rem); color: var(--sc-ink-soft); line-height: 1.55; }
+.bb-hero .bb-btn--line { color: var(--bb-cream); }
+@media (max-width: 760px) {
+  .bb-hero { min-height: 680px; }
+  .bb-kitchen img, .bb-kitchen video { object-position: 50% 30%; }
+  .bb-hero__scrim { background: linear-gradient(0deg, rgba(27,22,23,.96) 0%, rgba(27,22,23,.9) 40%, rgba(27,22,23,.25) 66%, rgba(27,22,23,.15) 100%); }
+  .bb-hero .bb-heart { right: 5vw; bottom: auto; top: calc(var(--bb-head) + 18px); width: 24vw; }
+  .bb-hero .bb-heart__text { font-size: 3.9vw; }
+  .bb-hero__copy { left: var(--sc-gutter); right: var(--sc-gutter); bottom: 3svh; max-width: none; }
+  .bb-hero h1 { font-size: clamp(2.3rem, 10vw, 3rem); }
+  .bb-hero__lede { font-size: .95rem; margin-top: var(--sc-3); }
+  .bb-hero .bb-actions { margin-top: var(--sc-4); }
+}
+
+/* ---------- 2 · about: the bite, then the sip ---------- */
+.bb-about { padding-block: clamp(3.5rem, 9vh, 6.5rem); }
+.bb-about__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; padding-right: 64px; }
+.bb-about__grid.is-solo { grid-template-columns: 1fr; }
+.bb-about h2 { font-size: clamp(2.6rem, 5.6vw, 5.6rem); font-weight: 900; letter-spacing: -.03em; line-height: .92; }
+.bb-about p { margin: var(--sc-5) 0 0; font-size: clamp(1.1rem, 1.45vw, 1.4rem); line-height: 1.6; max-width: 48ch; }
+.bb-about .bb-photo { aspect-ratio: 4 / 5; }
+@media (max-width: 860px) { .bb-about__grid { grid-template-columns: 1fr; padding-right: 30px; } }
+
+/*CSS_RUSH*/
+/*CSS_INSIDE*/
+.bb-x__row.is-active .bb-x__num { color: #B8430E; }
+.bb-x__slice[data-s="3"], .bb-x__slice[data-s="4"] { display: none; }
+.bb-x.is-five .bb-x__slice { display: block; }
+.bb-x.is-five .bb-x__slice[data-mid] { display: none; }
+
+/* ---------- 4b · two tickets ---------- */
+.bb-tickets { padding-block: clamp(2.5rem, 6vh, 4.5rem); }
+.bb-tickets__row { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(1.5rem, 5vw, 5rem); align-items: start; max-width: 980px; margin: 0 auto; padding-right: 64px; }
+.bb-tk { position: relative; background: #fff; color: #231F20; padding: 24px 22px 28px; font: 600 .84rem/1.6 var(--bb-mono); box-shadow: 0 14px 30px -18px rgba(35,31,32,.45);
+  -webkit-mask: linear-gradient(#000 calc(100% - 10px), transparent calc(100% - 10px)), radial-gradient(circle at 8px 100%, transparent 7px, #000 7.5px) 0 100% / 16px 10px repeat-x;
+  mask: linear-gradient(#000 calc(100% - 10px), transparent calc(100% - 10px)), radial-gradient(circle at 8px 100%, transparent 7px, #000 7.5px) 0 100% / 16px 10px repeat-x; }
+.bb-tk h3 { font: 800 .95rem/1.3 var(--bb-mono); text-align: center; letter-spacing: .08em; margin: 0 0 8px; }
+.bb-tk hr { border: 0; border-top: 2px dashed #b8b1aa; margin: 10px 0; }
+.bb-tk .ln2 { display: flex; align-items: baseline; gap: 6px; }
+.bb-tk .ln2 i { flex: 1; border-bottom: 2px dotted #c9c2bb; translate: 0 -4px; min-width: 12px; }
+.bb-tk .ln2 b { font-weight: 800; text-align: right; }
+.bb-tk__stamp { position: absolute; left: 50%; top: 52%; translate: -50% -50%; rotate: -12deg; padding: 6px 14px; border: 5px solid #D9541A; border-radius: 10px;
+  color: #D9541A; font: 800 1.9rem/1 var(--bb-mono); letter-spacing: .1em; white-space: nowrap; background: rgba(255,255,255,.6); }
+.bb-ticket--theirs { filter: grayscale(.85); opacity: .72; margin-top: 64px; }
+.bb-ticket--theirs .bb-tk { transform: rotate(-1.5deg); }
+.bb-printer2 { position: relative; }
+.bb-printer2__head { position: relative; z-index: 2; height: 54px; margin: 0 -12px; border-radius: 12px; background: var(--bb-black); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; box-shadow: 0 14px 26px -16px rgba(35,31,32,.6); }
+.bb-printer2__head i { width: 10px; height: 10px; border-radius: 50%; background: var(--bb-orange); }
+.bb-printer2__head span { font: 700 .7rem/1 var(--bb-mono); color: #8d8682; letter-spacing: .08em; }
+.bb-printer2__slot { position: relative; overflow: hidden; margin: -6px 8px 0; padding-bottom: 14px; }
+.bb-ticket--ours .bb-tk { transition: transform 900ms var(--sc-ease-out); }
+.bb-ticket--ours .ln2, .bb-ticket--ours h3, .bb-ticket--ours hr { transition: opacity 260ms var(--sc-ease-out); }
+.bb-ticket--ours .bb-tk__stamp { transition: opacity 180ms var(--sc-ease-out), scale 260ms var(--sc-ease-out); }
+.js-print .bb-ticket--ours .bb-tk { transform: translateY(-104%); }
+.js-print .bb-ticket--ours .ln2, .js-print .bb-ticket--ours .bb-tk__stamp { opacity: 0; }
+.js-print .bb-ticket--ours .bb-tk__stamp { scale: 1.7; }
+.bb-ticket--ours.is-printed .bb-tk { transform: none; }
+.bb-ticket--ours .bb-tk { padding-bottom: 92px; }
+.bb-ticket--ours .bb-tk__stamp { top: auto; bottom: 22px; translate: -50% 0; rotate: -6deg; }
+.bb-tickets__cap { margin: var(--sc-6) auto 0; text-align: center; font: italic 800 clamp(1.5rem, 2.6vw, 2.4rem)/1.1 var(--sc-font-display); }
+@media (max-width: 760px) {
+  .bb-tickets__row { grid-template-columns: 1fr; padding-right: 30px; gap: var(--sc-6); }
+  .bb-ticket--theirs { margin-top: 0; width: 86%; }
+  .bb-tk { font-size: .74rem; padding: 18px 16px 22px; }
+  .bb-tk__stamp { font-size: 1.5rem; }
+}
+
+/* ---------- 5 · pairing picker ---------- */
+.bb-pick { padding-block: clamp(3rem, 7vh, 4.5rem); }
+.bb-pick__wrap { padding-right: 64px; }
+.bb-pick h2 { font-size: clamp(2.6rem, 5.2vw, 5.2rem); font-weight: 900; letter-spacing: -.025em; line-height: .94; color: var(--bb-orange); }
+.bb-pick__intro { margin: var(--sc-4) 0 0; font-size: clamp(1.05rem, 1.3vw, 1.25rem); line-height: 1.55; max-width: 44ch; }
+.bb-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--sc-6); }
+.bb-chip { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid rgba(242,242,233,.4); background: transparent; color: var(--bb-cream);
+  font: 800 .92rem/1 var(--sc-font-text); cursor: pointer; transition: background-color 160ms var(--sc-ease-out), color 160ms var(--sc-ease-out), border-color 160ms var(--sc-ease-out); }
+.bb-chip[aria-checked="true"] { background: var(--bb-orange); border-color: var(--bb-orange); color: var(--bb-black); }
+@media (hover: hover) and (pointer: fine) { .bb-chip:hover { border-color: var(--bb-cream); } }
+.bb-card { margin-top: var(--sc-6); display: grid; grid-template-columns: minmax(220px, 320px) 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.bb-card__photo { aspect-ratio: 4 / 5; border-radius: 18px; }
+.bb-card__body { transition: opacity 260ms var(--sc-ease-out); }
+.bb-card.is-swapping .bb-card__body, .bb-card.is-swapping .bb-card__photo img { opacity: 0; }
+.bb-card__photo img { transition: opacity 260ms var(--sc-ease-out); }
+.bb-card h3 { font: 900 clamp(1.8rem, 3vw, 2.8rem)/1.02 var(--sc-font-display); letter-spacing: -.02em; }
+.bb-card h3 span { display: block; color: var(--bb-orange); font-style: italic; font-weight: 700; }
+.bb-card__meta { margin: var(--sc-3) 0 0; font: 700 .9rem/1.4 var(--sc-font-text); color: var(--sc-ink-soft); }
+.bb-card__why { margin: var(--sc-4) 0 0; font: italic 700 clamp(1.15rem, 1.6vw, 1.45rem)/1.35 var(--sc-font-display); max-width: 34ch; }
+.bb-card__price { margin: var(--sc-4) 0 0; font-weight: 800; font-variant-numeric: tabular-nums; }
+.bb-pick__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-3) var(--sc-5); margin-top: var(--sc-6); }
+.bb-textlink { background: none; border: 0; padding: 8px 0; color: var(--bb-cream); font: 800 1rem/1.3 var(--sc-font-text); text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 2px; cursor: pointer; }
+.bb-alltaps { margin-top: var(--sc-6); border-top: 1px solid rgba(242,242,233,.2); max-width: 760px; }
+.bb-alltaps summary { cursor: pointer; padding: var(--sc-4) 0; font: 800 1.05rem/1.2 var(--sc-font-text); list-style: none; display: flex; align-items: center; gap: 10px; }
+.bb-alltaps summary::-webkit-details-marker { display: none; }
+.bb-alltaps summary::before { content: "+"; display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid currentColor; font-weight: 800; }
+.bb-alltaps[open] summary::before { content: "–"; }
+/*CSS_TAPS*/
+@media (max-width: 760px) { .bb-pick__wrap { padding-right: 30px; } .bb-card { grid-template-columns: 1fr; } .bb-card__photo { max-width: 340px; } }
+
+/*CSS_TOG*/
+.bb-together h2 span { color: #D9541A; }
+.bb-together { padding-block: clamp(3.5rem, 8vh, 5.5rem); }
+
+/* ---------- 7 · the room ---------- */
+.bb-room { padding-block: clamp(3rem, 7vh, 4.5rem); }
+.bb-room__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--sc-5); padding-right: 64px; margin-bottom: var(--sc-6); }
+.bb-room h2 { font-size: clamp(2.6rem, 5.2vw, 5.2rem); font-weight: 900; letter-spacing: -.03em; line-height: .92; }
+.bb-room h2 em { color: var(--bb-orange); font-weight: 700; }
+.bb-room__head p { margin: 0; max-width: 34ch; color: var(--sc-ink-soft); line-height: 1.6; }
+.bb-grid4 { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(130px, 11vw, 170px); gap: clamp(.6rem, 1.2vw, 1rem); padding-right: 64px; }
+.bb-grid4 figure { margin: 0; position: relative; }
+.bb-grid4 .bb-photo { height: 100%; border-radius: 16px; }
+.bb-grid4 figcaption { position: absolute; left: 12px; bottom: 12px; z-index: 2; padding: 7px 12px; border-radius: 999px; background: rgba(35,31,32,.8); color: var(--bb-cream); font: 700 .82rem/1 var(--sc-font-text); }
+.g1 { grid-column: 1 / span 7; grid-row: span 2; } .g2 { grid-column: 8 / span 5; } .g3 { grid-column: 8 / span 5; } .g4 { grid-column: 1 / -1; }
+.bb-senses { margin-top: var(--sc-7); display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; padding-right: 64px; font: 800 clamp(1.3rem, 2.3vw, 2.2rem)/1.15 var(--sc-font-display); letter-spacing: -.01em; }
+.bb-senses span:nth-child(even) { font-style: italic; font-weight: 700; color: var(--bb-orange); }
+.bb-proof { margin-top: var(--sc-7); padding: var(--sc-6) 64px 0 0; border-top: 1px solid rgba(242,242,233,.18); display: grid; grid-template-columns: auto 1fr; gap: var(--sc-6); align-items: start; }
+.bb-proof__score { font: 900 3rem/1 var(--sc-font-display); color: var(--bb-orange); }
+.bb-proof__score small { display: block; margin-top: 6px; font: 700 .9rem/1.3 var(--sc-font-text); color: var(--sc-ink-soft); }
+.bb-proof ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--sc-5); }
+.bb-proof blockquote { margin: 0; font: italic 700 1.1rem/1.4 var(--sc-font-display); }
+.bb-proof cite { display: block; margin-top: 8px; font: 700 .85rem/1.3 var(--sc-font-text); font-style: normal; color: var(--sc-ink-soft); }
+@media (max-width: 860px) {
+  .bb-room__head { grid-template-columns: 1fr; padding-right: 30px; }
+  .bb-grid4 { grid-template-columns: 1fr 1fr; grid-auto-rows: 40vw; padding-right: 30px; }
+  .g1 { grid-column: 1 / -1; grid-row: span 1; } .g2, .g3 { grid-column: span 1; } .g4 { grid-column: 1 / -1; }
+  .bb-senses, .bb-proof { padding-right: 30px; }
+  .bb-proof { grid-template-columns: 1fr; }
+}
+
+/* ---------- 8 · menu ---------- */
+.bb-menu { padding-block: clamp(3rem, 7vh, 4.5rem); }
+.bb-menu__inner { padding-right: 64px; }
+.bb-menu__lead { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--sc-4) var(--sc-7); }
+.bb-menu h2 { font-size: clamp(3rem, 6vw, 6rem); font-weight: 900; letter-spacing: -.03em; line-height: .9; }
+.bb-menu__lead p { margin: var(--sc-3) 0 0; color: var(--sc-ink-soft); line-height: 1.55; max-width: 42ch; }
+.bb-menu__lead .bb-actions { margin-top: 0; }
+/*CSS_ITEMS*/
+.bb-legend { margin-top: var(--sc-4); }
+.bb-hl { margin-top: var(--sc-7); }
+.bb-hl h3 { font: 800 .8rem/1 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--sc-ink-soft); margin-bottom: var(--sc-4); }
+.bb-hl ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(.75rem, 1.4vw, 1.25rem); }
+.bb-hl li .bb-photo { aspect-ratio: 1; border-radius: 14px; }
+.bb-hl li b { display: flex; justify-content: space-between; gap: 8px; margin-top: 10px; font: 800 1rem/1.25 var(--sc-font-display); }
+.bb-hl li b span { font: 700 .9rem/1.25 var(--sc-font-text); white-space: nowrap; }
+.bb-hl li p { margin: 4px 0 0; font-size: .85rem; line-height: 1.4; color: var(--sc-ink-soft); }
+.bb-cattabs { display: none; }
+.bb-cats { margin-top: var(--sc-7); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 1.6vw, 1.5rem); align-items: start; }
+.bb-cats .bb-panel { width: auto; }
+@media (min-width: 1001px) {
+  #cat-originals { grid-column: 1; grid-row: 1 / span 2; }
+  #cat-craft { grid-column: 2; grid-row: 1; } #cat-sliders { grid-column: 3; grid-row: 1; }
+  #cat-gelato { grid-column: 2; grid-row: 2; } #cat-staying { grid-column: 3; grid-row: 2; }
+}
+@media (max-width: 1000px) { .bb-cats .bb-panel--note { grid-column: 1 / -1; } }
+.bb-rnd { margin-top: var(--sc-4); padding: var(--sc-4); border-radius: 14px; background: var(--bb-cream); }
+.bb-rnd h4 { margin: 0; font: 900 1.15rem/1.2 var(--sc-font-display); }
+.bb-rnd ul { list-style: none; margin: var(--sc-3) 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.bb-rnd li { background: #fff; border-radius: 10px; padding: 10px; font-size: .85rem; line-height: 1.35; }
+.bb-rnd li img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; margin-bottom: 6px; }
+.bb-rnd li b { display: block; font: 800 .95rem/1.2 var(--sc-font-display); }
+.bb-rnd .bb-btn { min-height: 42px; font-size: .9rem; }
+@media (max-width: 1000px) { .bb-cats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bb-hl ul { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 767px) {
+  .bb-menu__inner { padding-right: 0; }
+  .bb-hl ul { grid-template-columns: repeat(2, 1fr); }
+  .bb-cattabs { display: flex; position: sticky; top: var(--bb-head); z-index: 20; gap: 6px; overflow-x: auto; margin: var(--sc-6) 0 0 calc(var(--sc-gutter) * -1); padding: 10px var(--sc-gutter);
+    background: var(--bb-cream); border-bottom: 1px solid rgba(35,31,32,.12); scrollbar-width: none; }
+  .bb-cattabs::-webkit-scrollbar { display: none; }
+  .bb-cattabs a { flex: 0 0 auto; padding: 8px 14px; border-radius: 999px; border: 1.5px solid rgba(35,31,32,.25); color: var(--bb-black); text-decoration: none; font: 800 .85rem/1 var(--sc-font-text); }
+  .bb-cattabs a[aria-current="true"] { background: var(--bb-black); color: var(--bb-cream); border-color: var(--bb-black); }
+  .bb-cats { grid-template-columns: 1fr; margin-top: var(--sc-4); }
+  .bb-cats .bb-panel--note { grid-column: auto; }
+  .bb-cats .bb-panel { scroll-margin-top: calc(var(--bb-head) + 64px); padding: var(--sc-5); }
+  .bb-item { padding: var(--sc-3) 0; }
+}
+
+/*CSS_VISIT*/
+.bb-visit__stage { display: flex; flex-direction: column; min-height: calc(84svh - var(--bb-head)); background: var(--bb-black); }
+.bb-visit__split { flex: 1; min-height: 520px; }
+.bb-half__order-note { font-weight: 700; }
+@media (max-width: 860px) { .bb-visit__split { min-height: 0; } .bb-half { min-height: 360px; } }
+
+/* ---------- sticky booking bar (mobile) ---------- */
+.bb-sticky { display: none; }
+@media (max-width: 767px) {
+  .bb-sticky { display: flex; position: fixed; z-index: 58; left: 0; right: 0; bottom: 0; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px var(--sc-gutter) calc(10px + env(safe-area-inset-bottom)); background: var(--bb-black); color: var(--bb-cream);
+    border-top: 1px solid rgba(242,242,233,.14); transform: translateY(110%); transition: transform 240ms var(--sc-ease-out); }
+  .bb-sticky.is-on { transform: none; }
+  .bb-sticky__hours { font: 700 .88rem/1.3 var(--sc-font-text); }
+  .bb-sticky .bb-btn { margin-left: auto; min-height: 44px; }
+  body.has-bar .bb-index { bottom: calc(78px + env(safe-area-inset-bottom)); }
+}
+
+/* ---------- placeholder mode (?placeholders=1) ---------- */
+.bb-ph { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: 12px; text-align: center; background: repeating-linear-gradient(45deg, #cfcac2 0 14px, #c6c0b7 14px 28px);
+  color: #231F20; font: 700 .78rem/1.35 var(--bb-mono); border-radius: inherit; }
+.bb-ph b { display: block; font-size: .7rem; letter-spacing: .1em; margin-bottom: 4px; }
+.bb-ph-note { position: absolute; z-index: 6; left: var(--sc-gutter); top: calc(var(--bb-head) + 12px); padding: 6px 10px; border-radius: 8px; background: #c6c0b7; color: #231F20; font: 700 .75rem/1.3 var(--bb-mono); }
+
+/*CSS_DLG*/
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-plane, .bb-x__slice { transition: none !important; }
+  .bb-x__end { opacity: 1 !important; }
+  .bb-card__body, .bb-card__photo img, .bb-sticky, .bb-ticket--ours .bb-tk { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!--SYMBOLS-->
+<!--HEADER-->
+
+<nav class="bb-index" aria-label="Sections">
+  <ol>
+    <li><a href="#top" data-idx="top" aria-label="Hello"><span class="bb-index__tip" aria-hidden="true">Hello</span><svg viewBox="-6 -6 412 162" aria-hidden="true"><use href="#ly0"/></svg></a></li>
+    <li><a href="#about" data-idx="about" aria-label="The bite, then the sip"><span class="bb-index__tip" aria-hidden="true">The bite, then the sip</span><svg viewBox="-4 -4 408 48" aria-hidden="true"><use href="#ly1"/></svg></a></li>
+    <li><a href="#problem" data-idx="problem" aria-label="The rushed burger"><span class="bb-index__tip" aria-hidden="true">The rushed burger</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg></a></li>
+    <li><a href="#inside" data-idx="inside" aria-label="Taken apart"><span class="bb-index__tip" aria-hidden="true">Taken apart</span><svg viewBox="-4 -4 408 58" aria-hidden="true"><use href="#ly3"/></svg></a></li>
+    <li><a href="#pairings" data-idx="pairings" aria-label="Which beer is yours?"><span class="bb-index__tip" aria-hidden="true">Which beer is yours?</span><svg viewBox="-4 -4 408 72" aria-hidden="true"><use href="#ly4"/></svg></a></li>
+    <li><a href="#together" data-idx="together" aria-label="Do Together"><span class="bb-index__tip" aria-hidden="true">Do Together</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg></a></li>
+    <li><a href="#room" data-idx="room" aria-label="The room"><span class="bb-index__tip" aria-hidden="true">The room</span><svg viewBox="-4 -4 408 72" aria-hidden="true"><use href="#ly4"/></svg></a></li>
+    <li><a href="#menu" data-idx="menu" aria-label="Menu"><span class="bb-index__tip" aria-hidden="true">Menu</span><svg viewBox="-6 -4 412 94" aria-hidden="true"><use href="#ly5"/></svg></a></li>
+    <li><a href="#visit" data-idx="visit" aria-label="Visit and order"><span class="bb-index__tip" aria-hidden="true">Visit and order</span><svg viewBox="-4 -4 408 82" aria-hidden="true"><use href="#ly6"/></svg></a></li>
+  </ol>
+</nav>
+
+<main>
+
+  <!-- 1 · HERO: video loop (decorative), still fallback -->
+  <section id="top" class="bb-hero g-black" aria-labelledby="hero-h">
+    <div class="bb-plane bb-kitchen" data-depth="far">
+      <img class="bb-hero__still" src="assets/photos/resp/live-kitchen-1600.jpg"
+        srcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w"
+        sizes="100vw" width="1600" height="1600" fetchpriority="high" loading="eager" decoding="async"
+        alt="The live kitchen at Burger Brewery Koramangala, under the It’s Hearty neon">
+    </div>
+    <div class="bb-hero__scrim" aria-hidden="true"></div>
+    <div class="bb-plane bb-heart" data-depth="front" aria-hidden="true"><div class="bb-heart__shape"></div><span class="bb-heart__text">It’s<br>Hearty!</span></div>
+    <div class="bb-hero__copy">
+      <h1 id="hero-h">Every burger here was built for a beer.</h1>
+      <!-- TODO verify: "brioche from our own bakery" (buns may come from the central commissary) -->
+      <p class="bb-hero__lede">Smashed to order on brioche from our own bakery. Eight craft taps from Toit, Mannheim, Red Rhino and Geist. Ask us which one is yours. Koramangala 1st Block.</p>
+      <div class="bb-actions">
+        <a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a>
+        <a class="bb-btn bb-btn--line" href="#order">Order in</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · ABOUT -->
+  <section id="about" class="bb-about g-cream" aria-labelledby="about-h">
+    <div class="sc-wrap bb-about__grid">
+      <div data-sc-in>
+        <h2 id="about-h">The bite, then the sip.</h2>
+        <p>You know the bite. Char, melted cheese, a little heat running toward your wrist. Then the sip: cold, sharp, and suddenly you want the next bite. That’s the whole idea. A kitchen built around the bite, a bar built around the sip, and a table nobody’s in a hurry to leave.</p>
+      </div>
+      <figure class="bb-photo" data-slot="bite-sip" style="margin:0" hidden>
+        <img data-prefer="assets/img/bite-sip.jpg" data-hide-missing alt="A hand holding a smash burger, the other on a cold glass" width="1200" height="1500" loading="lazy" decoding="async">
+      </figure>
+    </div>
+  </section>
+
+<!--RUSH-->
+  <!-- 4 · INSIDE: our smash burger, taken apart -->
+  <section id="inside" class="bb-x g-cream" data-sc-act="pin" data-sc-span="1.24" aria-labelledby="x-h">
+    <div data-sc-stage>
+      <div class="bb-x__col">
+        <p class="bb-label">What’s inside</p>
+        <h2 id="x-h">Our smash burger, taken apart.</h2>
+        <ol class="bb-x__list">
+          <li class="bb-x__row" data-l="0"><span class="bb-x__num">01</span><h3>Brioche bun</h3><p><!-- TODO verify: "our own bakery" -->Baked every morning by our own bakery, toasted in butter on the flat top.</p></li>
+          <li class="bb-x__row" data-l="1"><span class="bb-x__num">02</span><h3>House sauce</h3><p><!-- TODO verify: "made from scratch" -->Made from scratch in our kitchen. Never poured from a bottle.</p></li>
+          <li class="bb-x__row" data-l="2"><span class="bb-x__num">03</span><h3>Cheese</h3><p>Laid on the patty the second it’s smashed, so it melts into the char.</p></li>
+          <li class="bb-x__row" data-l="3"><span class="bb-x__num">04</span><h3>The patty</h3><p>A ball of fresh-ground meat, pressed hard into a screaming-hot plate until the edges lace and crackle.</p></li>
+          <li class="bb-x__row" data-l="4"><span class="bb-x__num">05</span><h3>Brioche base</h3><p>Toasted to hold every drop.</p></li>
+        </ol>
+      </div>
+      <div class="bb-x__ring" aria-hidden="true"></div>
+      <div class="bb-x__burger" aria-hidden="true">
+        <img class="bb-x__slice" data-s="base" src="assets/brand/burger-base.webp" width="676" height="586" alt="">
+        <img class="bb-x__slice" data-s="patty" data-five src="" width="676" height="586" alt="" hidden>
+        <img class="bb-x__slice" data-s="cheese" data-five src="" width="676" height="586" alt="" hidden>
+        <img class="bb-x__slice" data-s="mid" data-mid src="assets/brand/burger-mid.webp" width="676" height="586" alt="">
+        <img class="bb-x__slice" data-s="sauce" data-five src="" width="676" height="586" alt="" hidden>
+        <img class="bb-x__slice" data-s="top" src="assets/brand/burger-top.webp" width="676" height="586" alt="">
+      </div>
+      <div class="bb-x__end">
+        <button class="bb-btn bb-btn--line" type="button" data-restack>Stack it back</button>
+        <a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a>
+      </div>
+    </div>
+  </section>
+  <section id="inside-payoff" class="bb-tickets g-cream" aria-label="Their burger and ours, ticket by ticket">
+    <div class="sc-wrap">
+      <div class="bb-tickets__row">
+        <div class="bb-ticket bb-ticket--theirs" role="img" aria-label="Their ticket: order 47, frozen patty, bun from a bag, sauce from a bottle, assembled in 45 seconds, stamped rushed">
+          <div class="bb-tk" aria-hidden="true">
+            <h3>ORDER #0047</h3><hr>
+            <div class="ln2"><span>1 × BURGER</span><i></i><b>COMBO</b></div>
+            <div class="ln2"><span>PATTY</span><i></i><b>FROZEN</b></div>
+            <div class="ln2"><span>BUN</span><i></i><b>FROM A BAG</b></div>
+            <div class="ln2"><span>SAUCE</span><i></i><b>FROM A BOTTLE</b></div>
+            <div class="ln2"><span>LETTUCE</span><i></i><b>PRE-SHREDDED</b></div>
+            <hr><div class="ln2"><span>TIME TO ASSEMBLE</span><i></i><b>45 SEC</b></div><hr>
+            <h3>NEXT!</h3>
+            <div class="bb-tk__stamp">RUSHED</div>
+          </div>
+        </div>
+        <div class="bb-ticket bb-ticket--ours bb-printer2">
+          <div class="bb-printer2__head" aria-hidden="true"><i></i><span>BURGER BREWERY</span></div>
+          <div class="bb-printer2__slot">
+            <div class="bb-tk" role="group" aria-label="Our ticket, order 48">
+              <h3>BURGER BREWERY · KORAMANGALA</h3>
+              <h3>ORDER #0048</h3><hr>
+              <div class="ln2" data-cfg-row="bunBakeTime"><span>BUN</span><i></i><b>BAKED EVERY MORNING</b></div>
+              <div class="ln2"><span>SAUCE</span><i></i><b>MADE HERE</b></div>
+              <div class="ln2"><span>CHEESE</span><i></i><b>MELTED INTO THE CHAR</b></div>
+              <div class="ln2"><span>PATTY</span><i></i><b>GROUND FRESH, SMASHED TO ORDER</b></div>
+              <div class="ln2"><span>BEER</span><i></i><b>CHOSEN TO MATCH</b></div>
+              <div class="ln2" data-cfg-row="cookTimeMinutes"><span>TIME</span><i></i><b><span data-cfg-val="cookTimeMinutes"></span> MIN</b></div>
+              <hr>
+              <div class="bb-tk__stamp">WORTH IT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bb-tickets__cap">Same order. Different kitchen.</p>
+    </div>
+  </section>
+
+  <!-- 5 · PAIRING PICKER -->
+  <section id="pairings" class="bb-pick g-black" aria-labelledby="pick-h">
+    <div class="sc-wrap bb-pick__wrap">
+      <h2 id="pick-h">Which beer is yours?</h2>
+      <p class="bb-pick__intro">Eight taps, always rotating. Pick a burger and we’ll pour its match.</p>
+      <div class="bb-chips" role="radiogroup" aria-label="Pick a burger">
+        <button class="bb-chip" type="button" role="radio" data-k="hop-express" aria-checked="false" tabindex="-1">Hop Express</button>
+        <button class="bb-chip" type="button" role="radio" data-k="truffle-shroom" aria-checked="false" tabindex="-1">Truffle Shroom</button>
+        <button class="bb-chip" type="button" role="radio" data-k="pesto-paneer" aria-checked="false" tabindex="-1">Pesto Paneer</button>
+        <button class="bb-chip" type="button" role="radio" data-k="nashville-hot-chicken" aria-checked="false" tabindex="-1">Nashville Hot Chicken</button>
+        <button class="bb-chip" type="button" role="radio" data-k="jalapeno-smokehouse-smash" aria-checked="false" tabindex="-1">Jalapeño Smokehouse Smash</button>
+        <button class="bb-chip" type="button" role="radio" data-k="brewery-cheeseburger" aria-checked="true" tabindex="0">The Brewery Cheeseburger</button>
+      </div>
+      <div class="bb-card" aria-live="polite">
+        <figure class="bb-photo bb-card__photo is-seen" style="margin:0"><img alt="" width="960" height="1200" loading="lazy" decoding="async"></figure>
+        <div class="bb-card__body">
+          <p class="bb-label">Your match</p>
+          <h3><span class="bb-card__burger"></span> <span class="bb-card__beer"></span></h3>
+          <p class="bb-card__meta"></p>
+          <p class="bb-card__why"></p>
+          <p class="bb-card__price"></p>
+        </div>
+      </div>
+      <div class="bb-pick__cta">
+        <a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a>
+        <button class="bb-textlink" type="button" data-tasters aria-controls="all-taps">Try four as 120ml tasters, ₹499.</button>
+      </div>
+      <details class="bb-alltaps" id="all-taps">
+        <summary>See all 8 taps</summary>
+        <!--TAPS-->
+      </details>
+    </div>
+  </section>
+
+<!--TOGETHER-->
+  <!-- 7 · THE ROOM -->
+  <section id="room" class="bb-room g-black" aria-labelledby="room-h">
+    <div class="sc-wrap">
+      <div class="bb-room__head">
+        <h2 id="room-h">A table made for <em>staying longer.</em></h2>
+        <p>An upscale diner that never takes itself too seriously. Lively, but calm enough to talk.</p>
+      </div>
+      <div class="bb-grid4">
+        <figure class="g1"><div class="bb-photo"><img data-prefer="assets/img/room-friday-1.jpg" data-alt-prefer="Guests mid-laugh at a table of burgers and glasses" data-cap-prefer="Friday, mid-laugh"
+          src="assets/photos/resp/live-kitchen-960.jpg" srcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 56vw" width="960" height="960" loading="lazy" decoding="async"
+          alt="The counter under the It’s Hearty neon, with leather bar stools"></div><figcaption>The It’s Hearty counter</figcaption></figure>
+        <figure class="g2"><div class="bb-photo"><img data-prefer="assets/img/room-chef.jpg" data-alt-prefer="A forearm on the spatula, smashing a patty on the flat top" data-cap-prefer="The smash" data-chef
+          src="assets/photos/resp/combo-960.jpg" srcset="assets/photos/resp/combo-480.webp 480w, assets/photos/resp/combo-960.webp 960w" sizes="(max-width: 860px) 46vw, 40vw" width="960" height="960" loading="lazy" decoding="async"
+          alt="A smash burger on a plate beside an it’s Hearty pint"></div><figcaption>A burger and its pint</figcaption></figure>
+        <figure class="g3"><div class="bb-photo"><img data-prefer="assets/img/room-bar.jpg" data-alt-prefer="A bartender sliding a tray of beer tasters across the bar" data-cap-prefer="Taster tray, on its way"
+          src="assets/photos/resp/beer-taps-corner-960.jpg" srcset="assets/photos/resp/beer-taps-corner-480.webp 480w, assets/photos/resp/beer-taps-corner-960.webp 960w" sizes="(max-width: 860px) 46vw, 40vw" width="960" height="720" loading="lazy" decoding="async"
+          alt="The taps corner, with the Craft On Tap board above the bar"></div><figcaption>The taps corner</figcaption></figure>
+        <figure class="g4"><div class="bb-photo"><img data-prefer="assets/img/room-booths.jpg" data-alt-prefer="The booths during service" data-cap-prefer="The booths"
+          src="assets/photos/resp/left-side-1600.jpg" srcset="assets/photos/resp/left-side-480.webp 480w, assets/photos/resp/left-side-960.webp 960w, assets/photos/resp/left-side-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 90vw" width="1600" height="1200" loading="lazy" decoding="async"
+          alt="The long bar and tan leather booths along the left side of the room" style="object-position:50% 60%"></div><figcaption>The bar and booths</figcaption></figure>
+      </div>
+      <!--SENSES-->
+      <div class="bb-proof" hidden>
+        <div class="bb-proof__score"></div>
+        <ul class="bb-proof__reviews"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · MENU -->
+  <section id="menu" class="bb-menu g-cream" aria-labelledby="menu-h">
+    <div class="sc-wrap bb-menu__inner">
+      <div class="bb-menu__lead">
+        <div>
+          <h2 id="menu-h">The menu</h2>
+          <p>Koramangala, in rupees. Every burger comes with house-made hot and sweet potato crisps.</p>
+          <div class="bb-legend"><span><i class="bb-diet bb-diet--veg"></i> Vegetarian</span><span><i class="bb-diet bb-diet--nonveg"></i> Non-vegetarian</span></div>
+        </div>
+        <div class="bb-actions"><a class="bb-btn" href="assets/burger-brewery-koramangala-menu.pdf" target="_blank" rel="noopener">Full menu (PDF)</a></div>
+      </div>
+
+      <div class="bb-hl" hidden>
+        <h3>Start here</h3>
+        <ul>
+          <li data-dish><div class="bb-photo"><img data-prefer="assets/img/dishes/hop-express.jpg" alt="Hop Express burger, from above" width="800" height="800" loading="lazy"></div><b>Hop Express <span>₹330</span></b><p>Railway-cutlet-inspired patty, lettuce, masala onion, mint mayo.</p></li>
+          <li data-dish><div class="bb-photo"><img data-prefer="assets/img/dishes/forbidden-pbj.jpg" alt="The Forbidden PBJ burger, from above" width="800" height="800" loading="lazy"></div><b>The Forbidden PBJ <span>₹650</span></b><p>Peanut butter bacon jam, white onion, Cheddar. Contains peanuts.</p></li>
+          <li data-dish><div class="bb-photo"><img data-prefer="assets/img/dishes/brewery-cheeseburger.jpg" alt="The Brewery Cheeseburger, from above" width="800" height="800" loading="lazy"></div><b>The Brewery Cheeseburger <span>₹650</span></b><p>Melted Cheddar, sautéed onions, pickles, BB Hot Mayo, garlic butter bun.</p></li>
+          <li data-dish><div class="bb-photo"><img data-prefer="assets/img/dishes/bb-dirty-fries.jpg" alt="BB Dirty Fries, from above" width="800" height="800" loading="lazy"></div><b>BB Dirty Fries <span>₹280 · 340</span></b><p>Cheddar, ranch, BB Hot Mayo, salsa, jalapeños, gherkins.</p></li>
+          <li data-dish><div class="bb-photo"><img data-prefer="assets/img/dishes/dubai-kunafa-shake.jpg" alt="The Dubai Kunafa shake, from above" width="800" height="800" loading="lazy"></div><b>The Dubai Kunafa shake <span>₹340</span></b><p>Pistachio gelato, white chocolate, toasted kunafa.</p></li>
+        </ul>
+      </div>
+
+      <nav class="bb-cattabs" aria-label="Menu categories">
+        <a href="#cat-originals">Originals</a><a href="#cat-craft">Craft rotation</a><a href="#cat-sliders">Sliders &amp; snacks</a><a href="#cat-gelato">Gelato</a><a href="#cat-staying">Staying in</a>
+      </nav>
+      <div class="bb-cats">
+        <!--P_ORIG-->
+        <!--P_CRAFT-->
+        <!--P_SLIDER-->
+        <!--P_GELATO-->
+        <article class="bb-panel bb-panel--note" id="cat-staying">
+          <div><h3>Staying in?</h3><!-- TODO verify delivery cities --><p>We deliver across <span data-cfg-cities></span>. Or see everything we make, from add-ons to cold coffee.</p></div>
+          <div class="bb-actions">
+            <a class="bb-btn" href="assets/burger-brewery-koramangala-menu.pdf" target="_blank" rel="noopener">Full menu (PDF)</a>
+            <a class="bb-btn" data-link="zomatoUrl" href="#order" target="_blank" rel="noopener">Order on Zomato</a>
+            <a class="bb-btn" data-link="swiggyUrl" href="#order" target="_blank" rel="noopener">Order on Swiggy</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · VISIT + ORDER -->
+  <section id="visit" class="bb-visit g-black" aria-labelledby="visit-h">
+    <div class="bb-visit__stage">
+      <div class="bb-visit__split">
+        <div class="bb-half">
+          <img src="assets/photos/resp/outside-1600.jpg" srcset="assets/photos/resp/outside-480.webp 480w, assets/photos/resp/outside-960.webp 960w, assets/photos/resp/outside-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="1600" height="1200" loading="lazy" decoding="async" alt="The Burger Brewery storefront in Koramangala at night">
+          <h2 id="visit-h">Pull up a chair.</h2>
+          <p>Koramangala 1st Block. <span data-cfg-show="hours">Open <span data-cfg-val="hours"></span>.</span> Weekends fill up by 8, so book ahead. <a class="bb-link" data-link="mapsUrl" href="https://maps.app.goo.gl/nVp8P1cLb46zQmfo7" target="_blank" rel="noopener">Find us on Google Maps</a>.</p>
+          <div class="bb-actions"><a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a></div>
+        </div>
+        <div class="bb-half" id="order">
+          <img data-prefer="assets/img/delivery-box.jpg" data-alt-prefer="A Burger Brewery delivery box, opened"
+            src="assets/photos/resp/combo-1600.jpg" srcset="assets/photos/resp/combo-480.webp 480w, assets/photos/resp/combo-960.webp 960w, assets/photos/resp/combo-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="1600" height="1600" loading="lazy" decoding="async"
+            alt="A smash burger on a plate beside an it’s Hearty pint">
+          <!-- TODO verify delivery cities --><p class="bb-label" data-cfg-cities-label></p>
+          <h2>Order in.</h2>
+          <p>Burgers, sliders and loaded fries, delivered.</p>
+          <div class="bb-actions">
+            <a class="bb-btn" data-link="zomatoUrl" href="#order" target="_blank" rel="noopener">Zomato</a>
+            <a class="bb-btn bb-btn--line" data-link="swiggyUrl" href="#order" target="_blank" rel="noopener">Swiggy</a>
+          </div>
+        </div>
+      </div>
+      <footer class="bb-foot">
+        <img class="bb-foot__mark" src="assets/brand/bb-stacked.png" width="353" height="500" alt="Burger Brewery" loading="lazy">
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><button type="button" data-open="dlg-franchise">Franchise with Us</button></li>
+          <li><button type="button" data-open="dlg-team">Join the Team</button></li>
+          <li><a href="assets/burger-brewery-koramangala-menu.pdf" target="_blank" rel="noopener">Menu (PDF)</a></li>
+          <li><a data-link="instagramUrl" href="https://www.instagram.com/burger.brewery/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a data-link="linkedinUrl" href="#visit" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+        <small>© 2026 Burger Brewery. Please drink responsibly.</small>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<div class="bb-sticky" aria-label="Book a table">
+  <span class="bb-sticky__hours" data-cfg-show="hours">Open today <span data-cfg-val="hours"></span></span>
+  <a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a>
+</div>
+
+<!--DIALOGS-->
+<script src="config/site.js"></script>
+<script src="scrollcraft.js"></script>
+<script>
+ScrollCraft.mount(document.body);
+(function () {
+  "use strict";
+  var CFG = window.BB_CONFIG || {};
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var PH = /[?&]placeholders=1\b/.test(location.search);
+  var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+  var sm = function (t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); };
+  var win = function (p, a, b) { return reduce ? 1 : sm((p - a) / (b - a)); };
+  var has = function (v) { return v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && !v.length); };
+
+  /* ---------- asset probing: preferred file, else fallback, else hide, or a labelled frame in ?placeholders=1 ---------- */
+  var probeCache = {};
+  function probeImg(url) {
+    if (!probeCache[url]) probeCache[url] = new Promise(function (res) { var i = new Image(); i.onload = function () { res(true); }; i.onerror = function () { res(false); }; i.src = url; });
+    return probeCache[url];
+  }
+  function probeFile(url) {
+    if (!probeCache[url]) probeCache[url] = fetch(url, { method: "HEAD" }).then(function (r) { return r.ok; }).catch(function () { return false; });
+    return probeCache[url];
+  }
+  function phFrame(el, url) {
+    el.style.visibility = "hidden";
+    var host = el.closest(".bb-photo") || el.parentElement;
+    if (getComputedStyle(host).position === "static") host.style.position = "relative";
+    if (host.querySelector(".bb-ph")) return;
+    var d = document.createElement("div"); d.className = "bb-ph"; d.innerHTML = "<span><b>PLACEHOLDER</b>" + url + "</span>"; host.appendChild(d);
+  }
+  function resolveImg(img) {
+    var url = img.getAttribute("data-prefer");
+    return probeImg(url).then(function (ok) {
+      if (ok) {
+        img.removeAttribute("srcset"); img.removeAttribute("sizes"); img.src = url;
+        if (img.dataset.altPrefer) img.alt = img.dataset.altPrefer;
+        var cap = img.closest("figure") && img.closest("figure").querySelector("figcaption");
+        if (cap && img.dataset.capPrefer) cap.textContent = img.dataset.capPrefer;
+        if (cap && img.hasAttribute("data-chef") && has(CFG.chefName)) cap.textContent = "Smashed by " + CFG.chefName + ".";
+        return true;
+      }
+      if (PH) { phFrame(img, url); return "frame"; }
+      return false;
+    });
+  }
+
+  /* ---------- config wiring ---------- */
+  document.querySelectorAll("[data-link]").forEach(function (a) {
+    var url = CFG[a.getAttribute("data-link")];
+    if (has(url)) a.href = url; else a.hidden = true;   // unknown destination: hide the button, never link to a guess
+  });
+  var vis = { cookTimeMinutes: CFG.cookTimeMinutes, bunBakeTime: CFG.bunBakeTime, hours: CFG.hours };
+  document.querySelectorAll("[data-cfg-row]").forEach(function (el) { if (!has(vis[el.getAttribute("data-cfg-row")])) el.remove(); });
+  document.querySelectorAll("[data-cfg-show]").forEach(function (el) { if (!has(vis[el.getAttribute("data-cfg-show")])) el.remove(); });
+  document.querySelectorAll("[data-cfg-val]").forEach(function (el) { el.textContent = String(vis[el.getAttribute("data-cfg-val")] || ""); });
+  var cities = (CFG.deliveryCities || []).slice();
+  var cityText = cities.length > 1 ? cities.slice(0, -1).join(", ") + " and " + cities[cities.length - 1] : cities.join("");
+  document.querySelectorAll("[data-cfg-cities]").forEach(function (el) { if (cities.length) el.textContent = cityText; else el.closest("p").remove(); });
+  document.querySelectorAll("[data-cfg-cities-label]").forEach(function (el) { if (cities.length) el.textContent = cities.join(" · "); else el.remove(); });
+  if (!has(CFG.bunBakeTime)) { /* row already removed */ }
+
+  /* ---------- hero: video loop if it exists, still otherwise ---------- */
+  (function () {
+    var host = document.querySelector(".bb-kitchen"), still = host.querySelector("img");
+    probeImg("assets/img/hero-poster.jpg").then(function (ok) { if (ok) { still.removeAttribute("srcset"); still.src = "assets/img/hero-poster.jpg"; } });
+    if (reduce) return;
+    Promise.all([probeFile("assets/video/hero-loop.webm"), probeFile("assets/video/hero-loop.mp4")]).then(function (r) {
+      if (!r[0] && !r[1]) {
+        if (PH) { var n = document.createElement("div"); n.className = "bb-ph-note"; n.textContent = "PLACEHOLDER: assets/video/hero-loop.mp4 / .webm (still shown)"; document.getElementById("top").appendChild(n); }
+        return;
+      }
+      var v = document.createElement("video");
+      v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true"); v.setAttribute("preload", "auto");
+      v.poster = still.currentSrc || still.src;
+      if (r[0]) { var s1 = document.createElement("source"); s1.src = "assets/video/hero-loop.webm"; s1.type = "video/webm"; v.appendChild(s1); }
+      if (r[1]) { var s2 = document.createElement("source"); s2.src = "assets/video/hero-loop.mp4"; s2.type = "video/mp4"; v.appendChild(s2); }
+      v.addEventListener("playing", function () { still.style.opacity = 0; });
+      host.appendChild(v); v.play && v.play().catch(function () {});
+    });
+  })();
+
+  /* ---------- about: optional image slot ---------- */
+  document.querySelectorAll("[data-slot]").forEach(function (fig) {
+    var img = fig.querySelector("img[data-prefer]");
+    resolveImg(img).then(function (r) { if (r) { fig.hidden = false; } else { fig.closest(".bb-about__grid") && fig.closest(".bb-about__grid").classList.add("is-solo"); } });
+  });
+
+  /* ---------- room, order panel ---------- */
+  document.querySelectorAll(".bb-grid4 img[data-prefer], #order img[data-prefer]").forEach(resolveImg);
+
+  /* ---------- menu highlights: show if at least 3 photos exist ---------- */
+  (function () {
+    var row = document.querySelector(".bb-hl"), cards = [].slice.call(row.querySelectorAll("[data-dish]"));
+    Promise.all(cards.map(function (li) { return resolveImg(li.querySelector("img")); })).then(function (r) {
+      var real = r.filter(function (x) { return x === true; }).length;
+      if (PH) { row.hidden = false; return; }
+      cards.forEach(function (li, i) { li.hidden = r[i] !== true; });
+      row.hidden = real < 3;
+    });
+  })();
+
+  /* ---------- menu: R&D vote card ---------- */
+  (function () {
+    var list = CFG.rnd || [], craft = document.getElementById("cat-craft");
+    if (!list.length && !PH) return;
+    var box = document.createElement("div"); box.className = "bb-rnd";
+    var items = list.length ? list : [{ name: "R&D burger one", line: "config rnd[0]", image: "assets/img/rnd/one.jpg" }, { name: "R&D burger two", line: "config rnd[1]", image: "assets/img/rnd/two.jpg" }];
+    box.innerHTML = "<h4>In R&amp;D now. Only one stays.</h4><ul></ul>";
+    items.slice(0, 2).forEach(function (it) {
+      var li = document.createElement("li");
+      if (it.image) { var im = document.createElement("img"); im.alt = it.name; im.loading = "lazy"; im.setAttribute("data-prefer", it.image); li.appendChild(im); probeImg(it.image).then(function (ok) { if (ok) im.src = it.image; else if (PH) { li.style.position = "relative"; phFrame(im, it.image); } else im.remove(); }); }
+      var b = document.createElement("b"); b.textContent = it.name; li.appendChild(b);
+      var s = document.createElement("span"); s.textContent = it.line || ""; li.appendChild(s);
+      box.querySelector("ul").appendChild(li);
+    });
+    if (has(CFG.instagramUrl)) { var a = document.createElement("a"); a.className = "bb-btn"; a.href = CFG.instagramUrl; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Vote on Instagram"; box.appendChild(a); }
+    craft.appendChild(box);
+  })();
+
+  /* ---------- room: proof strip (real data only) ---------- */
+  (function () {
+    var strip = document.querySelector(".bb-proof"), g = CFG.googleRating, rev = (CFG.reviews || []).filter(function (r) { return r && r.quote && r.name; });
+    if (!has(g) && !rev.length) return;
+    if (has(g)) {
+      var sc = strip.querySelector(".bb-proof__score");
+      sc.innerHTML = ""; var a = document.createElement(g.url ? "a" : "span"); if (g.url) { a.href = g.url; a.target = "_blank"; a.rel = "noopener"; a.style.color = "inherit"; }
+      a.textContent = String(g.score); sc.appendChild(a);
+      var sm2 = document.createElement("small"); sm2.textContent = "on Google" + (g.count ? ", from " + g.count.toLocaleString("en-IN") + " reviews" : ""); sc.appendChild(sm2);
+    } else strip.querySelector(".bb-proof__score").remove();
+    var ul = strip.querySelector("ul");
+    rev.slice(0, 3).forEach(function (r) {
+      var li = document.createElement("li"), q = document.createElement("blockquote"), c = document.createElement("cite");
+      q.textContent = "“" + r.quote + "”"; c.textContent = r.name + (r.source ? ", " + r.source : "");
+      if (r.url) { var l = document.createElement("a"); l.href = r.url; l.target = "_blank"; l.rel = "noopener"; l.style.color = "inherit"; l.appendChild(c); li.appendChild(q); li.appendChild(l); } else { li.appendChild(q); li.appendChild(c); }
+      ul.appendChild(li);
+    });
+    if (!rev.length) ul.remove();
+    strip.hidden = false;
+  })();
+
+  /* ---------- 5 · pairing picker ---------- */
+  var TAPS = {
+    pils:   { name: "Pilsner", brewery: "Mannheim", style: "Pilsner", abv: "4.8%", price: "₹379" },
+    banger: { name: "Banger Lager", brewery: "Toit", style: "Lager", abv: "4.5%", price: "₹379" },
+    surfer: { name: "Soul Surfer", brewery: "Red Rhino", style: "Hefeweizen", abv: "4.9%", price: "₹399" },
+    witty:  { name: "Witty Wit", brewery: "Geist", style: "Witbier", abv: "5%", price: "₹449" },
+    neipa:  { name: "New England IPA", brewery: "Mannheim", style: "Hazy IPA", abv: "6.8%", price: "₹379" },
+    nitro:  { name: "Nitro Stout", brewery: "Toit", style: "Nitro stout", abv: "4.5%", price: "₹379" }
+  };
+  var PAIRS = {
+    // TODO chef approval: draft why-line
+    "hop-express":               { burger: "Hop Express", burgerPrice: "₹330", tap: "neipa", why: "Tropical hops meet mint and masala.", draft: true },
+    // TODO chef approval: draft why-line
+    "truffle-shroom":            { burger: "Truffle Shroom", burgerPrice: "₹480", tap: "nitro", why: "Roasty and creamy, made for earthy truffle.", draft: true },
+    "pesto-paneer":              { burger: "Pesto Paneer", tap: "witty", why: "Citrus and wheat lift the fresh pesto.", pairPrice: "₹720" },
+    "nashville-hot-chicken":     { burger: "Nashville Hot Chicken", tap: "pils", why: "Sharp crispness cuts through the heat.", pairPrice: "₹770" },
+    // TODO chef approval: draft why-line
+    "jalapeno-smokehouse-smash": { burger: "Jalapeño Smokehouse Smash", burgerPrice: "₹480", tap: "surfer", why: "Soft wheat and clove calm the jalapeño burn.", draft: true },
+    "brewery-cheeseburger":      { burger: "The Brewery Cheeseburger", tap: "banger", why: "The classic pairing. Cold, clean and easy.", pairPrice: "₹920" }
+  };
+  (function () {
+    var group = document.querySelector(".bb-chips"), chips = [].slice.call(group.querySelectorAll(".bb-chip")), card = document.querySelector(".bb-card");
+    var img = card.querySelector("img"), current = null;
+    function fill(k) {
+      var d = PAIRS[k], t = TAPS[d.tap];
+      card.querySelector(".bb-card__burger").textContent = d.burger + " +";
+      card.querySelector(".bb-card__beer").textContent = t.name;
+      card.querySelector(".bb-card__meta").textContent = t.style + " · " + t.abv + " ABV · " + t.brewery;
+      card.querySelector(".bb-card__why").textContent = d.why;
+      card.querySelector(".bb-card__price").textContent = d.pairPrice ? "Together, " + d.pairPrice : "Burger " + d.burgerPrice + " · Beer " + t.price;
+      var url = "assets/img/pairings/" + k + ".jpg", host = card.querySelector(".bb-card__photo"), old = host.querySelector(".bb-ph"); if (old) old.remove();
+      probeImg(url).then(function (ok) {
+        if (ok) { img.style.visibility = ""; img.removeAttribute("srcset"); img.src = url; img.alt = d.burger + " with a glass of " + t.name; }
+        else {
+          img.src = "assets/photos/resp/combo-960.jpg"; img.srcset = "assets/photos/resp/combo-480.webp 480w, assets/photos/resp/combo-960.webp 960w"; img.sizes = "(max-width: 760px) 90vw, 380px";
+          img.alt = "A smash burger beside an it’s Hearty pint"; img.style.visibility = "";
+          if (PH) phFrame(img, url);
+        }
+      });
+    }
+    function select(k, focus) {
+      if (k === current) return; current = k;
+      chips.forEach(function (c) { var on = c.dataset.k === k; c.setAttribute("aria-checked", on); c.tabIndex = on ? 0 : -1; if (on && focus) c.focus(); });
+      if (reduce) { fill(k); return; }
+      card.classList.add("is-swapping"); setTimeout(function () { fill(k); card.classList.remove("is-swapping"); }, 220);
+    }
+    chips.forEach(function (c, i) {
+      c.addEventListener("click", function () { select(c.dataset.k, false); });
+      c.addEventListener("keydown", function (e) {
+        var n = null;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") n = (i + 1) % chips.length;
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") n = (i - 1 + chips.length) % chips.length;
+        if (e.key === "Home") n = 0; if (e.key === "End") n = chips.length - 1;
+        if (n !== null) { e.preventDefault(); select(chips[n].dataset.k, true); }
+      });
+    });
+    current = "brewery-cheeseburger"; fill(current);
+    document.querySelector("[data-tasters]").addEventListener("click", function () {
+      var d = document.getElementById("all-taps"); d.open = true; d.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); d.querySelector("summary").focus({ preventScroll: true });
+    });
+  })();
+
+  /* ---------- head bar ---------- */
+  var nav = document.querySelector(".bb-nav"), toggle = document.querySelector(".bb-burgerbtn");
+  toggle.addEventListener("click", function () { var open = nav.classList.toggle("is-open"); toggle.setAttribute("aria-expanded", open); toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation"); });
+  nav.querySelectorAll("ul a, ul button").forEach(function (el) { el.addEventListener("click", function () { nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); }); });
+
+  /* ---------- dialogs ---------- */
+  document.querySelectorAll("[data-open]").forEach(function (b) { b.addEventListener("click", function () { var d = document.getElementById(b.getAttribute("data-open")); if (d && !d.open) d.showModal(); }); });
+  document.querySelectorAll("dialog [data-close]").forEach(function (b) { b.addEventListener("click", function () { b.closest("dialog").close(); }); });
+  document.querySelectorAll("dialog.bb-dialog:not(.bb-age)").forEach(function (d) { d.addEventListener("click", function (e) { if (e.target === d) d.close(); }); });
+
+  /* ---------- forms: honest until a backend exists ---------- */
+  var FORM_ENDPOINT = null;
+  document.querySelectorAll("form[data-form]").forEach(function (f) {
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = f.querySelector(".bb-form__status");
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      if (!FORM_ENDPOINT) {
+        var name = (f.elements.name && f.elements.name.value.trim().split(" ")[0]) || "there";
+        status.textContent = "Thanks, " + name + ". This form isn’t connected to our inbox yet, so nothing was sent. Please message us on Instagram @burger.brewery for now.";
+        return;
+      }
+    });
+  });
+
+  /* ---------- age gate: 30 days. ?qa skips it for automated checks. ---------- */
+  (function () {
+    var d = document.getElementById("dlg-age"), KEY = "bb-age-ok", ok = false;
+    try { ok = Date.now() - Number(localStorage.getItem(KEY) || 0) < 30 * 864e5; } catch (e) {}
+    if (ok || /[?&]qa\b/.test(location.search)) return;
+    d.addEventListener("cancel", function (e) { e.preventDefault(); });
+    d.showModal();
+    d.querySelector('[data-age="yes"]').addEventListener("click", function () { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} d.close(); });
+    d.querySelector('[data-age="no"]').addEventListener("click", function () {
+      d.querySelector("[data-age-q]").textContent = "Then the beer will have to wait. Come back when you’re of age. The burgers will still be here.";
+      d.querySelector("[data-age-a]").hidden = true;
+    });
+  })();
+
+  /* ---------- photos: blur to focus ---------- */
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-seen"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -12% 0px" });
+  document.querySelectorAll(".bb-photo").forEach(function (el) { io.observe(el); });
+
+  function pinP(el) { var r = el.getBoundingClientRect(), t = Math.max(1, el.offsetHeight - innerHeight); return clamp(-r.top / t, 0, 1); }
+  // progress that starts while the section scrolls in, then continues through the pin
+  function scrubP(el, lead) { var r = el.getBoundingClientRect(), L = lead * innerHeight, t = Math.max(0, el.offsetHeight - innerHeight); return clamp((L - r.top) / (L + t), 0, 1); }
+  function near(el) { var r = el.getBoundingClientRect(); return r.bottom > -innerHeight * 0.5 && r.top < innerHeight * 1.5; }
+
+  /* ---------- 1 · hero planes ---------- */
+  var hero = document.getElementById("top");
+  var planes = [].map.call(hero.querySelectorAll("[data-depth]"), function (el) { var k = el.getAttribute("data-depth"); return { el: el, lag: { far: 0.36, front: -0.2 }[k], mx: { far: 6, front: 26 }[k] }; });
+  var pmx = 0, pmy = 0, tmx = 0, tmy = 0;
+  if (fine && !reduce) hero.addEventListener("pointermove", function (e) { tmx = e.clientX / innerWidth - 0.5; tmy = e.clientY / innerHeight - 0.5; });
+  function heroFrame(y) {
+    if (reduce) return;
+    pmx += (tmx - pmx) * 0.08; pmy += (tmy - pmy) * 0.08;
+    var hs = clamp(y, 0, hero.offsetHeight);
+    planes.forEach(function (pl) { pl.el.style.transform = "translate3d(" + (pmx * pl.mx) + "px," + (hs * pl.lag + pmy * pl.mx * 0.6) + "px,0)"; });
+  }
+
+  /* ---------- 3 · the rush (unchanged behaviour) ---------- */
+  var R = document.getElementById("problem"), receipt = R.querySelector(".bb-receipt"), timer = R.querySelector(".bb-timer"), stamp = R.querySelector(".bb-stamp");
+  var rl = R.querySelectorAll(".bb-rush__lines p");
+  function rushFrame(p) {
+    receipt.style.transform = "translateY(" + (-100 + 100 * win(p, 0.02, 0.45)) + "%)";
+    var secs = reduce ? 0 : Math.max(0, Math.round(45 * (1 - win(p, 0.08, 0.78))));
+    timer.textContent = "00:" + (secs < 10 ? "0" : "") + secs;
+    var s = win(p, 0.7, 0.78); stamp.style.opacity = s; stamp.style.scale = 1.6 - 0.6 * s;
+    rl[0].classList.toggle("is-on", reduce || p > 0.04); rl[1].classList.toggle("is-on", reduce || p > 0.3); rl[2].classList.toggle("is-on", reduce || p > 0.58);
+    R.classList.toggle("is-rushing", !reduce && p > 0.06 && p < 0.78);
+  }
+
+  /* ---------- 4 · inside: 5 slices if the files exist, else the 3-slice cut ---------- */
+  var X = document.getElementById("inside"), xStage = X.querySelector("[data-sc-stage]");
+  var rows = [].slice.call(X.querySelectorAll(".bb-x__row"));
+  var burgerBox = X.querySelector(".bb-x__burger"), ringEl = X.querySelector(".bb-x__ring"), endRow = X.querySelector(".bb-x__end");
+  var S = function (n) { return X.querySelector('.bb-x__slice[data-s="' + n + '"]'); };
+  var order = ["top", "mid", "base"], rowMap = ["top", "mid", "mid", "mid", "base"];
+  var G = {}, manual = -1, manualY = 0, restacked = false, restackY = 0;
+  Promise.all(["sauce", "cheese", "patty"].map(function (n) { return probeImg("assets/img/burger-" + n + ".png"); })).then(function (r) {
+    if (r.every(Boolean)) {
+      ["sauce", "cheese", "patty"].forEach(function (n) { var el = S(n); el.src = "assets/img/burger-" + n + ".png"; el.hidden = false; });
+      S("mid").hidden = true; X.classList.add("is-five");
+      order = ["top", "sauce", "cheese", "patty", "base"]; rowMap = ["top", "sauce", "cheese", "patty", "base"];
+    }
+  });
+  ["top", "base"].forEach(function (n) { var u = "assets/img/burger-" + n + ".png"; probeImg(u).then(function (ok) { if (ok) S(n).src = u; }); });
+  function layoutX() {
+    var W = xStage.clientWidth, H = xStage.clientHeight, narrow = W < 861, head = 68, bw, cx, top, avail;
+    if (narrow) {
+      var colTop = X.querySelector(".bb-x__col").getBoundingClientRect().top - xStage.getBoundingClientRect().top;
+      top = head + 10; avail = Math.max(200, colTop - top - 10); cx = W / 2 - 12; bw = Math.min(W * 0.84, avail / (586 / 676 * 1.5));
+    } else {
+      top = head + Math.max(20, H * 0.04); avail = H - top - 110; cx = W * 0.7 - 20; bw = Math.min(600, W * 0.42, avail / (586 / 676 * 1.45));
+    }
+    var bh = bw * 586 / 676;
+    G = { bw: bw, bh: bh, g: Math.min(bh * 0.24, (avail - bh) / 2), narrow: narrow };
+    burgerBox.style.width = bw + "px"; burgerBox.style.left = (cx - bw / 2) + "px"; burgerBox.style.top = (top + (avail - bh) / 2) + "px";
+    var rr = bh * 1.12; ringEl.style.width = ringEl.style.height = rr + "px"; ringEl.style.left = (cx - rr / 2) + "px"; ringEl.style.top = (top + avail / 2 - rr / 2) + "px";
+    endRow.style.left = (cx - 150) + "px"; endRow.style.top = (top + avail + 18) + "px";
+  }
+  function insideFrame(p) {
+    var e = restacked ? 0 : win(p, 0.04, 0.3), n = rows.length;
+    var a0 = 0.32, activeRow = manual >= 0 ? manual : (reduce ? -1 : (p > a0 ? clamp(Math.floor((p - a0) / (0.9 - a0) * n), 0, n - 1) : -1));
+    var activeSlice = activeRow >= 0 ? rowMap[activeRow] : null, k = order.length, mid = (k - 1) / 2;
+    order.forEach(function (name, i) {
+      var el = S(name), off = (i - mid) * (G.g / mid) * e, rot = (i === 0 ? -3 : i === k - 1 ? 2.4 : (i % 2 ? 1.2 : -1)) * e;
+      var dx = (name === activeSlice ? (G.narrow ? 8 : 22) : 0) * e;
+      el.style.transform = "translate3d(" + dx + "px," + off + "px,0) rotate(" + rot + "deg)";
+      el.classList.toggle("is-active", name === activeSlice);
+    });
+    rows.forEach(function (r, i) { r.classList.toggle("is-active", activeRow < 0 || i === activeRow); });
+    ringEl.style.opacity = 0.9 * (1 - e);
+    var eo = win(p, 0.88, 0.96); endRow.style.opacity = restacked ? 1 : eo; endRow.classList.toggle("is-hidden", !reduce && !restacked && eo < 0.02);
+  }
+  X.querySelector("[data-restack]").addEventListener("click", function () {
+    if (reduce) return; restacked = true; restackY = scrollY; manual = -1; X.classList.add("is-restacking");
+    X.querySelector("[data-restack]").textContent = "Take it apart"; setTimeout(function () { X.classList.remove("is-restacking"); }, 700);
+  });
+  rows.forEach(function (r, i) { r.addEventListener("click", function () { manual = manual === i ? -1 : i; manualY = scrollY; }); });
+
+  /* ---------- 4b · our ticket prints when it comes into view ---------- */
+  (function () {
+    var ours = document.querySelector(".bb-ticket--ours");
+    if (reduce || !("IntersectionObserver" in window)) { ours.classList.add("is-printed"); return; }
+    document.documentElement.classList.add("js-print");
+    var lines = [].slice.call(ours.querySelectorAll(".ln2")), st = ours.querySelector(".bb-tk__stamp");
+    var tio = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return; tio.disconnect();
+      ours.classList.add("is-printed");
+      lines.forEach(function (l, i) { setTimeout(function () { l.style.opacity = 1; }, 700 + i * 220); });
+      setTimeout(function () { st.style.opacity = 1; st.style.scale = 1; }, 900 + lines.length * 220);
+    }, { threshold: 0.45 });
+    tio.observe(ours);
+  })();
+
+  /* ---------- menu: sticky category tabs (mobile) ---------- */
+  (function () {
+    var tabs = [].slice.call(document.querySelectorAll(".bb-cattabs a"));
+    var mio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) tabs.forEach(function (t) { var on = t.getAttribute("href") === "#" + e.target.id; if (on) t.setAttribute("aria-current", "true"); else t.removeAttribute("aria-current"); if (on && t.scrollIntoView && matchMedia("(max-width: 767px)").matches) t.parentNode.scrollLeft = t.offsetLeft - 20; }); });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    tabs.forEach(function (t) { var s = document.querySelector(t.getAttribute("href")); if (s) mio.observe(s); });
+  })();
+
+  /* ---------- sticky booking bar (mobile) ---------- */
+  var bar = document.querySelector(".bb-sticky"), visitEl = document.getElementById("visit");
+  function barFrame() {
+    var heroGone = hero.getBoundingClientRect().bottom < 0, vr = visitEl.getBoundingClientRect(), inVisit = vr.top < innerHeight && vr.bottom > 0;
+    var on = heroGone && !inVisit && bar.querySelector(".bb-btn") && !bar.querySelector(".bb-btn").hidden;
+    bar.classList.toggle("is-on", !!on); document.body.classList.toggle("has-bar", !!on && innerWidth < 768);
+  }
+
+  /* ---------- side index ---------- */
+  var idx = [].map.call(document.querySelectorAll(".bb-index a"), function (a) { return { a: a, sec: document.getElementById(a.getAttribute("data-idx")) }; });
+  function indexFrame() {
+    var vh = innerHeight, current = null;
+    idx.forEach(function (it) { var reached = it.sec.getBoundingClientRect().top < vh * 0.6; it.a.classList.toggle("is-in", reached); if (reached) current = it; });
+    idx.forEach(function (it) { if (it === current) it.a.setAttribute("aria-current", "true"); else it.a.removeAttribute("aria-current"); });
+  }
+
+  function frame() {
+    var y = scrollY;
+    heroFrame(y);
+    if (near(R)) rushFrame(scrubP(R, 0.75));
+    if (restacked && Math.abs(y - restackY) > 6) { restacked = false; X.querySelector("[data-restack]").textContent = "Stack it back"; }
+    if (manual >= 0 && Math.abs(y - manualY) > 140) manual = -1;
+    if (near(X)) insideFrame(scrubP(X, 0.6));
+    barFrame(); indexFrame();
+    requestAnimationFrame(frame);
+  }
+  addEventListener("resize", layoutX);
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(layoutX);
+  layoutX(); rushFrame(scrubP(R, 0.75)); insideFrame(scrubP(X, 0.6));
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
