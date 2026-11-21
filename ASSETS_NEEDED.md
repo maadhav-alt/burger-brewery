@@ -69,3 +69,17 @@ Keep the original, and add WebP versions at 480, 960 and 1600 px wide next to it
 | `assets/craft/med-beet.png` + `.webp`, `assets/craft/jam-session.png` + `.webp` | Drops, In rotation now | Same style as forbidden-pbj / blr-ghee-roast-pull (burger on its plate, cut out) | "Photo coming soon" card |
 
 **Update (round 5):** all six pairing burgers are in. Pesto Paneer, Truffle Shroom, Nashville Hot Chicken and Jalapeño Smokehouse Smash are cut out from the SKU shots in Drive. Oklahoma Smash uses a phone photo from the Koramangala pass, cropped with a soft oval fade; swap in a red-backdrop SKU shot when one exists. Still needed: Med Beet and Jam Session photos for the Drops cards.
+
+## TODO: franchise follow-up automation (decide later)
+
+Goal: when someone submits the Franchise form, an email from partnerships@burgerbrewery.com goes to the email they entered. It carries our copy plus a link to a Google Form with background questions. The Form answers are also saved in Supabase.
+
+Already in place: the Franchise form saves to the Supabase `enquiries` table (`kind = franchise`). Nothing emails yet.
+
+Open decisions:
+- [ ] Where partnerships@burgerbrewery.com lives (Google Workspace, another host, or not created yet). This picks the sending route: Apps Script on that Google account, or Resend with DNS records on burgerbrewery.com.
+- [ ] The email copy (subject and body). Not written. Nothing sends until it is approved, so no placeholder text reaches anyone.
+- [ ] The franchise Google Form questions: background, city and location plans, investment capacity, experience, timeline. Owner to confirm the list.
+- [ ] Whether to copy partnerships@ on each send, and what to do about repeat submissions.
+
+Build steps once decided: a `franchise_applications` table (insert-only for the public key), the Google Form with an Apps Script that writes each response to it, and a send step triggered by a new franchise enquiry, with a single on/off switch. Any API key or secret is pasted in by the owner, never into the repo.
