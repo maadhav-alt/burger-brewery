@@ -1885,14 +1885,14 @@ ScrollCraft.mount(document.body);
     }
     function openGrid(focus) {
       grid.hidden = false; openBtn.setAttribute("aria-expanded", "true");
-      if (!current) play("brewery-cheeseburger");
+      if (!current) play("oklahoma-smash");
       if (focus) { var f = grid.querySelector('[aria-pressed="true"]') || grid.querySelector(".bb-pb"); f.focus({ preventScroll: true }); }
     }
     openBtn.addEventListener("click", function () { if (grid.hidden) openGrid(true); else { grid.hidden = true; openBtn.setAttribute("aria-expanded", "false"); } });
     document.querySelectorAll("[data-open-pairs]").forEach(function (a) { a.addEventListener("click", function () { openGrid(false); }); });
     if (location.hash === "#pairings") openGrid(false);
     // the default pair plays once when the stage first comes into view
-    onceInView(stage, function () { if (!current) play("brewery-cheeseburger"); }, 0);
+    onceInView(stage, function () { if (!current) play("oklahoma-smash"); }, 0);
   })();
 
   /* ---------- pairing clip: loads and plays (muted) while in view, pauses when it scrolls away; a visitor's own pause is respected ---------- */
