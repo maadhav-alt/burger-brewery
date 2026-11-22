@@ -167,9 +167,9 @@
     onceInView(stage, function () { if (!current) play("oklahoma-smash"); }, 0);
   })();
 
-  /* ---------- pairing clip: loads and plays (muted) while in view, pauses when it scrolls away; a visitor's own pause is respected ---------- */
-  (function () {
-    var v = document.querySelector(".bb-pair__reel video"); if (!v || !("IntersectionObserver" in window)) return;
+  /* ---------- clips (pairing + community): load and play muted while in view, pause when scrolled away; a visitor's own pause is respected ---------- */
+  [].slice.call(document.querySelectorAll("video[data-src]")).forEach(function (v) {
+    if (!("IntersectionObserver" in window)) return;
     var loaded = false, mine = false, userPaused = false;
     function load() { if (!loaded) { loaded = true; v.src = v.getAttribute("data-src"); } }
     v.addEventListener("pause", function () { if (!mine) userPaused = true; });
@@ -180,7 +180,7 @@
         if (!reduce && !userPaused && e.intersectionRatio > 0.5) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
       } else if (!v.paused) { mine = true; v.pause(); mine = false; }
     }, { threshold: [0, 0.5], rootMargin: "300px 0px" }).observe(v);
-  })();
+  });
 
   /* ---------- nav: Locations menu ---------- */
   (function () {

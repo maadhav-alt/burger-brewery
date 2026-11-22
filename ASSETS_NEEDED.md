@@ -102,3 +102,8 @@ Build steps once decided: a `franchise_applications` table (insert-only for the 
 - Craft on Tap art (`assets/lineart/tap-clear-960.webp`, `tap-handle.webp`): made from the engraved tap on page 5 of the menu with the glass interior cleared and the handle cut out. The hand is drawn in SVG (`src/p3_tap.html`). If a designer redraws the hand, replace the `tp-hand` group.
 - Menu line art (`assets/menuart/*.webp`) is redrawn from the menu PDF's vector art. More available on the PDF: tasting flight (p6), dirty fries (p7), Dubai kunafa shake (p8), cookie skillet (p9).
 - Community button now uses a real burger photo (`assets/photos/join-burger.webp`, cropped from the cheeseburger carousel slide).
+
+## Community clip, pairing button, stamp (added 2026-11-22)
+- `assets/video/community.mp4` (14.5 s, 4 MB, from `Burger_Brewery_Website_FORGE/Community/`) plays muted inside the BBY community card when it scrolls into view and pauses when it leaves. Poster: `community-poster.webp` (a frame from the clip). Captions are burned into the picture; TODO: a separate .vtt captions file. Keep it off the delivery page (it shows beer).
+- Do Together stamp in the hero is bigger (138 px desktop, 104 px phone).
+- "Click to find what pairs." is now a pill with burger and pint badges that clink on hover, plus a slow pulse and shine (all off for reduced-motion).
