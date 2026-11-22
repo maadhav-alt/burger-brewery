@@ -36,6 +36,8 @@
         <div>
           <h2 id="pair-h"><span>Burger</span> <span class="hrt" aria-hidden="true"><i>×</i></span><span class="bb-vh">heart</span> <span class="bw">beer.</span></h2>
           <p class="bb-pair__lead">Some things are better together. Burgers and beers are one of them.</p>
+          <!-- Pairing clip (Oklahoma Smash + Kolsch): starts muted when it scrolls into view, stops when it leaves. Captions are burned into the picture. TODO: add a .vtt captions file. -->
+          <figure class="bb-pair__reel"><video muted loop playsinline controls controlslist="nodownload" preload="none" poster="assets/video/pairing-reel-poster.webp" data-src="assets/video/pairing-reel.mp4" width="478" height="850" aria-label="A 14-second clip: the Oklahoma Smash paired with a Kolsch. Muted, with captions; press the speaker for sound."></video></figure>
           <button class="bb-btn bb-pair__open" type="button" aria-expanded="false" aria-controls="pair-grid" data-pairs-open>Click to find what pairs.</button>
         </div>
         <img class="bb-pair__badge" src="assets/brand/stamp-do-together.webp" width="600" height="597" alt="Do Together. Burgers, beers, good times." loading="lazy" decoding="async">
@@ -52,10 +54,9 @@
         <p class="bb-pair__beername"></p>
         <p class="bb-pair__desc"></p>
         <div class="bb-pair__note"><b>Why it works</b><p class="bb-pair__why"></p></div>
-        <button class="bb-textlink bb-pair__watch" type="button" data-open="dlg-reel" hidden>Watch this pairing</button>
         <p class="bb-vh">This is the perfect pair.</p>
       </div>
-      <div class="bb-pair__cta"><a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a> <button class="bb-textlink" type="button" data-open="dlg-reel">Watch Oklahoma Smash + Kolsch</button> <a class="bb-textlink" href="#craft-on-tap">See what’s on tap</a></div>
+      <div class="bb-pair__cta"><a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a> <a class="bb-textlink" href="#craft-on-tap">See what’s on tap</a></div>
       <figure class="bb-pair__photo"><img src="assets/photos/pairing-cheeseburger-lager-540.webp" srcset="assets/photos/pairing-cheeseburger-lager-540.webp 540w, assets/photos/pairing-cheeseburger-lager.webp 1080w" sizes="(max-width: 700px) 90vw, 420px" width="1080" height="1350" loading="lazy" decoding="async" alt="The Brewery Cheeseburger beside a pint of lager, each marked with a hand-drawn arrow and label"><figcaption>The Brewery Cheeseburger + Lager</figcaption></figure>
     </div>
   </section>

@@ -139,7 +139,6 @@
       res.querySelector(".bb-pair__beername").textContent = "+ " + p.beer;
       res.querySelector(".bb-pair__desc").textContent = p.desc;
       res.querySelector(".bb-pair__why").textContent = p.why;
-      var watch = res.querySelector(".bb-pair__watch"); if (watch) watch.hidden = p.k !== "oklahoma-smash";   // the clip is about this pairing
       grid.querySelectorAll(".bb-pb").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.k === p.k)); });
     }
     function play(k) {
@@ -168,17 +167,19 @@
     onceInView(stage, function () { if (!current) play("brewery-cheeseburger"); }, 0);
   })();
 
-  /* ---------- pairing clip pop-up: video is set on first open, plays on the click, stops and rewinds on close ---------- */
+  /* ---------- pairing clip: loads and plays (muted) while in view, pauses when it scrolls away; a visitor's own pause is respected ---------- */
   (function () {
-    var d = document.getElementById("dlg-reel"); if (!d) return;
-    var v = d.querySelector("video");
-    document.querySelectorAll('[data-open="dlg-reel"]').forEach(function (b) {
-      b.addEventListener("click", function () {
-        if (!v.getAttribute("src")) v.src = v.getAttribute("data-src");
-        var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});   // started by the visitor's click, so sound is allowed
-      });
-    });
-    d.addEventListener("close", function () { v.pause(); try { v.currentTime = 0; } catch (e) {} });
+    var v = document.querySelector(".bb-pair__reel video"); if (!v || !("IntersectionObserver" in window)) return;
+    var loaded = false, mine = false, userPaused = false;
+    function load() { if (!loaded) { loaded = true; v.src = v.getAttribute("data-src"); } }
+    v.addEventListener("pause", function () { if (!mine) userPaused = true; });
+    new IntersectionObserver(function (es) {
+      var e = es[0];
+      if (e.isIntersecting) {
+        load();
+        if (!reduce && !userPaused && e.intersectionRatio > 0.5) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      } else if (!v.paused) { mine = true; v.pause(); mine = false; }
+    }, { threshold: [0, 0.5], rootMargin: "300px 0px" }).observe(v);
   })();
 
   /* ---------- nav: Locations menu ---------- */
