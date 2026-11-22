@@ -204,8 +204,8 @@
 .bb-tap__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 6rem); padding: 0 calc(var(--sc-gutter) + 64px) 0 var(--sc-gutter); }
 .bb-tap__stage { position: sticky; top: var(--bb-head); height: calc(100vh - var(--bb-head)); height: calc(100svh - var(--bb-head)); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 24px 0 40px; }
 .bb-tap__svg { display: block; width: auto; height: 100%; max-height: 720px; max-width: 100%; border-radius: 22px; box-shadow: 0 0 0 1px rgba(242,148,100,.35), 0 30px 60px -30px rgba(0,0,0,.8); }
-.tp-tint { mix-blend-mode: multiply; opacity: .55; transition: fill 600ms ease; }
-.tp-empty { transition: none; }
+.tp-lever { transform-box: view-box; transform-origin: 257px 170px; will-change: transform; }
+.tp-liq, .tp-stub, .bb-tap__svg stop { transition: fill 600ms ease, stop-color 600ms ease; }
 .bb-tap { padding-bottom: clamp(2rem, 6vh, 4rem); }
 .tp-wall { fill: #2b2627; }
 .tp-handle { transform-box: view-box; transform-origin: 215px 118px; transition: transform 420ms cubic-bezier(.3,1.2,.4,1); }
@@ -307,25 +307,7 @@
 .bb-join::after { content: ""; position: absolute; right: -60px; bottom: -80px; width: 260px; aspect-ratio: 1; border-radius: 50%; border: 2px dashed rgba(35,31,32,.25); pointer-events: none; }
 .bb-join__kicker { margin: 0; font: 800 .78rem/1 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; }
 .bb-join__h { margin: 12px 0 0; font: 900 clamp(1.6rem, 2.8vw, 2.5rem)/1.08 var(--sc-font-display); letter-spacing: -.015em; max-width: 24ch; }
-.bb-stackbtn { position: relative; z-index: 1; display: grid; justify-items: center; width: 300px; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; filter: drop-shadow(0 14px 18px rgba(35,31,32,.35)); }
-.bb-stackbtn > span { display: block; width: 100%; transition: transform 320ms cubic-bezier(.3,1.4,.5,1); }
-.bb-stackbtn__top { height: 46px; border-radius: 150px 150px 10px 10px; background: radial-gradient(circle at 30% 40%, #fff7e6 2px, transparent 2.5px) 0 0 / 34px 18px, radial-gradient(circle at 70% 70%, #fff7e6 2px, transparent 2.5px) 9px 6px / 30px 16px, linear-gradient(#FBE0B4, #F2C27A); width: 92% !important; }
-.bb-stackbtn__leaf { height: 9px; margin-top: 3px; width: 96% !important; background: radial-gradient(circle at 8px 0, #4E9A3A 6px, transparent 6.5px) 0 0 / 16px 9px repeat-x; }
-.bb-stackbtn__cheese { height: 8px; width: 94% !important; background: linear-gradient(#FFC93C, #F7B21F); clip-path: polygon(0 0, 100% 0, 100% 60%, 82% 60%, 78% 100%, 74% 60%, 34% 60%, 30% 100%, 26% 60%, 0 60%); }
-.bb-stackbtn__patty { margin-top: 2px; padding: 15px 18px; border-radius: 14px; background: var(--bb-black); color: var(--bb-cream); font: 800 1.02rem/1.1 var(--sc-font-text); letter-spacing: .01em; }
-.bb-stackbtn__base { height: 22px; margin-top: 4px; width: 92% !important; border-radius: 8px 8px 26px 26px; background: linear-gradient(#F2C27A, #E6A85A); }
-@media (hover: hover) and (pointer: fine) {
-  .bb-stackbtn:hover .bb-stackbtn__top { transform: translateY(-10px) rotate(-2deg); }
-  .bb-stackbtn:hover .bb-stackbtn__leaf { transform: translateY(-5px); }
-  .bb-stackbtn:hover .bb-stackbtn__base { transform: translateY(5px); }
-}
-.bb-stackbtn:active .bb-stackbtn__patty { transform: scale(.97); }
-.bb-stackbtn:focus-visible { outline: 3px solid var(--bb-black); outline-offset: 6px; border-radius: 18px; }
-@media (max-width: 760px) { .bb-join { grid-template-columns: 1fr; } .bb-stackbtn { width: 100%; max-width: 320px; } }
-@media (prefers-reduced-motion: reduce) {
-    .bb-stackbtn > span { transition: none !important; }
-  .bb-pair__stage .bb-heartx { animation: none !important; opacity: 0 !important; }
-}
+@media (max-width: 760px) { .bb-join { grid-template-columns: 1fr; } .bb-joinbtn { width: 100%; max-width: 380px; } }
 
 .bb-btn--ig { max-width: 100%; white-space: normal; text-align: left; line-height: 1.25; padding-block: 12px; }
 
@@ -337,37 +319,14 @@
 .bb-draw__stroke { fill: none; stroke: #fff; stroke-width: 120; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 @media (max-width: 860px) { .bb-about__grid.is-solo { grid-template-columns: 1fr; } .bb-about__art { margin-top: var(--sc-5); } }
 
-/* ---------- round 7: the thread and the stopwatch ---------- */
-.bb-thread { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: visible; }
-.bb-thread path { fill: none; stroke: var(--bb-orange); stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.bb-thread__main { stroke-width: 2.4; }
-.bb-thread__ghost { stroke-width: 1; opacity: .55; transform: translate(3px, 4px); }
+/* ---------- Craft rotation: headline turns in, four plates stay ---------- */
 .bb-rot ol, .bb-rot__foot { position: relative; }
 .bb-c4 { position: relative; }
 .bb-c4__fig picture, .bb-c4__fig img, .bb-c4__soon { position: relative; z-index: 2; }
-.bb-rot__foot { margin-top: var(--sc-6); display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sc-5); flex-wrap: wrap; z-index: 2; }
-.bb-clock { display: grid; justify-items: center; gap: 10px; margin-right: clamp(0px, 4vw, 60px); }
-.bb-clock__svg { width: 150px; height: 160px; overflow: visible; }
-.bb-clock__body { fill: none; stroke: var(--bb-orange); stroke-width: 1.6; opacity: 0; transition: opacity 500ms var(--sc-ease-out); }
-.bb-clock__body rect, .bb-clock__body path { fill: var(--bb-black); }
-.bb-clock__hatch line { stroke-width: 1; opacity: .6; }
-.bb-clock__h, .bb-clock__m { stroke: var(--bb-cream); stroke-linecap: round; opacity: 0; transition: opacity 400ms 200ms; }
-.bb-clock__h { stroke-width: 4; transform-origin: 75px 80px; transform: rotate(-60deg); }
-.bb-clock__m { stroke-width: 2.6; transform-origin: 75px 80px; transform: rotate(48deg); }
-.bb-clock__s { stroke: var(--bb-orange); stroke-width: 1.6; fill: var(--bb-orange); transform-origin: 75px 80px; opacity: 0; transition: opacity 300ms 300ms; }
-.bb-rot.is-timed .bb-clock__body, .bb-rot.is-timed .bb-clock__h, .bb-rot.is-timed .bb-clock__m, .bb-rot.is-timed .bb-clock__s { opacity: 1; }
-.bb-rot.is-timed .bb-clock__s { animation: clkTick 60s steps(60) infinite; }
-.bb-rot.is-timed .bb-clock__m { animation: clkMin 3600s linear infinite; }
-@keyframes clkTick { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-@keyframes clkMin { from { transform: rotate(48deg); } to { transform: rotate(408deg); } }
-.bb-clock p { margin: 0; font: italic 800 clamp(1.15rem, 1.6vw, 1.4rem)/1.2 var(--sc-font-display); color: var(--bb-cream); text-align: center; opacity: 0; transform: translateY(6px); transition: opacity 500ms 450ms, transform 500ms 450ms; }
-.bb-rot.is-timed .bb-clock p { opacity: 1; transform: none; }
-@media (max-width: 760px) { .bb-rot__foot { flex-direction: column-reverse; align-items: center; } .bb-clock { margin-right: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .bb-rot .bb-clock__s, .bb-rot .bb-clock__m { animation: none !important; }
-  .bb-clock__body, .bb-clock__h, .bb-clock__m, .bb-clock__s, .bb-clock p { opacity: 1 !important; transform: none; transition: none !important; }
-}
-
+.bb-rot__foot { margin-top: var(--sc-6); display: flex; align-items: flex-end; justify-content: flex-start; gap: var(--sc-5); flex-wrap: wrap; z-index: 2; }
+.bb-drops h2 { perspective: 900px; }
+.rot-w { display: inline-block; white-space: nowrap; }
+.rot-l { display: inline-block; transform-origin: 50% 55% -.55em; backface-visibility: hidden; will-change: transform, opacity; }
 
 /* ---------- LOADER: Built for a beer ---------- */
 html.is-loading { overflow: hidden; }
@@ -430,3 +389,28 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 /* pairing clip, inline in the Burger heart beer section */
 .bb-pair__reel { margin: var(--sc-5) 0 0; width: clamp(220px, 70vw, 300px); }
 .bb-pair__reel video { display: block; width: 100%; height: auto; aspect-ratio: 478 / 850; object-fit: contain; border-radius: 18px; background: #000; }
+
+/* community button: black pill with a real burger photo */
+.bb-joinbtn { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 14px; min-height: 72px; padding: 8px 10px 8px 8px; border: 0; border-radius: 999px; background: var(--bb-black); color: var(--bb-cream); cursor: pointer; font: inherit; box-shadow: 0 16px 30px -16px rgba(35,31,32,.7); transition: transform 260ms var(--sc-ease-out), box-shadow 260ms; }
+.bb-joinbtn__ph { flex: 0 0 56px; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 2px var(--bb-cream); }
+.bb-joinbtn__ph img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--sc-ease-out); }
+.bb-joinbtn__t { font: 800 1.05rem/1.15 var(--sc-font-text); letter-spacing: .005em; text-align: left; }
+.bb-joinbtn__go { flex: 0 0 44px; width: 44px; height: 44px; margin-left: 4px; display: grid; place-items: center; border-radius: 50%; background: var(--bb-orange); color: var(--bb-black); }
+.bb-joinbtn__go svg { width: 22px; height: 22px; }
+@media (hover: hover) and (pointer: fine) { .bb-joinbtn:hover { transform: translateY(-3px); box-shadow: 0 22px 36px -16px rgba(35,31,32,.75); } .bb-joinbtn:hover img { transform: scale(1.12); } }
+.bb-joinbtn:active { transform: scale(.98); }
+.bb-joinbtn:focus-visible { outline: 3px solid var(--bb-black); outline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) { .bb-joinbtn, .bb-joinbtn img { transition: none !important; } }
+
+/* line art from the menu PDF, at the foot of the menu panels */
+.bb-menu__art { margin: clamp(1.25rem, 3vh, 2rem) 0 0; display: grid; justify-items: center; pointer-events: none; }
+.bb-menu__art img { display: block; width: 100%; height: auto; max-width: 340px; }
+.bb-menu__art.is-sliders img { max-width: 440px; }
+.bb-menu__art.is-sundae img { max-width: 170px; }
+
+/* mobile hero: show the whole kitchen photo at full width (about 1:1 with the screen's pixels, so it stays sharp) and fade it into the dark hero. Stretching it to fill the tall screen enlarged it ~2.5x. */
+@media (max-width: 760px) {
+  .bb-kitchen { inset: 0 0 auto 0; height: 100vw; }
+  .bb-hero .bb-heart { top: calc(100vw - 27vw); right: 4vw; }
+  .bb-kitchen img, .bb-kitchen video { object-position: 50% 50%; -webkit-mask-image: linear-gradient(#000 60%, transparent 100%); mask-image: linear-gradient(#000 60%, transparent 100%); }
+}

@@ -227,7 +227,7 @@
 
   /* ---------- Craft on Tap: scroll pours the beer; the beer nearest the middle sets the colour ---------- */
   var TAP = document.getElementById("craft-on-tap"), tapSvg = TAP.querySelector(".bb-tap__svg"), tapList = TAP.querySelector(".bb-beers");
-  var beers = [].slice.call(TAP.querySelectorAll(".bb-beer")), tTint = TAP.querySelector(".tp-tint"), tEmpty = TAP.querySelector(".tp-empty"), tSurf = TAP.querySelector(".tp-surface"), tClip = TAP.querySelector(".tp-emptyclip");
+  var beers = [].slice.call(TAP.querySelectorAll(".bb-beer")), tLiq = TAP.querySelector(".tp-liqclip"), tStub = TAP.querySelector(".tp-stub"), tSurf = TAP.querySelector(".tp-surface"), tLever = TAP.querySelector(".tp-lever");
   var tapActive = -1, BOTTOM = 906, TOP = 528;
   beers.forEach(function (li) { li.style.setProperty("--c", li.dataset.beer); li.style.setProperty("--hi", li.dataset.hi); li.style.setProperty("--f", li.dataset.foam); });
   function setBeer(i) {
@@ -238,25 +238,26 @@
   function pourTo(fill) {
     fill = clamp(fill, 0, 1);
     var lvl = BOTTOM - fill * (BOTTOM - TOP);
-    tTint.setAttribute("y", lvl.toFixed(1)); tTint.setAttribute("height", (BOTTOM - lvl).toFixed(1));
-    tEmpty.setAttribute("transform", "translate(0 " + (lvl - BOTTOM).toFixed(1) + ")");
-    tClip.setAttribute("height", Math.max(0, lvl - 500).toFixed(1));
+    tLiq.setAttribute("y", lvl.toFixed(1)); tLiq.setAttribute("height", Math.max(0, BOTTOM - lvl + 2).toFixed(1));
+    tStub.setAttribute("height", fill > 0.004 ? Math.max(0, lvl - 514).toFixed(1) : 0);
     tSurf.setAttribute("transform", "translate(0 " + lvl.toFixed(1) + ")"); tSurf.style.opacity = fill > 0.02 && fill < 0.985 ? 1 : 0;
   }
+  function leverTo(pull) { tLever.style.transform = "rotate(" + (-20 * pull).toFixed(2) + "deg)"; }   // the hand pulls the handle toward you, holds while it pours, lets go at the end
   if ("IntersectionObserver" in window) {
     var bio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-seen"); bio.unobserve(e.target); } }); }, { rootMargin: "0px 0px -18% 0px" });
     beers.forEach(function (b) { bio.observe(b); });
   } else beers.forEach(function (b) { b.classList.add("is-seen"); });
   function tapFrame() {
-    if (reduce) { pourTo(1); beers.forEach(function (b) { b.classList.add("is-seen"); }); if (tapActive < 0) setBeer(0); return; }
+    if (reduce) { pourTo(1); leverTo(0); beers.forEach(function (b) { b.classList.add("is-seen"); }); if (tapActive < 0) setBeer(0); return; }
     var r = tapList.getBoundingClientRect(), vh = innerHeight;
     var p = clamp((vh * 0.62 - r.top) / Math.max(1, r.height - vh * 0.25), 0, 1);
     pourTo(sm(p / 0.92));
+    leverTo(sm(clamp(p / 0.07, 0, 1)) * (1 - sm(clamp((p - 0.95) / 0.045, 0, 1))));
     var mid = vh * 0.5, best = 0, bd = 1e9;
     beers.forEach(function (b, k) { var br = b.getBoundingClientRect(), d = Math.abs(br.top + br.height / 2 - mid); if (d < bd) { bd = d; best = k; } });
     setBeer(best);
   }
-  setBeer(0); pourTo(0);
+  setBeer(0); pourTo(0); leverTo(0);
 
 
 
@@ -270,48 +271,25 @@
   }
 
   /* ---------- Drops: one line from the heading, looping each burger, ending as a stopwatch that ticks ---------- */
-  var ROT = document.querySelector(".bb-rot"), thread = ROT && ROT.querySelector(".bb-thread"), tMain = thread && thread.querySelector(".bb-thread__main"), tGhost = thread && thread.querySelector(".bb-thread__ghost");
-  var clockEl = ROT && ROT.querySelector(".bb-clock");
-  function layoutThread() {
-    if (!ROT) return;
-    var R = ROT.getBoundingClientRect(), rel = function (r) { return { l: r.left - R.left, t: r.top - R.top, w: r.width, h: r.height }; };
-    var h = rel(ROT.querySelector(".bb-rot__h span").getBoundingClientRect());
-    var figs = [].map.call(ROT.querySelectorAll(".bb-c4__fig"), function (f) { return rel(f.getBoundingClientRect()); });
-    var ck = rel(clockEl.querySelector(".bb-clock__svg").getBoundingClientRect());
-    var x = h.l - 6, y = h.t + h.h + 10, d = "M" + x.toFixed(1) + " " + y.toFixed(1);
-    // underline flourish under the heading
-    d += " C" + (x + h.w * 0.3) + " " + (y + 8) + " " + (x + h.w * 0.7) + " " + (y - 6) + " " + (x + h.w + 10) + " " + (y + 2);
-    x = x + h.w + 10; y = y + 2;
-    figs.forEach(function (f) {
-      var cx = f.l + f.w / 2, cy = f.t + f.h * 0.55, r = Math.min(f.w, f.h) * 0.43, tx = cx - r * 0.15, ty = cy - r;
-      d += " C" + (x + 40) + " " + (y + 30) + " " + (tx - 60) + " " + (ty - 50) + " " + tx.toFixed(1) + " " + ty.toFixed(1);
-      // a full loop around the burger, slightly off-round like a pen line
-      d += " C" + (cx + r * 1.1) + " " + (cy - r * 1.05) + " " + (cx + r * 1.08) + " " + (cy + r * 0.98) + " " + cx.toFixed(1) + " " + (cy + r).toFixed(1);
-      d += " C" + (cx - r * 1.12) + " " + (cy + r * 1.02) + " " + (cx - r * 1.04) + " " + (cy - r * 0.96) + " " + (tx + 8).toFixed(1) + " " + (ty - 2).toFixed(1);
-      x = tx + 8; y = ty - 2;
+  /* ---------- Craft rotation headline: the letters turn over like a rotating drum as the section arrives (scroll-linked), then stay turned ---------- */
+  var ROT = document.getElementById("drops"), dropH = document.getElementById("drops-h"), dropLetters = [];
+  (function () {
+    if (!dropH) return;
+    var txt = dropH.textContent; dropH.setAttribute("aria-label", txt); dropH.textContent = "";
+    txt.split(" ").forEach(function (word, wi, arr) {
+      var w = document.createElement("span"); w.className = "rot-w"; w.setAttribute("aria-hidden", "true");
+      word.split("").forEach(function (ch) { var l = document.createElement("span"); l.className = "rot-l"; l.textContent = ch; w.appendChild(l); dropLetters.push(l); });
+      dropH.appendChild(w); if (wi < arr.length - 1) dropH.appendChild(document.createTextNode(" "));
     });
-    // leave the last card around its outside edge, then drop into the stopwatch: arrive at the crown, then draw the case
-    var cards = [].map.call(ROT.querySelectorAll(".bb-c4"), function (c) { return rel(c.getBoundingClientRect()); }), last = cards[cards.length - 1];
-    var cx = ck.l + ck.w * 0.5, cy = ck.t + ck.h * (80 / 160), rr = ck.w * (64 / 150), top = cy - rr;
-    var ex = Math.min(R.width - 8, last.l + last.w + 26), ey = last.t + last.h * 0.35, bottom = last.t + last.h + 16;
-    d += " C" + (x + 70) + " " + (y - 30) + " " + ex + " " + (ey - 60) + " " + ex.toFixed(1) + " " + ey.toFixed(1);
-    d += " L" + ex.toFixed(1) + " " + bottom.toFixed(1);
-    d += " C" + ex + " " + (bottom + 40) + " " + cx + " " + (top - 50) + " " + cx.toFixed(1) + " " + top.toFixed(1);
-    ROT.dataset.clockY = (cy + rr).toFixed(0);
-    d += " A" + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 1 1 " + (cx - 0.1).toFixed(1) + " " + top.toFixed(1);
-    thread.setAttribute("viewBox", "0 0 " + R.width.toFixed(0) + " " + R.height.toFixed(0));
-    tMain.setAttribute("d", d); tGhost.setAttribute("d", d);
-  }
+  })();
   function threadFrame() {
-    if (!ROT) return;
-    if (reduce) { tMain.style.strokeDashoffset = tGhost.style.strokeDashoffset = 0; ROT.classList.add("is-timed"); return; }
-    // the line finishes (and the watch starts ticking) when the stopwatch is comfortably on screen
-    var r = ROT.getBoundingClientRect(), endY = +(ROT.dataset.clockY || r.height), p = clamp((innerHeight * 0.72 - r.top) / Math.max(1, endY + 30 - innerHeight * 0.0), 0, 1);
-    p = clamp((innerHeight * 0.82 - r.top - endY * 0.2) / (endY * 0.8), 0, 1);
-    var off = (1 - p).toFixed(4); tMain.style.strokeDashoffset = off; tGhost.style.strokeDashoffset = Math.min(1, 1 - p + 0.02).toFixed(4);
-    ROT.classList.toggle("is-timed", p > 0.97);
+    if (!dropLetters.length) return;
+    var p = 1;
+    if (!reduce) { var r = dropH.getBoundingClientRect(); p = clamp((innerHeight * 0.9 - r.top) / (innerHeight * 0.5), 0, 1); }
+    var n = dropLetters.length;
+    dropLetters.forEach(function (l, i) {
+      var q = clamp(p * (n + 6) - i, 0, 6) / 6, e = 1 - Math.pow(1 - q, 3);
+      l.style.transform = "rotateX(" + ((1 - e) * -105).toFixed(1) + "deg) translateY(" + ((1 - e) * 0.3).toFixed(3) + "em)";
+      l.style.opacity = Math.min(1, e * 1.6).toFixed(3);
+    });
   }
-  addEventListener("resize", layoutThread);
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(layoutThread);
-  addEventListener("load", layoutThread);
-  layoutThread();

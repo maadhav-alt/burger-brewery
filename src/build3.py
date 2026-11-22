@@ -112,6 +112,11 @@ for tplf, out, p in ((tpl_index, "index.html", ""), (tpl_deliv, "delivery.html",
     html = re.sub(r'<i>₹[^<]*</i>', '', html)
     html = html.replace(" Veg ₹720, non-veg ₹840.", "").replace("Sicilian pistachio, ₹210.", "Sicilian pistachio.")
     html = re.sub(r" ?Govt taxes as applicable; 10% discretionary service charge\.", "", html)
+    if out == "index.html":   # line art from the menu PDF at the foot of three menu panels
+        for cid, src, w, h, cls in (("cat-originals", "clean-cut", 591, 429, "is-burger"), ("cat-sliders", "sliders-trio", 900, 419, "is-sliders"), ("cat-gelato", "gelato-sundae", 358, 570, "is-sundae")):
+            i = html.index('id="%s"' % cid); j = html.index("</article>", i)
+            fig = '<figure class="bb-menu__art %s" aria-hidden="true"><img src="assets/menuart/%s.webp" width="%d" height="%d" alt="" loading="lazy" decoding="async"></figure>' % (cls, src, w, h)
+            html = html[:j] + fig + html[j:]
     # Lighthouse: lighter images, no 404 probes for optional assets that do not exist yet, 24px tap targets
     for n in ("room-booths", "room-chef", "room-friday-1"):
         html = html.replace("assets/img/%s.jpg" % n, "assets/img/%s.webp" % n)

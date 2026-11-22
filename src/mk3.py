@@ -46,8 +46,8 @@ index_nav = """
   <ol>
     <li><a href="#top" data-idx="top" aria-label="Hello"><span class="bb-index__tip" aria-hidden="true">Hello</span><svg viewBox="-6 -6 412 162" aria-hidden="true"><use href="#ly0"/></svg></a></li>
     <li><a href="#about" data-idx="about" aria-label="The bite, then the sip"><span class="bb-index__tip" aria-hidden="true">The bite, then the sip</span><svg viewBox="-4 -4 408 48" aria-hidden="true"><use href="#ly1"/></svg></a></li>
-    <li><a href="#inside" data-idx="inside" aria-label="Taken apart"><span class="bb-index__tip" aria-hidden="true">Taken apart</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg></a></li>
     <li><a href="#pairings" data-idx="pairings" aria-label="Burger heart beer"><span class="bb-index__tip" aria-hidden="true">Burger heart beer</span><svg viewBox="-4 -4 408 58" aria-hidden="true"><use href="#ly3"/></svg></a></li>
+    <li><a href="#inside" data-idx="inside" aria-label="Taken apart"><span class="bb-index__tip" aria-hidden="true">Taken apart</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg></a></li>
     <li><a href="#craft-on-tap" data-idx="craft-on-tap" aria-label="Craft on tap"><span class="bb-index__tip" aria-hidden="true">Craft on tap</span><svg viewBox="-4 -4 408 48" aria-hidden="true"><use href="#ly1"/></svg></a></li>
     <li><a href="#drops" data-idx="drops" aria-label="Drops"><span class="bb-index__tip" aria-hidden="true">Drops</span><svg viewBox="-4 -4 408 72" aria-hidden="true"><use href="#ly4"/></svg></a></li>
     <li><a href="#together" data-idx="together" aria-label="Do Together"><span class="bb-index__tip" aria-hidden="true">Do Together</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg></a></li>
@@ -76,6 +76,7 @@ menu = must(menu, "        <!--P_CRAFT-->\n", "")
 visit = ln(478, 516)
 visit = re.sub(r'<img data-prefer="assets/img/delivery-box.jpg".*?alt="[^"]*">', '<img src="assets/photos/resp/delivery-hands-960.jpg" srcset="assets/photos/resp/delivery-hands-480.webp 480w, assets/photos/resp/delivery-hands-960.webp 960w, assets/photos/resp/delivery-hands-1500.webp 1500w" sizes="(max-width: 860px) 100vw, 50vw" width="1500" height="2000" loading="lazy" decoding="async" alt="Hands holding a Burger Brewery burger over a stack of our black and orange burger boxes">', visit, count=1, flags=re.S)
 assert "delivery-hands" in visit
+visit = must(visit, "<h2 id=\"visit-h\">Pull up a chair.</h2>", "<h2 id=\"visit-h\">Dining.</h2>")
 visit = must(visit, "https://maps.app.goo.gl/nVp8P1cLb46zQmfo7", "https://maps.app.goo.gl/BrSWiB4urYfC66M5A")
 visit = re.sub(r"      <footer class=\"bb-foot\">.*?</footer>", "      <!--FOOTER-->", visit, flags=re.S)
 tail_markup = ln(517, 523) + "\n" + rd("p3_dlg.html")

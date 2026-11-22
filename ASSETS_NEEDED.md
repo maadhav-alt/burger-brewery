@@ -95,3 +95,10 @@ Build steps once decided: a `franchise_applications` table (insert-only for the 
 - `assets/video/pairing-reel.mp4` (14 s, 3.5 MB, from the WhatsApp file in `Burger_Brewery_Website_FORGE/Pairings/`) plays inline at the top of the Burger heart beer section, between the intro line and "Click to find what pairs". It starts muted when scrolled into view, pauses when scrolled away, loops, and has controls for sound. Reduced-motion visitors get the poster and press play. It loads only as the section nears the screen.
 - The clip shows Oklahoma Smash + Kolsch, not the Jalapeño Smokehouse Smash + Hefeweizen reel on Instagram (p/DewwQxvoGna). The other one can be added the same way: send the file.
 - TODO: captions are burned into the picture; a separate .vtt captions file would be better for accessibility. Needs the spoken words.
+
+## Round 8 changes (2026-11-22) and what is still needed
+- Order is now: About, Burger heart beer, Taken Apart, Craft on Tap, Craft rotation, Do Together, The room, Menu, Straight from the pass, Dining.
+- Hero photo (live kitchen): the original in the Drive and in `Burger_Brewery_Website_FORGE/BBY01 Outlet Photos/Live Kitchen.png` is only 1254x1254 px (identical file, same byte size). The site's 2000 px copy is an upscale of it. On phones the hero now shows the whole photo at screen width (about 1:1) instead of stretching it to fill the screen. NEEDED: a 2500 px+ original of the live-kitchen shot for a truly sharp full-bleed hero.
+- Craft on Tap art (`assets/lineart/tap-clear-960.webp`, `tap-handle.webp`): made from the engraved tap on page 5 of the menu with the glass interior cleared and the handle cut out. The hand is drawn in SVG (`src/p3_tap.html`). If a designer redraws the hand, replace the `tp-hand` group.
+- Menu line art (`assets/menuart/*.webp`) is redrawn from the menu PDF's vector art. More available on the PDF: tasting flight (p6), dirty fries (p7), Dubai kunafa shake (p8), cookie skillet (p9).
+- Community button now uses a real burger photo (`assets/photos/join-burger.webp`, cropped from the cheeseburger carousel slide).

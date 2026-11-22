@@ -362,8 +362,8 @@ img { display: block; }
 .bb-tap__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 6rem); padding: 0 calc(var(--sc-gutter) + 64px) 0 var(--sc-gutter); }
 .bb-tap__stage { position: sticky; top: var(--bb-head); height: calc(100vh - var(--bb-head)); height: calc(100svh - var(--bb-head)); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 24px 0 40px; }
 .bb-tap__svg { display: block; width: auto; height: 100%; max-height: 720px; max-width: 100%; border-radius: 22px; box-shadow: 0 0 0 1px rgba(242,148,100,.35), 0 30px 60px -30px rgba(0,0,0,.8); }
-.tp-tint { mix-blend-mode: multiply; opacity: .55; transition: fill 600ms ease; }
-.tp-empty { transition: none; }
+.tp-lever { transform-box: view-box; transform-origin: 257px 170px; will-change: transform; }
+.tp-liq, .tp-stub, .bb-tap__svg stop { transition: fill 600ms ease, stop-color 600ms ease; }
 .bb-tap { padding-bottom: clamp(2rem, 6vh, 4rem); }
 .tp-wall { fill: #2b2627; }
 .tp-handle { transform-box: view-box; transform-origin: 215px 118px; transition: transform 420ms cubic-bezier(.3,1.2,.4,1); }
@@ -465,25 +465,7 @@ img { display: block; }
 .bb-join::after { content: ""; position: absolute; right: -60px; bottom: -80px; width: 260px; aspect-ratio: 1; border-radius: 50%; border: 2px dashed rgba(35,31,32,.25); pointer-events: none; }
 .bb-join__kicker { margin: 0; font: 800 .78rem/1 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; }
 .bb-join__h { margin: 12px 0 0; font: 900 clamp(1.6rem, 2.8vw, 2.5rem)/1.08 var(--sc-font-display); letter-spacing: -.015em; max-width: 24ch; }
-.bb-stackbtn { position: relative; z-index: 1; display: grid; justify-items: center; width: 300px; padding: 0; border: 0; background: none; cursor: pointer; font: inherit; filter: drop-shadow(0 14px 18px rgba(35,31,32,.35)); }
-.bb-stackbtn > span { display: block; width: 100%; transition: transform 320ms cubic-bezier(.3,1.4,.5,1); }
-.bb-stackbtn__top { height: 46px; border-radius: 150px 150px 10px 10px; background: radial-gradient(circle at 30% 40%, #fff7e6 2px, transparent 2.5px) 0 0 / 34px 18px, radial-gradient(circle at 70% 70%, #fff7e6 2px, transparent 2.5px) 9px 6px / 30px 16px, linear-gradient(#FBE0B4, #F2C27A); width: 92% !important; }
-.bb-stackbtn__leaf { height: 9px; margin-top: 3px; width: 96% !important; background: radial-gradient(circle at 8px 0, #4E9A3A 6px, transparent 6.5px) 0 0 / 16px 9px repeat-x; }
-.bb-stackbtn__cheese { height: 8px; width: 94% !important; background: linear-gradient(#FFC93C, #F7B21F); clip-path: polygon(0 0, 100% 0, 100% 60%, 82% 60%, 78% 100%, 74% 60%, 34% 60%, 30% 100%, 26% 60%, 0 60%); }
-.bb-stackbtn__patty { margin-top: 2px; padding: 15px 18px; border-radius: 14px; background: var(--bb-black); color: var(--bb-cream); font: 800 1.02rem/1.1 var(--sc-font-text); letter-spacing: .01em; }
-.bb-stackbtn__base { height: 22px; margin-top: 4px; width: 92% !important; border-radius: 8px 8px 26px 26px; background: linear-gradient(#F2C27A, #E6A85A); }
-@media (hover: hover) and (pointer: fine) {
-  .bb-stackbtn:hover .bb-stackbtn__top { transform: translateY(-10px) rotate(-2deg); }
-  .bb-stackbtn:hover .bb-stackbtn__leaf { transform: translateY(-5px); }
-  .bb-stackbtn:hover .bb-stackbtn__base { transform: translateY(5px); }
-}
-.bb-stackbtn:active .bb-stackbtn__patty { transform: scale(.97); }
-.bb-stackbtn:focus-visible { outline: 3px solid var(--bb-black); outline-offset: 6px; border-radius: 18px; }
-@media (max-width: 760px) { .bb-join { grid-template-columns: 1fr; } .bb-stackbtn { width: 100%; max-width: 320px; } }
-@media (prefers-reduced-motion: reduce) {
-    .bb-stackbtn > span { transition: none !important; }
-  .bb-pair__stage .bb-heartx { animation: none !important; opacity: 0 !important; }
-}
+@media (max-width: 760px) { .bb-join { grid-template-columns: 1fr; } .bb-joinbtn { width: 100%; max-width: 380px; } }
 
 .bb-btn--ig { max-width: 100%; white-space: normal; text-align: left; line-height: 1.25; padding-block: 12px; }
 
@@ -495,37 +477,14 @@ img { display: block; }
 .bb-draw__stroke { fill: none; stroke: #fff; stroke-width: 120; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 @media (max-width: 860px) { .bb-about__grid.is-solo { grid-template-columns: 1fr; } .bb-about__art { margin-top: var(--sc-5); } }
 
-/* ---------- round 7: the thread and the stopwatch ---------- */
-.bb-thread { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: visible; }
-.bb-thread path { fill: none; stroke: var(--bb-orange); stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.bb-thread__main { stroke-width: 2.4; }
-.bb-thread__ghost { stroke-width: 1; opacity: .55; transform: translate(3px, 4px); }
+/* ---------- Craft rotation: headline turns in, four plates stay ---------- */
 .bb-rot ol, .bb-rot__foot { position: relative; }
 .bb-c4 { position: relative; }
 .bb-c4__fig picture, .bb-c4__fig img, .bb-c4__soon { position: relative; z-index: 2; }
-.bb-rot__foot { margin-top: var(--sc-6); display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sc-5); flex-wrap: wrap; z-index: 2; }
-.bb-clock { display: grid; justify-items: center; gap: 10px; margin-right: clamp(0px, 4vw, 60px); }
-.bb-clock__svg { width: 150px; height: 160px; overflow: visible; }
-.bb-clock__body { fill: none; stroke: var(--bb-orange); stroke-width: 1.6; opacity: 0; transition: opacity 500ms var(--sc-ease-out); }
-.bb-clock__body rect, .bb-clock__body path { fill: var(--bb-black); }
-.bb-clock__hatch line { stroke-width: 1; opacity: .6; }
-.bb-clock__h, .bb-clock__m { stroke: var(--bb-cream); stroke-linecap: round; opacity: 0; transition: opacity 400ms 200ms; }
-.bb-clock__h { stroke-width: 4; transform-origin: 75px 80px; transform: rotate(-60deg); }
-.bb-clock__m { stroke-width: 2.6; transform-origin: 75px 80px; transform: rotate(48deg); }
-.bb-clock__s { stroke: var(--bb-orange); stroke-width: 1.6; fill: var(--bb-orange); transform-origin: 75px 80px; opacity: 0; transition: opacity 300ms 300ms; }
-.bb-rot.is-timed .bb-clock__body, .bb-rot.is-timed .bb-clock__h, .bb-rot.is-timed .bb-clock__m, .bb-rot.is-timed .bb-clock__s { opacity: 1; }
-.bb-rot.is-timed .bb-clock__s { animation: clkTick 60s steps(60) infinite; }
-.bb-rot.is-timed .bb-clock__m { animation: clkMin 3600s linear infinite; }
-@keyframes clkTick { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-@keyframes clkMin { from { transform: rotate(48deg); } to { transform: rotate(408deg); } }
-.bb-clock p { margin: 0; font: italic 800 clamp(1.15rem, 1.6vw, 1.4rem)/1.2 var(--sc-font-display); color: var(--bb-cream); text-align: center; opacity: 0; transform: translateY(6px); transition: opacity 500ms 450ms, transform 500ms 450ms; }
-.bb-rot.is-timed .bb-clock p { opacity: 1; transform: none; }
-@media (max-width: 760px) { .bb-rot__foot { flex-direction: column-reverse; align-items: center; } .bb-clock { margin-right: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .bb-rot .bb-clock__s, .bb-rot .bb-clock__m { animation: none !important; }
-  .bb-clock__body, .bb-clock__h, .bb-clock__m, .bb-clock__s, .bb-clock p { opacity: 1 !important; transform: none; transition: none !important; }
-}
-
+.bb-rot__foot { margin-top: var(--sc-6); display: flex; align-items: flex-end; justify-content: flex-start; gap: var(--sc-5); flex-wrap: wrap; z-index: 2; }
+.bb-drops h2 { perspective: 900px; }
+.rot-w { display: inline-block; white-space: nowrap; }
+.rot-l { display: inline-block; transform-origin: 50% 55% -.55em; backface-visibility: hidden; will-change: transform, opacity; }
 
 /* ---------- LOADER: Built for a beer ---------- */
 html.is-loading { overflow: hidden; }
@@ -588,6 +547,31 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 /* pairing clip, inline in the Burger heart beer section */
 .bb-pair__reel { margin: var(--sc-5) 0 0; width: clamp(220px, 70vw, 300px); }
 .bb-pair__reel video { display: block; width: 100%; height: auto; aspect-ratio: 478 / 850; object-fit: contain; border-radius: 18px; background: #000; }
+
+/* community button: black pill with a real burger photo */
+.bb-joinbtn { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 14px; min-height: 72px; padding: 8px 10px 8px 8px; border: 0; border-radius: 999px; background: var(--bb-black); color: var(--bb-cream); cursor: pointer; font: inherit; box-shadow: 0 16px 30px -16px rgba(35,31,32,.7); transition: transform 260ms var(--sc-ease-out), box-shadow 260ms; }
+.bb-joinbtn__ph { flex: 0 0 56px; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 2px var(--bb-cream); }
+.bb-joinbtn__ph img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--sc-ease-out); }
+.bb-joinbtn__t { font: 800 1.05rem/1.15 var(--sc-font-text); letter-spacing: .005em; text-align: left; }
+.bb-joinbtn__go { flex: 0 0 44px; width: 44px; height: 44px; margin-left: 4px; display: grid; place-items: center; border-radius: 50%; background: var(--bb-orange); color: var(--bb-black); }
+.bb-joinbtn__go svg { width: 22px; height: 22px; }
+@media (hover: hover) and (pointer: fine) { .bb-joinbtn:hover { transform: translateY(-3px); box-shadow: 0 22px 36px -16px rgba(35,31,32,.75); } .bb-joinbtn:hover img { transform: scale(1.12); } }
+.bb-joinbtn:active { transform: scale(.98); }
+.bb-joinbtn:focus-visible { outline: 3px solid var(--bb-black); outline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) { .bb-joinbtn, .bb-joinbtn img { transition: none !important; } }
+
+/* line art from the menu PDF, at the foot of the menu panels */
+.bb-menu__art { margin: clamp(1.25rem, 3vh, 2rem) 0 0; display: grid; justify-items: center; pointer-events: none; }
+.bb-menu__art img { display: block; width: 100%; height: auto; max-width: 340px; }
+.bb-menu__art.is-sliders img { max-width: 440px; }
+.bb-menu__art.is-sundae img { max-width: 170px; }
+
+/* mobile hero: show the whole kitchen photo at full width (about 1:1 with the screen's pixels, so it stays sharp) and fade it into the dark hero. Stretching it to fill the tall screen enlarged it ~2.5x. */
+@media (max-width: 760px) {
+  .bb-kitchen { inset: 0 0 auto 0; height: 100vw; }
+  .bb-hero .bb-heart { top: calc(100vw - 27vw); right: 4vw; }
+  .bb-kitchen img, .bb-kitchen video { object-position: 50% 50%; -webkit-mask-image: linear-gradient(#000 60%, transparent 100%); mask-image: linear-gradient(#000 60%, transparent 100%); }
+}
 
 .bb-textlink { background: none; border: 0; padding: 8px 0; color: var(--bb-cream); font: 800 1rem/1.3 var(--sc-font-text); text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 2px; cursor: pointer; }
 .bb-alltaps { margin-top: var(--sc-6); border-top: 1px solid rgba(242,242,233,.2); max-width: 760px; }
@@ -960,8 +944,8 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
   <ol>
     <li><a href="#top" data-idx="top" aria-label="Hello"><span class="bb-index__tip" aria-hidden="true">Hello</span><svg viewBox="-6 -6 412 162" aria-hidden="true"><use href="#ly0"/></svg></a></li>
     <li><a href="#about" data-idx="about" aria-label="The bite, then the sip"><span class="bb-index__tip" aria-hidden="true">The bite, then the sip</span><svg viewBox="-4 -4 408 48" aria-hidden="true"><use href="#ly1"/></svg></a></li>
-    <li><a href="#inside" data-idx="inside" aria-label="Taken apart"><span class="bb-index__tip" aria-hidden="true">Taken apart</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg></a></li>
     <li><a href="#pairings" data-idx="pairings" aria-label="Burger heart beer"><span class="bb-index__tip" aria-hidden="true">Burger heart beer</span><svg viewBox="-4 -4 408 58" aria-hidden="true"><use href="#ly3"/></svg></a></li>
+    <li><a href="#inside" data-idx="inside" aria-label="Taken apart"><span class="bb-index__tip" aria-hidden="true">Taken apart</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg></a></li>
     <li><a href="#craft-on-tap" data-idx="craft-on-tap" aria-label="Craft on tap"><span class="bb-index__tip" aria-hidden="true">Craft on tap</span><svg viewBox="-4 -4 408 48" aria-hidden="true"><use href="#ly1"/></svg></a></li>
     <li><a href="#drops" data-idx="drops" aria-label="Drops"><span class="bb-index__tip" aria-hidden="true">Drops</span><svg viewBox="-4 -4 408 72" aria-hidden="true"><use href="#ly4"/></svg></a></li>
     <li><a href="#together" data-idx="together" aria-label="Do Together"><span class="bb-index__tip" aria-hidden="true">Do Together</span><svg viewBox="-4 -4 408 70" aria-hidden="true"><use href="#ly2"/></svg></a></li>
@@ -1024,38 +1008,7 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
   </section>
 
 
-  <!-- 4 · ANATOMY: our smash burger, taken apart. Six layers share one frame and one centre line; they only move vertically. -->
-  <section id="inside" class="bb-an g-cream" aria-labelledby="an-h">
-    <div class="bb-an__stage">
-      <div class="bb-an__head">
-        <p class="bb-label">What’s inside</p>
-        <h2 id="an-h">Our smash burger, taken apart.</h2>
-      </div>
-      <div class="bb-an__burgerwrap" aria-hidden="true">
-        <div class="bb-an__burger">
-          <!-- TODO: six layer PNGs in assets/anatomy/ (01-bun-top.png ... 06-bun-base.png), all on one shared transparent canvas. Until all six exist the burger uses the 3-piece cut from the real photo. -->
-          <img class="bb-an__layer" data-n="6" style="--k:5" src="assets/brand/burger-base.webp" data-prefer="assets/anatomy/06-bun-base.png" width="676" height="586" alt="">
-          <img class="bb-an__layer" data-n="5" style="--k:4" data-prefer="assets/anatomy/05-patty.png" width="676" height="586" alt="" hidden>
-          <img class="bb-an__layer" data-n="4" style="--k:3" data-prefer="assets/anatomy/04-cheese.png" width="676" height="586" alt="" hidden>
-          <img class="bb-an__layer" data-n="3" style="--k:2" data-prefer="assets/anatomy/03-vegetables.png" width="676" height="586" alt="" hidden>
-          <img class="bb-an__layer" data-n="2" style="--k:1" data-prefer="assets/anatomy/02-sauces.png" width="676" height="586" alt="" hidden>
-          <img class="bb-an__layer" data-n="mid" style="--k:2" src="assets/brand/burger-mid.webp" width="676" height="586" alt="">
-          <img class="bb-an__layer" data-n="1" style="--k:0" src="assets/brand/burger-top.webp" data-prefer="assets/anatomy/01-bun-top.png" width="676" height="586" alt="">
-        </div>
-      </div>
-      <svg class="bb-an__lines" aria-hidden="true"></svg>
-      <ol class="bb-an__list">
-        <li class="bb-an__row" data-r="1"><span class="bb-an__num" aria-hidden="true">01</span><h3>Toasted brioche bun</h3><!-- TODO VERIFY: "our own bakery" --><p>Baked in our own bakery, then toasted in butter on the flat top.</p></li>
-        <li class="bb-an__row" data-r="2"><span class="bb-an__num" aria-hidden="true">02</span><h3>BBY house sauces</h3><!-- TODO VERIFY: sauces made in-house --><p>Made in our kitchen. Never poured from a bottle.</p></li>
-        <li class="bb-an__row" data-r="3"><span class="bb-an__num" aria-hidden="true">03</span><h3>Fresh, handpicked, never-frozen vegetables</h3><!-- TODO VERIFY: "handpicked, never frozen" --><p>Crisp, cold and full of crunch, against the heat of the patty.</p></li>
-        <li class="bb-an__row" data-r="4"><span class="bb-an__num" aria-hidden="true">04</span><h3>Melted cheese</h3><p>Laid on the patty the second it’s smashed, so it melts into the char.</p></li>
-        <li class="bb-an__row" data-r="5"><span class="bb-an__num" aria-hidden="true">05</span><h3>Smash patty</h3><p>A ball of fresh-ground meat, pressed hard into a screaming-hot plate until the edges lace and crackle.</p></li>
-        <li class="bb-an__row" data-r="6"><span class="bb-an__num" aria-hidden="true">06</span><h3>Toasted brioche bun (base)</h3><p>Toasted to hold every drop.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- 5 · BURGER HEART BEER: pairings from the Burger x Beer page of the menu -->
+  <!-- 4 · BURGER HEART BEER: pairings from the Burger x Beer page of the menu -->
   <section id="pairings" class="bb-pair g-black" aria-labelledby="pair-h">
     <div class="sc-wrap bb-pair__wrap">
       <div class="bb-pair__intro">
@@ -1087,29 +1040,88 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
     </div>
   </section>
 
+  <!-- 5 · ANATOMY: our smash burger, taken apart. Six layers share one frame and one centre line; they only move vertically. -->
+  <section id="inside" class="bb-an g-cream" aria-labelledby="an-h">
+    <div class="bb-an__stage">
+      <div class="bb-an__head">
+        <p class="bb-label">What’s inside</p>
+        <h2 id="an-h">Our smash burger, taken apart.</h2>
+      </div>
+      <div class="bb-an__burgerwrap" aria-hidden="true">
+        <div class="bb-an__burger">
+          <!-- TODO: six layer PNGs in assets/anatomy/ (01-bun-top.png ... 06-bun-base.png), all on one shared transparent canvas. Until all six exist the burger uses the 3-piece cut from the real photo. -->
+          <img class="bb-an__layer" data-n="6" style="--k:5" src="assets/brand/burger-base.webp" data-prefer="assets/anatomy/06-bun-base.png" width="676" height="586" alt="">
+          <img class="bb-an__layer" data-n="5" style="--k:4" data-prefer="assets/anatomy/05-patty.png" width="676" height="586" alt="" hidden>
+          <img class="bb-an__layer" data-n="4" style="--k:3" data-prefer="assets/anatomy/04-cheese.png" width="676" height="586" alt="" hidden>
+          <img class="bb-an__layer" data-n="3" style="--k:2" data-prefer="assets/anatomy/03-vegetables.png" width="676" height="586" alt="" hidden>
+          <img class="bb-an__layer" data-n="2" style="--k:1" data-prefer="assets/anatomy/02-sauces.png" width="676" height="586" alt="" hidden>
+          <img class="bb-an__layer" data-n="mid" style="--k:2" src="assets/brand/burger-mid.webp" width="676" height="586" alt="">
+          <img class="bb-an__layer" data-n="1" style="--k:0" src="assets/brand/burger-top.webp" data-prefer="assets/anatomy/01-bun-top.png" width="676" height="586" alt="">
+        </div>
+      </div>
+      <svg class="bb-an__lines" aria-hidden="true"></svg>
+      <ol class="bb-an__list">
+        <li class="bb-an__row" data-r="1"><span class="bb-an__num" aria-hidden="true">01</span><h3>Toasted brioche bun</h3><!-- TODO VERIFY: "our own bakery" --><p>Baked in our own bakery, then toasted in butter on the flat top.</p></li>
+        <li class="bb-an__row" data-r="2"><span class="bb-an__num" aria-hidden="true">02</span><h3>BBY house sauces</h3><!-- TODO VERIFY: sauces made in-house --><p>Made in our kitchen. Never poured from a bottle.</p></li>
+        <li class="bb-an__row" data-r="3"><span class="bb-an__num" aria-hidden="true">03</span><h3>Fresh, handpicked, never-frozen vegetables</h3><!-- TODO VERIFY: "handpicked, never frozen" --><p>Crisp, cold and full of crunch, against the heat of the patty.</p></li>
+        <li class="bb-an__row" data-r="4"><span class="bb-an__num" aria-hidden="true">04</span><h3>Melted cheese</h3><p>Laid on the patty the second it’s smashed, so it melts into the char.</p></li>
+        <li class="bb-an__row" data-r="5"><span class="bb-an__num" aria-hidden="true">05</span><h3>Smash patty</h3><p>A ball of fresh-ground meat, pressed hard into a screaming-hot plate until the edges lace and crackle.</p></li>
+        <li class="bb-an__row" data-r="6"><span class="bb-an__num" aria-hidden="true">06</span><h3>Toasted brioche bun (base)</h3><p>Toasted to hold every drop.</p></li>
+      </ol>
+    </div>
+  </section>
+
   <!-- CRAFT ON TAP: the tap pours as you scroll; each beer appears as you reach it -->
   <section id="craft-on-tap" class="bb-tap g-black" aria-labelledby="tap-h">
     <div class="bb-tap__grid">
       <div class="bb-tap__stage" aria-hidden="true">
-        <!-- The engraved tap from page 5 of the menu. An "empty glass" layer drops away as you scroll, so the beer fills; a tint takes the colour of the beer in focus. -->
+        <!-- The engraved tap from page 5 of the menu. The glass is clear (the wall shows through it); the beer is drawn on top and rises as you scroll, in the colour of the beer in focus. A line-art hand grips the handle and pulls it as the pour starts. -->
         <svg class="bb-tap__svg" viewBox="0 0 467 1000" focusable="false">
           <defs>
             <clipPath id="tInside"><path d="M112 520 L348 520 L346 560 L340 640 L332 720 L325 800 L316 880 L312 906 L150 906 L144 880 L136 800 L130 720 L124 640 L117 560 Z"/></clipPath>
-            <clipPath id="tEmptyClip"><rect class="tp-emptyclip" x="100" y="500" width="260" height="406"/></clipPath>
-            <pattern id="tEmptyHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><line x1="0" y1="0" x2="0" y2="9" stroke="#F0A46E" stroke-width="1" opacity=".55"/></pattern>
+            <clipPath id="tLiqClip"><rect class="tp-liqclip" x="100" y="906" width="260" height="0"/></clipPath>
+            <linearGradient id="tLiq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--beer-hi,#F6D872)"/><stop offset=".55" style="stop-color:var(--beer,#E3A52B)"/><stop offset="1" style="stop-color:var(--beer,#E3A52B)"/></linearGradient>
+            <pattern id="tLiqHatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><line x1="0" y1="0" x2="0" y2="7" stroke="#2a1000" stroke-width="1" opacity=".16"/></pattern>
           </defs>
-          <image href="assets/lineart/tap-pour-960.webp" width="467" height="1000" preserveAspectRatio="none"/>
+          <image href="assets/lineart/tap-clear-960.webp" width="467" height="1000" preserveAspectRatio="none"/>
+          <!-- beer: translucent, engraved with fine hatching, topped with foam -->
           <g clip-path="url(#tInside)">
-            <rect class="tp-tint" x="100" y="906" width="260" height="0" style="fill:var(--beer, #E3A52B)"/>
-            <g class="tp-empty"><rect x="100" y="500" width="260" height="406" fill="#FBE6CF"/><rect x="100" y="500" width="260" height="406" fill="url(#tEmptyHatch)"/>
-              <path d="M150 520 L160 900 M300 520 L292 900" stroke="#fff" stroke-width="5" opacity=".55" stroke-linecap="round"/></g>
-            <g class="tp-surface"><rect x="100" y="-7" width="260" height="9" fill="#FFF6E8"/><path d="M100 2 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0" fill="none" stroke="#E2742F" stroke-width="1.6"/></g>
+            <g clip-path="url(#tLiqClip)">
+              <rect x="100" y="520" width="260" height="390" fill="url(#tLiq)" opacity=".84"/>
+              <rect x="100" y="520" width="260" height="390" fill="url(#tLiqHatch)"/>
+              <g class="tp-bubbles" fill="#fff" opacity=".5"><circle cx="150" cy="860" r="2.2"/><circle cx="196" cy="780" r="1.6"/><circle cx="262" cy="840" r="2"/><circle cx="300" cy="720" r="1.5"/><circle cx="172" cy="660" r="1.8"/><circle cx="284" cy="600" r="2.2"/></g>
+            </g>
+            <g class="tp-surface"><rect x="100" y="-7" width="260" height="9" style="fill:var(--foam,#FFF6E8)"/><path d="M100 2 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0 q9 -7 18 0" fill="none" stroke="#E2742F" stroke-width="1.6"/></g>
           </g>
-          <!-- the it's Hearty print, redrawn on the empty part of the glass so the logo never disappears -->
-          <g clip-path="url(#tEmptyClip)" fill="none" stroke="#E2742F" stroke-width="3.2" stroke-linecap="round">
-            <path transform="translate(-45 190) scale(1.15)" d="M178 486 C168 440 182 404 206 404 C222 404 228 418 230 432 M230 432 C236 420 248 414 258 418 C276 426 270 458 244 478"/>
-            <text x="212" y="768" text-anchor="middle" fill="#E2742F" stroke="none" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="900" font-size="30">it’s</text>
-            <text x="232" y="800" text-anchor="middle" fill="#E2742F" stroke="none" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="36" letter-spacing="-.5">Hearty</text>
+          <!-- the it's Hearty print on the glass, always visible -->
+          <g class="tp-print" fill="none" stroke-linecap="round">
+            <path transform="translate(-45 190) scale(1.15)" d="M178 486 C168 440 182 404 206 404 C222 404 228 418 230 432 M230 432 C236 420 248 414 258 418 C276 426 270 458 244 478" stroke="#E2742F" stroke-width="5.4" opacity=".55"/>
+            <path transform="translate(-45 190) scale(1.15)" d="M178 486 C168 440 182 404 206 404 C222 404 228 418 230 432 M230 432 C236 420 248 414 258 418 C276 426 270 458 244 478" stroke="#FFF4DE" stroke-width="3"/>
+            <text x="212" y="768" text-anchor="middle" fill="#FFF4DE" stroke="#E2742F" stroke-width="1.1" paint-order="stroke" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="900" font-size="30">it’s</text>
+            <text x="232" y="800" text-anchor="middle" fill="#FFF4DE" stroke="#E2742F" stroke-width="1.2" paint-order="stroke" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="36" letter-spacing="-.5">Hearty</text>
+          </g>
+          <!-- glass reflections over the beer -->
+          <g clip-path="url(#tInside)" fill="none" stroke="#FFF8E6" stroke-linecap="round"><path d="M146 528 L156 892" stroke-width="5" opacity=".42"/><path d="M300 528 L291 884" stroke-width="4" opacity=".34"/><path d="M186 540 L190 870" stroke-width="2" opacity=".28"/></g>
+          <!-- the stream from the spout into the beer is part of the engraving; this tops it up inside the glass as the level rises -->
+          <rect class="tp-stub" x="222" y="514" width="16" height="0" rx="5" style="fill:var(--beer,#E3A52B)" opacity=".9"/>
+          <!-- the lever: the handle from the engraving plus a hand that grips it -->
+          <g class="tp-lever">
+            <image href="assets/lineart/tap-handle.webp" x="205" y="8" width="107" height="170"/>
+            <g class="tp-hand" fill="#FCE4C8" stroke="#E2742F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M229 40 C225 22 223 6 225 -12 L224 -90 L291 -90 L290 -12 C292 6 290 22 285 40 Z"/>
+              <path d="M240 -20 q4 22 2 44 M256 -24 q3 24 1 50 M272 -20 q-2 22 -1 44" fill="none" stroke-width="1.3" opacity=".7"/>
+              <path d="M276 -60 l-9 16 M283 -50 l-9 16 M287 -36 l-9 16 M288 -20 l-8 14" fill="none" stroke-width="1.2" opacity=".6"/>
+              <rect x="220" y="36" width="75" height="22" rx="11"/>
+              <rect x="217" y="59" width="79" height="22" rx="11"/>
+              <rect x="219" y="82" width="77" height="22" rx="11"/>
+              <rect x="223" y="105" width="68" height="20" rx="10"/>
+              <path d="M236 41 q5 9 0 17 M236 64 q5 9 0 17 M236 87 q5 9 0 17 M238 109 q4 8 0 14" fill="none" stroke-width="1.6"/>
+              <path d="M228 42 q-4 6 0 12 M226 65 q-4 6 0 12 M228 88 q-4 6 0 12 M231 110 q-3 5 0 10" fill="none" stroke-width="1.3" opacity=".8"/>
+              <path d="M240 51 l9 -9 M250 51 l9 -9 M260 51 l9 -9 M270 51 l9 -9 M280 51 l9 -9 M240 74 l9 -9 M250 74 l9 -9 M260 74 l9 -9 M270 74 l9 -9 M280 74 l9 -9 M240 97 l9 -9 M250 97 l9 -9 M260 97 l9 -9 M270 97 l9 -9 M280 97 l9 -9 M240 119 l9 -9 M250 119 l9 -9 M260 119 l9 -9 M270 119 l9 -9" fill="none" stroke-width=".9" opacity=".45"/>
+              <path d="M262 41 q4 9 0 17 M262 64 q4 9 0 17 M262 87 q4 9 0 17 M262 109 q3 8 0 14" fill="none" stroke-width="1.2" opacity=".6"/>
+              <path d="M283 86 C300 80 304 58 292 46 C284 40 274 44 276 52 C282 58 284 68 280 78 Z" stroke-width="2.4"/>
+              <path d="M286 52 q6 10 2 20" fill="none" stroke-width="1.2" opacity=".7"/>
+            </g>
           </g>
         </svg>
       </div>
@@ -1150,7 +1162,6 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
       </ul>
       <div class="bb-rot">
         <h3 class="bb-rot__h"><span>In rotation now.</span></h3>
-        <svg class="bb-thread" aria-hidden="true"><path class="bb-thread__ghost" pathLength="1"/><path class="bb-thread__main" pathLength="1"/></svg>
         <p class="bb-rot__sub">Four off the flat top right now, from the Koramangala menu. Here while they last.</p>
         <ol>
           <li class="bb-c4"><div class="bb-c4__fig"><span class="bb-c4__n">01</span><!-- TODO: photo of The Med Beet (assets/craft/med-beet.png, cut out like the others) --><div class="bb-c4__soon"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M14 40a46 30 0 0 1 92 0z" fill="none" stroke="currentColor" stroke-width="3"/><rect x="10" y="46" width="100" height="9" rx="4.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14 62h92a0 0 0 0 1 0 0 8 8 0 0 1-8 8H22a8 8 0 0 1-8-8z" fill="none" stroke="currentColor" stroke-width="3"/></svg>Photo coming soon</div></div><div class="bb-c4__txt"><h4><i class="bb-diet bb-diet--veg" aria-hidden="true"></i>The Med Beet<span class="bb-vh"> (vegetarian)</span></h4><p>Beetroot-chickpea patty, labneh, sumac onions, rocket, feta.</p></div></li>
@@ -1160,22 +1171,6 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
         </ol>
         <div class="bb-rot__foot">
           <a class="bb-btn bb-btn--ig" data-link="instagramUrl" href="https://www.instagram.com/burgerbrewery_official/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>Comment “TRY IT” on Instagram</a>
-          <div class="bb-clock">
-            <svg class="bb-clock__svg" viewBox="0 0 150 160" aria-hidden="true">
-              <defs><clipPath id="clkShade"><path d="M75 16 A64 64 0 0 1 75 144 A52 52 0 0 0 75 16 Z"/></clipPath></defs>
-              <g class="bb-clock__body">
-                <rect x="67" y="2" width="16" height="9" rx="2"/><rect x="71" y="10" width="8" height="6"/>
-                <path d="M118 30 l9 -9 l5 5 l-9 9 z"/>
-                <circle cx="75" cy="80" r="56" />
-                <g class="bb-clock__hatch" clip-path="url(#clkShade)"><line x1="15" y1="20" x2="75" y2="140"/><line x1="20" y1="20" x2="80" y2="140"/><line x1="25" y1="20" x2="85" y2="140"/><line x1="30" y1="20" x2="90" y2="140"/><line x1="35" y1="20" x2="95" y2="140"/><line x1="40" y1="20" x2="100" y2="140"/><line x1="45" y1="20" x2="105" y2="140"/><line x1="50" y1="20" x2="110" y2="140"/><line x1="55" y1="20" x2="115" y2="140"/><line x1="60" y1="20" x2="120" y2="140"/><line x1="65" y1="20" x2="125" y2="140"/><line x1="70" y1="20" x2="130" y2="140"/><line x1="75" y1="20" x2="135" y2="140"/><line x1="80" y1="20" x2="140" y2="140"/><line x1="85" y1="20" x2="145" y2="140"/><line x1="90" y1="20" x2="150" y2="140"/><line x1="95" y1="20" x2="155" y2="140"/><line x1="100" y1="20" x2="160" y2="140"/><line x1="105" y1="20" x2="165" y2="140"/><line x1="110" y1="20" x2="170" y2="140"/><line x1="115" y1="20" x2="175" y2="140"/><line x1="120" y1="20" x2="180" y2="140"/><line x1="125" y1="20" x2="185" y2="140"/><line x1="130" y1="20" x2="190" y2="140"/><line x1="135" y1="20" x2="195" y2="140"/><line x1="140" y1="20" x2="200" y2="140"/></g>
-                <g class="bb-clock__ticks"><line x1="75.0" y1="22.0" x2="75.0" y2="34.0" stroke-width="2.4"/><line x1="81.1" y1="22.3" x2="80.4" y2="28.3" stroke-width="1"/><line x1="87.1" y1="23.3" x2="85.8" y2="29.1" stroke-width="1"/><line x1="92.9" y1="24.8" x2="91.1" y2="30.5" stroke-width="1"/><line x1="98.6" y1="27.0" x2="96.2" y2="32.5" stroke-width="1"/><line x1="104.0" y1="29.8" x2="98.0" y2="40.2" stroke-width="2.4"/><line x1="109.1" y1="33.1" x2="105.6" y2="37.9" stroke-width="1"/><line x1="113.8" y1="36.9" x2="109.8" y2="41.4" stroke-width="1"/><line x1="118.1" y1="41.2" x2="113.6" y2="45.2" stroke-width="1"/><line x1="121.9" y1="45.9" x2="117.1" y2="49.4" stroke-width="1"/><line x1="125.2" y1="51.0" x2="114.8" y2="57.0" stroke-width="2.4"/><line x1="128.0" y1="56.4" x2="122.5" y2="58.8" stroke-width="1"/><line x1="130.2" y1="62.1" x2="124.5" y2="63.9" stroke-width="1"/><line x1="131.7" y1="67.9" x2="125.9" y2="69.2" stroke-width="1"/><line x1="132.7" y1="73.9" x2="126.7" y2="74.6" stroke-width="1"/><line x1="133.0" y1="80.0" x2="121.0" y2="80.0" stroke-width="2.4"/><line x1="132.7" y1="86.1" x2="126.7" y2="85.4" stroke-width="1"/><line x1="131.7" y1="92.1" x2="125.9" y2="90.8" stroke-width="1"/><line x1="130.2" y1="97.9" x2="124.5" y2="96.1" stroke-width="1"/><line x1="128.0" y1="103.6" x2="122.5" y2="101.2" stroke-width="1"/><line x1="125.2" y1="109.0" x2="114.8" y2="103.0" stroke-width="2.4"/><line x1="121.9" y1="114.1" x2="117.1" y2="110.6" stroke-width="1"/><line x1="118.1" y1="118.8" x2="113.6" y2="114.8" stroke-width="1"/><line x1="113.8" y1="123.1" x2="109.8" y2="118.6" stroke-width="1"/><line x1="109.1" y1="126.9" x2="105.6" y2="122.1" stroke-width="1"/><line x1="104.0" y1="130.2" x2="98.0" y2="119.8" stroke-width="2.4"/><line x1="98.6" y1="133.0" x2="96.2" y2="127.5" stroke-width="1"/><line x1="92.9" y1="135.2" x2="91.1" y2="129.5" stroke-width="1"/><line x1="87.1" y1="136.7" x2="85.8" y2="130.9" stroke-width="1"/><line x1="81.1" y1="137.7" x2="80.4" y2="131.7" stroke-width="1"/><line x1="75.0" y1="138.0" x2="75.0" y2="126.0" stroke-width="2.4"/><line x1="68.9" y1="137.7" x2="69.6" y2="131.7" stroke-width="1"/><line x1="62.9" y1="136.7" x2="64.2" y2="130.9" stroke-width="1"/><line x1="57.1" y1="135.2" x2="58.9" y2="129.5" stroke-width="1"/><line x1="51.4" y1="133.0" x2="53.8" y2="127.5" stroke-width="1"/><line x1="46.0" y1="130.2" x2="52.0" y2="119.8" stroke-width="2.4"/><line x1="40.9" y1="126.9" x2="44.4" y2="122.1" stroke-width="1"/><line x1="36.2" y1="123.1" x2="40.2" y2="118.6" stroke-width="1"/><line x1="31.9" y1="118.8" x2="36.4" y2="114.8" stroke-width="1"/><line x1="28.1" y1="114.1" x2="32.9" y2="110.6" stroke-width="1"/><line x1="24.8" y1="109.0" x2="35.2" y2="103.0" stroke-width="2.4"/><line x1="22.0" y1="103.6" x2="27.5" y2="101.2" stroke-width="1"/><line x1="19.8" y1="97.9" x2="25.5" y2="96.1" stroke-width="1"/><line x1="18.3" y1="92.1" x2="24.1" y2="90.8" stroke-width="1"/><line x1="17.3" y1="86.1" x2="23.3" y2="85.4" stroke-width="1"/><line x1="17.0" y1="80.0" x2="29.0" y2="80.0" stroke-width="2.4"/><line x1="17.3" y1="73.9" x2="23.3" y2="74.6" stroke-width="1"/><line x1="18.3" y1="67.9" x2="24.1" y2="69.2" stroke-width="1"/><line x1="19.8" y1="62.1" x2="25.5" y2="63.9" stroke-width="1"/><line x1="22.0" y1="56.4" x2="27.5" y2="58.8" stroke-width="1"/><line x1="24.8" y1="51.0" x2="35.2" y2="57.0" stroke-width="2.4"/><line x1="28.1" y1="45.9" x2="32.9" y2="49.4" stroke-width="1"/><line x1="31.9" y1="41.2" x2="36.4" y2="45.2" stroke-width="1"/><line x1="36.2" y1="36.9" x2="40.2" y2="41.4" stroke-width="1"/><line x1="40.9" y1="33.1" x2="44.4" y2="37.9" stroke-width="1"/><line x1="46.0" y1="29.8" x2="52.0" y2="40.2" stroke-width="2.4"/><line x1="51.4" y1="27.0" x2="53.8" y2="32.5" stroke-width="1"/><line x1="57.1" y1="24.8" x2="58.9" y2="30.5" stroke-width="1"/><line x1="62.9" y1="23.3" x2="64.2" y2="29.1" stroke-width="1"/><line x1="68.9" y1="22.3" x2="69.6" y2="28.3" stroke-width="1"/></g>
-              </g>
-              <line class="bb-clock__h" x1="75" y1="80" x2="75" y2="52"/>
-              <line class="bb-clock__m" x1="75" y1="80" x2="75" y2="38"/>
-              <g class="bb-clock__s"><line x1="75" y1="92" x2="75" y2="30"/><circle cx="75" cy="80" r="3.4"/></g>
-            </svg>
-            <p>Try it while it’s on our menu.</p>
-          </div>
         </div>
       </div>
       <div class="bb-join">
@@ -1183,12 +1178,10 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
           <p class="bb-join__kicker">The BBY community</p>
           <p class="bb-join__h">Decide what comes on our menu next. What drops, and which burger we launch, with us.</p>
         </div>
-        <button class="bb-stackbtn" type="button" data-open="dlg-community">
-          <span class="bb-stackbtn__top" aria-hidden="true"></span>
-          <span class="bb-stackbtn__leaf" aria-hidden="true"></span>
-          <span class="bb-stackbtn__cheese" aria-hidden="true"></span>
-          <span class="bb-stackbtn__patty">Join the BBY community</span>
-          <span class="bb-stackbtn__base" aria-hidden="true"></span>
+        <button class="bb-joinbtn" type="button" data-open="dlg-community">
+          <span class="bb-joinbtn__ph" aria-hidden="true"><img src="assets/photos/join-burger.webp" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
+          <span class="bb-joinbtn__t">Join the BBY community</span>
+          <span class="bb-joinbtn__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
       </div>
       <div id="drops-rnd"></div>
@@ -1278,20 +1271,20 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
           <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Jalapeño Smokehouse Smash</span></div><p><span class="bb-tag">Chicken</span> Smoked patties smashed into jalapeños, chilli-cheddar sauce, pickles.</p></li>
           <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Oklahoma Smash</span></div><p><span class="bb-tag">Lamb / Buff</span> Double patties smashed with white onions, double Cheddar, chimichurri.</p></li>
           <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">The Brewery Cheeseburger</span></div><p><span class="bb-tag">Lamb / Buff</span> Melted Cheddar, sautéed onions, pickles, BB Hot Mayo, garlic butter bun.</p></li>
-        </ul><p class="bb-panel__more">Five more Originals in the full menu.</p></article>
+        </ul><p class="bb-panel__more">Five more Originals in the full menu.</p><figure class="bb-menu__art is-burger" aria-hidden="true"><img src="assets/menuart/clean-cut.webp" width="591" height="429" alt="" loading="lazy" decoding="async"></figure></article>
         <article class="bb-panel bb-cat" id="cat-sliders"><h3>Sliders &amp; snacks</h3><ul>
           <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--veg"></i><span class="bb-item__name">Veg slider trio</span></div><p>Hop Express, Truffle Shroom, Pesto Paneer.</p></li>
           <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Non-veg slider trio</span></div><p>Nashville Hot Chicken, Jalapeño Smokehouse Smash, Brewery Cheeseburger.</p></li>
           <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--veg"></i><span class="bb-item__name">Skin-on fries</span></div><p>Salted, cheesy or truffle.</p></li>
           <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">BB Dirty Fries</span></div><p>Cheddar, ranch, BB Hot Mayo, salsa, jalapeños, gherkins.</p></li>
           <li class="bb-item"><div class="bb-item__top"><i class="bb-diet bb-diet--nonveg"></i><span class="bb-item__name">Wings</span></div><p>Chilli garlic, cola BBQ or habanero.</p></li>
-        </ul></article>
+        </ul><figure class="bb-menu__art is-sliders" aria-hidden="true"><img src="assets/menuart/sliders-trio.webp" width="900" height="419" alt="" loading="lazy" decoding="async"></figure></article>
         <article class="bb-panel bb-cat" id="cat-gelato"><h3>Gelato</h3><ul>
           <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">The Brewery Cookie Dream</span></div><p>A warm skillet cookie with vanilla gelato and chocolate fondue.</p></li>
           <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">One scoop</span></div><p>Belgian chocolate or French vanilla. Sicilian pistachio.</p></li>
           <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">The Scoop Flight</span></div><p>Three small scoops, one of each. Built to taste all three.</p></li>
           <li class="bb-item"><div class="bb-item__top"><span class="bb-item__name">The Dubai Kunafa shake</span></div><p>Pistachio gelato, white chocolate, toasted kunafa.</p></li>
-        </ul><!-- TODO verify: gelato source --><p class="bb-panel__more">Small-batch gelato.</p></article>
+        </ul><!-- TODO verify: gelato source --><p class="bb-panel__more">Small-batch gelato.</p><figure class="bb-menu__art is-sundae" aria-hidden="true"><img src="assets/menuart/gelato-sundae.webp" width="358" height="570" alt="" loading="lazy" decoding="async"></figure></article>
         <article class="bb-panel bb-panel--note" id="cat-staying">
           <div><h3>Staying in?</h3><!-- TODO verify delivery cities --><p>We deliver across <span data-cfg-cities></span>. Or see everything we make, from add-ons to cold coffee.</p></div>
           <div class="bb-actions">
@@ -1331,7 +1324,7 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
       <div class="bb-visit__split">
         <div class="bb-half">
           <img src="assets/photos/resp/outside-1600.jpg" srcset="assets/photos/resp/outside-480.webp 480w, assets/photos/resp/outside-960.webp 960w, assets/photos/resp/outside-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="1600" height="1200" loading="lazy" decoding="async" alt="The Burger Brewery storefront in Koramangala at night">
-          <h2 id="visit-h">Pull up a chair.</h2>
+          <h2 id="visit-h">Dining.</h2>
           <p>Koramangala 1st Block. <span data-cfg-show="hours">Open <span data-cfg-val="hours"></span>.</span> Weekends fill up by 8, so book ahead. <a class="bb-link" data-link="mapsUrl" href="https://maps.app.goo.gl/BrSWiB4urYfC66M5A" target="_blank" rel="noopener">Find us on Google Maps</a>.</p>
           <div class="bb-actions"><a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a></div>
         </div>
@@ -1536,7 +1529,7 @@ ScrollCraft.mount(document.body);
   var has = function (v) { return v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && !v.length); };
 
   /* ---------- asset probing: preferred file, else fallback, else hide, or a labelled frame in ?placeholders=1 ---------- */
-  var BB_HAVE = ["assets/brand/bb-stacked.png", "assets/brand/burger-base.png", "assets/brand/burger-base.webp", "assets/brand/burger-mid.png", "assets/brand/burger-mid.webp", "assets/brand/burger-top.png", "assets/brand/burger-top.webp", "assets/brand/stamp-do-together.png", "assets/brand/stamp-do-together.webp", "assets/burger-brewery-koramangala-menu.pdf", "assets/craft/blr-ghee-roast-pull.png", "assets/craft/blr-ghee-roast-pull.webp", "assets/craft/forbidden-pbj.png", "assets/craft/forbidden-pbj.webp", "assets/heart-b.png", "assets/img/room-booths.jpg", "assets/img/room-booths.webp", "assets/img/room-chef.jpg", "assets/img/room-chef.webp", "assets/img/room-friday-1.jpg", "assets/img/room-friday-1.webp", "assets/lineart/kitchen-smash.png", "assets/lineart/kitchen-smash.webp", "assets/lineart/tap-pour-480.jpg", "assets/lineart/tap-pour-480.webp", "assets/lineart/tap-pour-960.jpg", "assets/lineart/tap-pour-960.webp", "assets/logo-horizontal.png", "assets/pairing/beer-default.png", "assets/pairing/beer-default.webp", "assets/pairing/burger-default.png", "assets/pairing/burger-default.webp", "assets/pairing/burger-x-beer-menu.png", "assets/pairing/burgers/brewery-cheeseburger.png", "assets/pairing/burgers/jalapeno-smokehouse-smash.png", "assets/pairing/burgers/nashville-hot-chicken.png", "assets/pairing/burgers/oklahoma-smash.png", "assets/pairing/burgers/pesto-paneer.png", "assets/pairing/burgers/truffle-shroom.png", "assets/photos/beer-taps-corner.jpg", "assets/photos/burger-neon.jpg", "assets/photos/combo.jpg", "assets/photos/do-together-platter.jpg", "assets/photos/food/biscoff-shake.webp", "assets/photos/food/chicken-soulaki.webp", "assets/photos/food/chicken-tenders.webp", "assets/photos/food/dirty-fries.webp", "assets/photos/food/jalapeno-smokehouse-smash.webp", "assets/photos/food/mannheim-new-england-ipa.webp", "assets/photos/food/oklahoma-smash.webp", "assets/photos/food/toit-nitro-stout.webp", "assets/photos/food/veg-trio.webp", "assets/photos/left-side.jpg", "assets/photos/live-kitchen.jpg", "assets/photos/outside.jpg", "assets/photos/pairing-cheeseburger-lager-540.webp", "assets/photos/pairing-cheeseburger-lager.webp", "assets/photos/resp/beer-taps-corner-1600.jpg", "assets/photos/resp/beer-taps-corner-1600.webp", "assets/photos/resp/beer-taps-corner-480.jpg", "assets/photos/resp/beer-taps-corner-480.webp", "assets/photos/resp/beer-taps-corner-960.jpg", "assets/photos/resp/beer-taps-corner-960.webp", "assets/photos/resp/combo-1600.jpg", "assets/photos/resp/combo-1600.webp", "assets/photos/resp/combo-480.jpg", "assets/photos/resp/combo-480.webp", "assets/photos/resp/combo-960.jpg", "assets/photos/resp/combo-960.webp", "assets/photos/resp/delivery-hands-1500.jpg", "assets/photos/resp/delivery-hands-1500.webp", "assets/photos/resp/delivery-hands-480.jpg", "assets/photos/resp/delivery-hands-480.webp", "assets/photos/resp/delivery-hands-960.jpg", "assets/photos/resp/delivery-hands-960.webp", "assets/photos/resp/do-together-platter-480.jpg", "assets/photos/resp/do-together-platter-480.webp", "assets/photos/resp/do-together-platter-960.jpg", "assets/photos/resp/do-together-platter-960.webp", "assets/photos/resp/left-side-1600.jpg", "assets/photos/resp/left-side-1600.webp", "assets/photos/resp/left-side-480.jpg", "assets/photos/resp/left-side-480.webp", "assets/photos/resp/left-side-960.jpg", "assets/photos/resp/left-side-960.webp", "assets/photos/resp/live-kitchen-1600.jpg", "assets/photos/resp/live-kitchen-1600.webp", "assets/photos/resp/live-kitchen-480.jpg", "assets/photos/resp/live-kitchen-480.webp", "assets/photos/resp/live-kitchen-960.jpg", "assets/photos/resp/live-kitchen-960.webp", "assets/photos/resp/outside-1600.jpg", "assets/photos/resp/outside-1600.webp", "assets/photos/resp/outside-480.jpg", "assets/photos/resp/outside-480.webp", "assets/photos/resp/outside-960.jpg", "assets/photos/resp/outside-960.webp", "assets/video/pairing-reel-poster.webp", "assets/video/pairing-reel.mp4"]; var probeCache = {};
+  var BB_HAVE = ["assets/brand/bb-stacked.png", "assets/brand/burger-base.png", "assets/brand/burger-base.webp", "assets/brand/burger-mid.png", "assets/brand/burger-mid.webp", "assets/brand/burger-top.png", "assets/brand/burger-top.webp", "assets/brand/stamp-do-together.png", "assets/brand/stamp-do-together.webp", "assets/burger-brewery-koramangala-menu.pdf", "assets/craft/blr-ghee-roast-pull.png", "assets/craft/blr-ghee-roast-pull.webp", "assets/craft/forbidden-pbj.png", "assets/craft/forbidden-pbj.webp", "assets/heart-b.png", "assets/img/room-booths.jpg", "assets/img/room-booths.webp", "assets/img/room-chef.jpg", "assets/img/room-chef.webp", "assets/img/room-friday-1.jpg", "assets/img/room-friday-1.webp", "assets/lineart/kitchen-smash.png", "assets/lineart/kitchen-smash.webp", "assets/lineart/tap-clear-960.webp", "assets/lineart/tap-handle.png", "assets/lineart/tap-handle.webp", "assets/lineart/tap-pour-480.jpg", "assets/lineart/tap-pour-480.webp", "assets/lineart/tap-pour-960.jpg", "assets/lineart/tap-pour-960.webp", "assets/logo-horizontal.png", "assets/menuart/clean-cut.webp", "assets/menuart/gelato-sundae.webp", "assets/menuart/sliders-trio.webp", "assets/pairing/beer-default.png", "assets/pairing/beer-default.webp", "assets/pairing/burger-default.png", "assets/pairing/burger-default.webp", "assets/pairing/burger-x-beer-menu.png", "assets/pairing/burgers/brewery-cheeseburger.png", "assets/pairing/burgers/jalapeno-smokehouse-smash.png", "assets/pairing/burgers/nashville-hot-chicken.png", "assets/pairing/burgers/oklahoma-smash.png", "assets/pairing/burgers/pesto-paneer.png", "assets/pairing/burgers/truffle-shroom.png", "assets/photos/beer-taps-corner.jpg", "assets/photos/burger-neon.jpg", "assets/photos/combo.jpg", "assets/photos/do-together-platter.jpg", "assets/photos/food/biscoff-shake.webp", "assets/photos/food/chicken-soulaki.webp", "assets/photos/food/chicken-tenders.webp", "assets/photos/food/dirty-fries.webp", "assets/photos/food/jalapeno-smokehouse-smash.webp", "assets/photos/food/mannheim-new-england-ipa.webp", "assets/photos/food/oklahoma-smash.webp", "assets/photos/food/toit-nitro-stout.webp", "assets/photos/food/veg-trio.webp", "assets/photos/join-burger.webp", "assets/photos/left-side.jpg", "assets/photos/live-kitchen.jpg", "assets/photos/outside.jpg", "assets/photos/pairing-cheeseburger-lager-540.webp", "assets/photos/pairing-cheeseburger-lager.webp", "assets/photos/resp/beer-taps-corner-1600.jpg", "assets/photos/resp/beer-taps-corner-1600.webp", "assets/photos/resp/beer-taps-corner-480.jpg", "assets/photos/resp/beer-taps-corner-480.webp", "assets/photos/resp/beer-taps-corner-960.jpg", "assets/photos/resp/beer-taps-corner-960.webp", "assets/photos/resp/combo-1600.jpg", "assets/photos/resp/combo-1600.webp", "assets/photos/resp/combo-480.jpg", "assets/photos/resp/combo-480.webp", "assets/photos/resp/combo-960.jpg", "assets/photos/resp/combo-960.webp", "assets/photos/resp/delivery-hands-1500.jpg", "assets/photos/resp/delivery-hands-1500.webp", "assets/photos/resp/delivery-hands-480.jpg", "assets/photos/resp/delivery-hands-480.webp", "assets/photos/resp/delivery-hands-960.jpg", "assets/photos/resp/delivery-hands-960.webp", "assets/photos/resp/do-together-platter-480.jpg", "assets/photos/resp/do-together-platter-480.webp", "assets/photos/resp/do-together-platter-960.jpg", "assets/photos/resp/do-together-platter-960.webp", "assets/photos/resp/left-side-1600.jpg", "assets/photos/resp/left-side-1600.webp", "assets/photos/resp/left-side-480.jpg", "assets/photos/resp/left-side-480.webp", "assets/photos/resp/left-side-960.jpg", "assets/photos/resp/left-side-960.webp", "assets/photos/resp/live-kitchen-1600.jpg", "assets/photos/resp/live-kitchen-1600.webp", "assets/photos/resp/live-kitchen-480.jpg", "assets/photos/resp/live-kitchen-480.webp", "assets/photos/resp/live-kitchen-960.jpg", "assets/photos/resp/live-kitchen-960.webp", "assets/photos/resp/outside-1600.jpg", "assets/photos/resp/outside-1600.webp", "assets/photos/resp/outside-480.jpg", "assets/photos/resp/outside-480.webp", "assets/photos/resp/outside-960.jpg", "assets/photos/resp/outside-960.webp", "assets/video/pairing-reel-poster.webp", "assets/video/pairing-reel.mp4"]; var probeCache = {};
   function probeImg(url) {
     if (BB_HAVE.indexOf(url) < 0) return Promise.resolve(false);
     if (!probeCache[url]) probeCache[url] = new Promise(function (res) { var i = new Image(); i.onload = function () { res(true); }; i.onerror = function () { res(false); }; i.src = url; });
@@ -1955,7 +1948,7 @@ ScrollCraft.mount(document.body);
 
   /* ---------- Craft on Tap: scroll pours the beer; the beer nearest the middle sets the colour ---------- */
   var TAP = document.getElementById("craft-on-tap"), tapSvg = TAP.querySelector(".bb-tap__svg"), tapList = TAP.querySelector(".bb-beers");
-  var beers = [].slice.call(TAP.querySelectorAll(".bb-beer")), tTint = TAP.querySelector(".tp-tint"), tEmpty = TAP.querySelector(".tp-empty"), tSurf = TAP.querySelector(".tp-surface"), tClip = TAP.querySelector(".tp-emptyclip");
+  var beers = [].slice.call(TAP.querySelectorAll(".bb-beer")), tLiq = TAP.querySelector(".tp-liqclip"), tStub = TAP.querySelector(".tp-stub"), tSurf = TAP.querySelector(".tp-surface"), tLever = TAP.querySelector(".tp-lever");
   var tapActive = -1, BOTTOM = 906, TOP = 528;
   beers.forEach(function (li) { li.style.setProperty("--c", li.dataset.beer); li.style.setProperty("--hi", li.dataset.hi); li.style.setProperty("--f", li.dataset.foam); });
   function setBeer(i) {
@@ -1966,25 +1959,26 @@ ScrollCraft.mount(document.body);
   function pourTo(fill) {
     fill = clamp(fill, 0, 1);
     var lvl = BOTTOM - fill * (BOTTOM - TOP);
-    tTint.setAttribute("y", lvl.toFixed(1)); tTint.setAttribute("height", (BOTTOM - lvl).toFixed(1));
-    tEmpty.setAttribute("transform", "translate(0 " + (lvl - BOTTOM).toFixed(1) + ")");
-    tClip.setAttribute("height", Math.max(0, lvl - 500).toFixed(1));
+    tLiq.setAttribute("y", lvl.toFixed(1)); tLiq.setAttribute("height", Math.max(0, BOTTOM - lvl + 2).toFixed(1));
+    tStub.setAttribute("height", fill > 0.004 ? Math.max(0, lvl - 514).toFixed(1) : 0);
     tSurf.setAttribute("transform", "translate(0 " + lvl.toFixed(1) + ")"); tSurf.style.opacity = fill > 0.02 && fill < 0.985 ? 1 : 0;
   }
+  function leverTo(pull) { tLever.style.transform = "rotate(" + (-20 * pull).toFixed(2) + "deg)"; }   // the hand pulls the handle toward you, holds while it pours, lets go at the end
   if ("IntersectionObserver" in window) {
     var bio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-seen"); bio.unobserve(e.target); } }); }, { rootMargin: "0px 0px -18% 0px" });
     beers.forEach(function (b) { bio.observe(b); });
   } else beers.forEach(function (b) { b.classList.add("is-seen"); });
   function tapFrame() {
-    if (reduce) { pourTo(1); beers.forEach(function (b) { b.classList.add("is-seen"); }); if (tapActive < 0) setBeer(0); return; }
+    if (reduce) { pourTo(1); leverTo(0); beers.forEach(function (b) { b.classList.add("is-seen"); }); if (tapActive < 0) setBeer(0); return; }
     var r = tapList.getBoundingClientRect(), vh = innerHeight;
     var p = clamp((vh * 0.62 - r.top) / Math.max(1, r.height - vh * 0.25), 0, 1);
     pourTo(sm(p / 0.92));
+    leverTo(sm(clamp(p / 0.07, 0, 1)) * (1 - sm(clamp((p - 0.95) / 0.045, 0, 1))));
     var mid = vh * 0.5, best = 0, bd = 1e9;
     beers.forEach(function (b, k) { var br = b.getBoundingClientRect(), d = Math.abs(br.top + br.height / 2 - mid); if (d < bd) { bd = d; best = k; } });
     setBeer(best);
   }
-  setBeer(0); pourTo(0);
+  setBeer(0); pourTo(0); leverTo(0);
 
 
 
@@ -1998,51 +1992,28 @@ ScrollCraft.mount(document.body);
   }
 
   /* ---------- Drops: one line from the heading, looping each burger, ending as a stopwatch that ticks ---------- */
-  var ROT = document.querySelector(".bb-rot"), thread = ROT && ROT.querySelector(".bb-thread"), tMain = thread && thread.querySelector(".bb-thread__main"), tGhost = thread && thread.querySelector(".bb-thread__ghost");
-  var clockEl = ROT && ROT.querySelector(".bb-clock");
-  function layoutThread() {
-    if (!ROT) return;
-    var R = ROT.getBoundingClientRect(), rel = function (r) { return { l: r.left - R.left, t: r.top - R.top, w: r.width, h: r.height }; };
-    var h = rel(ROT.querySelector(".bb-rot__h span").getBoundingClientRect());
-    var figs = [].map.call(ROT.querySelectorAll(".bb-c4__fig"), function (f) { return rel(f.getBoundingClientRect()); });
-    var ck = rel(clockEl.querySelector(".bb-clock__svg").getBoundingClientRect());
-    var x = h.l - 6, y = h.t + h.h + 10, d = "M" + x.toFixed(1) + " " + y.toFixed(1);
-    // underline flourish under the heading
-    d += " C" + (x + h.w * 0.3) + " " + (y + 8) + " " + (x + h.w * 0.7) + " " + (y - 6) + " " + (x + h.w + 10) + " " + (y + 2);
-    x = x + h.w + 10; y = y + 2;
-    figs.forEach(function (f) {
-      var cx = f.l + f.w / 2, cy = f.t + f.h * 0.55, r = Math.min(f.w, f.h) * 0.43, tx = cx - r * 0.15, ty = cy - r;
-      d += " C" + (x + 40) + " " + (y + 30) + " " + (tx - 60) + " " + (ty - 50) + " " + tx.toFixed(1) + " " + ty.toFixed(1);
-      // a full loop around the burger, slightly off-round like a pen line
-      d += " C" + (cx + r * 1.1) + " " + (cy - r * 1.05) + " " + (cx + r * 1.08) + " " + (cy + r * 0.98) + " " + cx.toFixed(1) + " " + (cy + r).toFixed(1);
-      d += " C" + (cx - r * 1.12) + " " + (cy + r * 1.02) + " " + (cx - r * 1.04) + " " + (cy - r * 0.96) + " " + (tx + 8).toFixed(1) + " " + (ty - 2).toFixed(1);
-      x = tx + 8; y = ty - 2;
+  /* ---------- Craft rotation headline: the letters turn over like a rotating drum as the section arrives (scroll-linked), then stay turned ---------- */
+  var ROT = document.getElementById("drops"), dropH = document.getElementById("drops-h"), dropLetters = [];
+  (function () {
+    if (!dropH) return;
+    var txt = dropH.textContent; dropH.setAttribute("aria-label", txt); dropH.textContent = "";
+    txt.split(" ").forEach(function (word, wi, arr) {
+      var w = document.createElement("span"); w.className = "rot-w"; w.setAttribute("aria-hidden", "true");
+      word.split("").forEach(function (ch) { var l = document.createElement("span"); l.className = "rot-l"; l.textContent = ch; w.appendChild(l); dropLetters.push(l); });
+      dropH.appendChild(w); if (wi < arr.length - 1) dropH.appendChild(document.createTextNode(" "));
     });
-    // leave the last card around its outside edge, then drop into the stopwatch: arrive at the crown, then draw the case
-    var cards = [].map.call(ROT.querySelectorAll(".bb-c4"), function (c) { return rel(c.getBoundingClientRect()); }), last = cards[cards.length - 1];
-    var cx = ck.l + ck.w * 0.5, cy = ck.t + ck.h * (80 / 160), rr = ck.w * (64 / 150), top = cy - rr;
-    var ex = Math.min(R.width - 8, last.l + last.w + 26), ey = last.t + last.h * 0.35, bottom = last.t + last.h + 16;
-    d += " C" + (x + 70) + " " + (y - 30) + " " + ex + " " + (ey - 60) + " " + ex.toFixed(1) + " " + ey.toFixed(1);
-    d += " L" + ex.toFixed(1) + " " + bottom.toFixed(1);
-    d += " C" + ex + " " + (bottom + 40) + " " + cx + " " + (top - 50) + " " + cx.toFixed(1) + " " + top.toFixed(1);
-    ROT.dataset.clockY = (cy + rr).toFixed(0);
-    d += " A" + rr.toFixed(1) + " " + rr.toFixed(1) + " 0 1 1 " + (cx - 0.1).toFixed(1) + " " + top.toFixed(1);
-    thread.setAttribute("viewBox", "0 0 " + R.width.toFixed(0) + " " + R.height.toFixed(0));
-    tMain.setAttribute("d", d); tGhost.setAttribute("d", d);
-  }
+  })();
   function threadFrame() {
-    if (!ROT) return;
-    if (reduce) { tMain.style.strokeDashoffset = tGhost.style.strokeDashoffset = 0; ROT.classList.add("is-timed"); return; }
-    // the line finishes (and the watch starts ticking) when the stopwatch is comfortably on screen
-    var r = ROT.getBoundingClientRect(), endY = +(ROT.dataset.clockY || r.height), p = clamp((innerHeight * 0.72 - r.top) / Math.max(1, endY + 30 - innerHeight * 0.0), 0, 1);
-    p = clamp((innerHeight * 0.82 - r.top - endY * 0.2) / (endY * 0.8), 0, 1);
-    var off = (1 - p).toFixed(4); tMain.style.strokeDashoffset = off; tGhost.style.strokeDashoffset = Math.min(1, 1 - p + 0.02).toFixed(4);
-    ROT.classList.toggle("is-timed", p > 0.97);
+    if (!dropLetters.length) return;
+    var p = 1;
+    if (!reduce) { var r = dropH.getBoundingClientRect(); p = clamp((innerHeight * 0.9 - r.top) / (innerHeight * 0.5), 0, 1); }
+    var n = dropLetters.length;
+    dropLetters.forEach(function (l, i) {
+      var q = clamp(p * (n + 6) - i, 0, 6) / 6, e = 1 - Math.pow(1 - q, 3);
+      l.style.transform = "rotateX(" + ((1 - e) * -105).toFixed(1) + "deg) translateY(" + ((1 - e) * 0.3).toFixed(3) + "em)";
+      l.style.opacity = Math.min(1, e * 1.6).toFixed(3);
+    });
   }
-  addEventListener("resize", layoutThread);
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(layoutThread);
-  addEventListener("load", layoutThread);
-  layoutThread();
 
   /* ---------- menu: sticky category tabs (mobile) ---------- */
   (function () {
