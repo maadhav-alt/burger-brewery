@@ -90,3 +90,9 @@ Build steps once decided: a `franchise_applications` table (insert-only for the 
 - TODO VERIFY: Chicken Soulaki, Trio (Veg), Chicken Tenders (Classic), Biscoff Shake, Mannheim New England IPA are named as on the carousel but are not in the site's menu section. Check against the menu PDF.
 - Slide S05's caption reads "Koramanagla" (typo). It is not used on the site; fix it on Instagram.
 - Delivery page: never use the beer tiles (IPA, Stout) or S03 there.
+
+## Pairing clip (added 2026-11-22)
+- `assets/video/pairing-reel.mp4` (14 s, 3.5 MB, from the WhatsApp file in `Burger_Brewery_Website_FORGE/Pairings/`) plays in a pop-up from the Pairings section ("Watch Oklahoma Smash + Kolsch", and "Watch this pairing" when Oklahoma Smash is picked). It loads only when opened.
+- The clip shows Oklahoma Smash + Kolsch, not the Jalapeño Smokehouse Smash + Hefeweizen reel on Instagram (p/DewwQxvoGna). The same pop-up can hold that one too: send the file.
+- TODO: captions are burned into the picture; a separate .vtt captions file would be better for accessibility. Needs the spoken words.
+- Keep it off the delivery page (it shows beer).

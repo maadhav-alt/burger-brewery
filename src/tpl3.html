@@ -490,6 +490,14 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 .bb-pair__photo img { display: block; width: 100%; height: auto; border-radius: 20px; background: #1B1617; }
 .bb-pair__photo figcaption { margin-top: 10px; font: 700 .95rem/1.3 var(--sc-font-text); color: var(--bb-cream); }
 
+/* pairing clip pop-up */
+.bb-pair__watch[hidden] { display: none; }
+.bb-pair__watch { display: inline-flex; align-items: center; min-height: 44px; margin-top: var(--sc-3); }
+.bb-reel { width: min(92vw, 440px); }
+.bb-reel h2 { font-size: clamp(1.3rem, 4vw, 1.7rem); margin-right: 48px; }
+.bb-reel video { display: block; width: 100%; height: auto; aspect-ratio: 478 / 850; max-height: 68vh; object-fit: contain; margin-top: 14px; border-radius: 14px; background: #000; }
+.bb-reel__why { margin: 12px 0 0; font-size: .98rem; line-height: 1.5; }
+
 .bb-textlink { background: none; border: 0; padding: 8px 0; color: var(--bb-cream); font: 800 1rem/1.3 var(--sc-font-text); text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 2px; cursor: pointer; }
 .bb-alltaps { margin-top: var(--sc-6); border-top: 1px solid rgba(242,242,233,.2); max-width: 760px; }
 .bb-alltaps summary { cursor: pointer; padding: var(--sc-4) 0; font: 800 1.05rem/1.2 var(--sc-font-text); list-style: none; display: flex; align-items: center; gap: 10px; }
@@ -807,9 +815,10 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
         <p class="bb-pair__beername"></p>
         <p class="bb-pair__desc"></p>
         <div class="bb-pair__note"><b>Why it works</b><p class="bb-pair__why"></p></div>
+        <button class="bb-textlink bb-pair__watch" type="button" data-open="dlg-reel" hidden>Watch this pairing</button>
         <p class="bb-vh">This is the perfect pair.</p>
       </div>
-      <div class="bb-pair__cta"><a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a> <a class="bb-textlink" href="#craft-on-tap">See what’s on tap</a></div>
+      <div class="bb-pair__cta"><a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a> <button class="bb-textlink" type="button" data-open="dlg-reel">Watch Oklahoma Smash + Kolsch</button> <a class="bb-textlink" href="#craft-on-tap">See what’s on tap</a></div>
       <figure class="bb-pair__photo"><img src="assets/photos/pairing-cheeseburger-lager-540.webp" srcset="assets/photos/pairing-cheeseburger-lager-540.webp 540w, assets/photos/pairing-cheeseburger-lager.webp 1080w" sizes="(max-width: 700px) 90vw, 420px" width="1080" height="1350" loading="lazy" decoding="async" alt="The Brewery Cheeseburger beside a pint of lager, each marked with a hand-drawn arrow and label"><figcaption>The Brewery Cheeseburger + Lager</figcaption></figure>
     </div>
   </section>
@@ -1073,6 +1082,16 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
       <p>You’re in. We’ll ask you before the next one drops.</p>
       <small data-community-test hidden>Test mode: the database connection is missing, so nothing was sent.</small>
     </div>
+  </div>
+</dialog>
+
+<!-- Pairing clip: Oklahoma Smash + Kolsch. Video loads only when the pop-up is opened. TODO: add captions (.vtt) from the spoken words once the script is supplied. -->
+<dialog class="bb-dialog bb-reel" id="dlg-reel" aria-labelledby="reel-h">
+  <div class="bb-dialog__in">
+    <button class="bb-dialog__x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="reel-h">Oklahoma Smash + Kolsch</h2>
+    <video controls playsinline preload="none" poster="assets/video/pairing-reel-poster.webp" data-src="assets/video/pairing-reel.mp4" width="478" height="850" aria-label="A 14-second clip about pairing the Oklahoma Smash with a Kolsch"></video>
+    <p class="bb-reel__why">Light fruitiness and a crisp finish balance the charred onions and rich meat.</p>
   </div>
 </dialog>
 
@@ -1479,6 +1498,7 @@ ScrollCraft.mount(document.body);
       res.querySelector(".bb-pair__beername").textContent = "+ " + p.beer;
       res.querySelector(".bb-pair__desc").textContent = p.desc;
       res.querySelector(".bb-pair__why").textContent = p.why;
+      var watch = res.querySelector(".bb-pair__watch"); if (watch) watch.hidden = p.k !== "oklahoma-smash";   // the clip is about this pairing
       grid.querySelectorAll(".bb-pb").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.k === p.k)); });
     }
     function play(k) {
@@ -1505,6 +1525,19 @@ ScrollCraft.mount(document.body);
     if (location.hash === "#pairings") openGrid(false);
     // the default pair plays once when the stage first comes into view
     onceInView(stage, function () { if (!current) play("brewery-cheeseburger"); }, 0);
+  })();
+
+  /* ---------- pairing clip pop-up: video is set on first open, plays on the click, stops and rewinds on close ---------- */
+  (function () {
+    var d = document.getElementById("dlg-reel"); if (!d) return;
+    var v = d.querySelector("video");
+    document.querySelectorAll('[data-open="dlg-reel"]').forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (!v.getAttribute("src")) v.src = v.getAttribute("data-src");
+        var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});   // started by the visitor's click, so sound is allowed
+      });
+    });
+    d.addEventListener("close", function () { v.pause(); try { v.currentTime = 0; } catch (e) {} });
   })();
 
   /* ---------- nav: Locations menu ---------- */

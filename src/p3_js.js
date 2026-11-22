@@ -139,6 +139,7 @@
       res.querySelector(".bb-pair__beername").textContent = "+ " + p.beer;
       res.querySelector(".bb-pair__desc").textContent = p.desc;
       res.querySelector(".bb-pair__why").textContent = p.why;
+      var watch = res.querySelector(".bb-pair__watch"); if (watch) watch.hidden = p.k !== "oklahoma-smash";   // the clip is about this pairing
       grid.querySelectorAll(".bb-pb").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.k === p.k)); });
     }
     function play(k) {
@@ -165,6 +166,19 @@
     if (location.hash === "#pairings") openGrid(false);
     // the default pair plays once when the stage first comes into view
     onceInView(stage, function () { if (!current) play("brewery-cheeseburger"); }, 0);
+  })();
+
+  /* ---------- pairing clip pop-up: video is set on first open, plays on the click, stops and rewinds on close ---------- */
+  (function () {
+    var d = document.getElementById("dlg-reel"); if (!d) return;
+    var v = d.querySelector("video");
+    document.querySelectorAll('[data-open="dlg-reel"]').forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (!v.getAttribute("src")) v.src = v.getAttribute("data-src");
+        var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});   // started by the visitor's click, so sound is allowed
+      });
+    });
+    d.addEventListener("close", function () { v.pause(); try { v.currentTime = 0; } catch (e) {} });
   })();
 
   /* ---------- nav: Locations menu ---------- */

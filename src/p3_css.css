@@ -426,3 +426,11 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 .bb-pair__photo { margin: var(--sc-7) 0 0; max-width: 420px; }
 .bb-pair__photo img { display: block; width: 100%; height: auto; border-radius: 20px; background: #1B1617; }
 .bb-pair__photo figcaption { margin-top: 10px; font: 700 .95rem/1.3 var(--sc-font-text); color: var(--bb-cream); }
+
+/* pairing clip pop-up */
+.bb-pair__watch[hidden] { display: none; }
+.bb-pair__watch { display: inline-flex; align-items: center; min-height: 44px; margin-top: var(--sc-3); }
+.bb-reel { width: min(92vw, 440px); }
+.bb-reel h2 { font-size: clamp(1.3rem, 4vw, 1.7rem); margin-right: 48px; }
+.bb-reel video { display: block; width: 100%; height: auto; aspect-ratio: 478 / 850; max-height: 68vh; object-fit: contain; margin-top: 14px; border-radius: 14px; background: #000; }
+.bb-reel__why { margin: 12px 0 0; font-size: .98rem; line-height: 1.5; }
