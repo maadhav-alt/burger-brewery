@@ -83,3 +83,10 @@ Open decisions:
 - [ ] Whether to copy partnerships@ on each send, and what to do about repeat submissions.
 
 Build steps once decided: a `franchise_applications` table (insert-only for the public key), the Google Form with an Apps Script that writes each response to it, and a send step triggered by a new franchise enquiry, with a single on/off switch. Any API key or secret is pasted in by the owner, never into the repo.
+
+## Food strip and pairing photo (added 2026-11-22)
+- Source: the five Instagram carousel slides in `Burger_Brewery_Website_FORGE/Pictures/`. The strip under the Menu (`#plates`) uses nine tiles cropped from slide S02 (only 308x379 px each, so they look soft above ~300 px wide). The Pairings section ends with slide S03.
+- Please send the original, un-collaged, full-resolution photos of the nine dishes and the cheeseburger and lager shot. They will drop in with no code change.
+- TODO VERIFY: Chicken Soulaki, Trio (Veg), Chicken Tenders (Classic), Biscoff Shake, Mannheim New England IPA are named as on the carousel but are not in the site's menu section. Check against the menu PDF.
+- Slide S05's caption reads "Koramanagla" (typo). It is not used on the site; fix it on Instagram.
+- Delivery page: never use the beer tiles (IPA, Stout) or S03 there.
