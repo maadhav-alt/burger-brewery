@@ -126,7 +126,6 @@
 .bb-pair__burger { justify-self: start; width: min(100%, clamp(160px, 24vw, 340px)); margin-bottom: -4px; }
 .bb-heartx { position: absolute; z-index: 3; left: 50%; top: -6%; width: clamp(56px, 7.5vw, 100px); aspect-ratio: 1; translate: -50% 0; transform: scale(0); }
 .bb-heartx span { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font: 300 clamp(1.2rem, 2.2vw, 2rem)/1 var(--sc-font-text); padding-bottom: 8%; }
-.bb-pair__perfect { margin: var(--sc-4) 0 0; text-align: center; font: italic 800 clamp(1.3rem, 2.2vw, 2rem)/1.15 var(--sc-font-display); color: var(--bb-cream); opacity: 0; }
 .bb-pair__result { margin: var(--sc-6) auto 0; max-width: 760px; text-align: center; opacity: 0; transform: translateY(10px); }
 .bb-pair__bn { margin: 0; font: 900 clamp(1.8rem, 3.4vw, 3rem)/1.02 var(--sc-font-display); color: #fff; letter-spacing: -.02em; }
 .bb-pair__beername { margin: 6px 0 0; font: italic 800 clamp(1.5rem, 2.8vw, 2.4rem)/1.05 var(--sc-font-display); color: var(--bb-orange); }
@@ -138,12 +137,11 @@
 .bb-pair__stage.is-in .bb-pair__burger { animation: pInR 780ms cubic-bezier(.22,.9,.3,1) forwards; }
 .bb-pair__stage.is-in .bb-pair__beer { animation: pInL 780ms cubic-bezier(.22,.9,.3,1) forwards; }
 .bb-pair__stage.is-in .bb-heartx { animation: hPop 560ms cubic-bezier(.3,1.5,.5,1) forwards 640ms; }
-.bb-pair__stage.is-in ~ .bb-pair__perfect { animation: bbFade 420ms var(--sc-ease-out) forwards 900ms; }
 .bb-pair__stage.is-in ~ .bb-pair__result { animation: bbFade 480ms var(--sc-ease-out) forwards 760ms; }
 .bb-pair__stage.is-out .bb-pair__burger { animation: pOutR 380ms cubic-bezier(.5,0,.8,.4) forwards; }
 .bb-pair__stage.is-out .bb-pair__beer { animation: pOutL 380ms cubic-bezier(.5,0,.8,.4) forwards; }
 .bb-pair__stage.is-out .bb-heartx { animation: hOut 200ms ease-in forwards; }
-.bb-pair__stage.is-out ~ .bb-pair__perfect, .bb-pair__stage.is-out ~ .bb-pair__result { animation: pFadeOut 220ms ease-in forwards; }
+.bb-pair__stage.is-out ~ .bb-pair__result { animation: pFadeOut 220ms ease-in forwards; }
 @keyframes pInR { 0% { opacity: 1; transform: translateX(65vw) rotate(10deg); } 68% { opacity: 1; transform: translateX(-16px) rotate(-2deg); } 84% { transform: translateX(5px) rotate(.5deg); } 100% { opacity: 1; transform: none; } }
 @keyframes pInL { 0% { opacity: 1; transform: translateX(-65vw) rotate(-10deg); } 68% { opacity: 1; transform: translateX(16px) rotate(2deg); } 84% { transform: translateX(-5px) rotate(-.5deg); } 100% { opacity: 1; transform: none; } }
 @keyframes pOutR { from { opacity: 1; transform: none; } to { opacity: 1; transform: translateX(65vw) rotate(10deg); } }
@@ -442,3 +440,29 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 .bb-join__vid video { display: block; width: 100%; height: auto; aspect-ratio: 480 / 854; object-fit: cover; border: 6px solid var(--bb-black); border-radius: 28px; background: #1B1617; box-shadow: 0 24px 40px -22px rgba(35,31,32,.8); }
 .bb-join__vid figcaption { margin-top: 12px; font: italic 800 .98rem/1.25 var(--sc-font-display); color: var(--bb-black); text-align: center; transform: rotate(-2.2deg); }
 @media (max-width: 760px) { .bb-join { grid-template-columns: 1fr; } .bb-join__vid { width: min(62vw, 250px); justify-self: center; } }
+
+/* Burger heart beer, round 9: video on the left and the pairing on the right (desktop); same stacked order on phones */
+.bb-pair__cols { margin-top: var(--sc-5); }
+.bb-pair__reel { margin-top: 0; }
+.bb-pair__stage { margin-top: var(--sc-6); }
+.bb-pair__stage::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 52%; width: min(92%, 560px); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle, rgba(242,102,36,.2) 0%, rgba(242,102,36,.07) 46%, transparent 70%); pointer-events: none; }
+.bb-pair__result::before { content: ""; display: block; width: 44px; height: 3px; margin: 0 auto var(--sc-4); border-radius: 2px; background: var(--bb-orange); }
+.bb-pair__bn { font-size: clamp(2rem, 3.8vw, 3.4rem); }
+.bb-pair__beername { font-size: clamp(1.6rem, 3vw, 2.6rem); }
+.bb-pair__desc { color: #b9b2a8; }
+.bb-pair__note { max-width: 560px; padding: 20px 24px 22px 26px; border: 0; border-left: 4px solid var(--bb-orange); border-radius: 4px 20px 20px 4px; background: linear-gradient(90deg, rgba(242,102,36,.16), rgba(242,102,36,.04)); text-align: left; }
+.bb-pair__note b { display: flex; align-items: center; gap: 8px; }
+.bb-pair__note b::before { content: ""; width: 16px; height: 15px; background: var(--bb-orange); -webkit-mask: url(assets/heart-b.png) center / contain no-repeat; mask: url(assets/heart-b.png) center / contain no-repeat; }
+.bb-pair__why { font-size: clamp(1.2rem, 1.8vw, 1.5rem); line-height: 1.32; }
+@media (min-width: 1000px) {
+  .bb-pair__cols { display: grid; grid-template-columns: 300px minmax(0, 1fr); column-gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+  .bb-pair__left { position: sticky; top: calc(var(--bb-head) + 24px); }
+  .bb-pair__stage { margin-top: 0; }
+  .bb-pair__grid { max-width: none; margin: 0 0 var(--sc-5); }
+  .bb-pair__result { margin: var(--sc-6) 0 0; max-width: 640px; text-align: left; }
+  .bb-pair__result::before { margin-left: 0; }
+  .bb-pair__desc { margin-left: 0; }
+  .bb-pair__note { margin-left: 0; }
+  .bb-pair__cta { justify-content: flex-start; }
+}
+@media (min-width: 1000px) { .bb-pair__left .bb-pairbtn { width: 100%; box-sizing: border-box; } .bb-pair__left .bb-pairbtn__t { flex: 1; text-align: center; padding-inline: 0; } }
