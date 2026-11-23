@@ -499,3 +499,18 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 a.bb-dt { display: block; cursor: pointer; text-decoration: none; transition: transform 260ms var(--sc-ease-out); }
 @media (hover: hover) and (pointer: fine) { a.bb-dt:hover { transform: rotate(-6deg) scale(1.05); } }
 a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px; border-radius: 50%; }
+
+/* hero reel in a phone frame (desktop and tablet); phones keep the full-bleed version */
+.bb-phone { display: none; }
+@media (min-width: 761px) {
+  .bb-hero { --ph: min(calc(100svh - var(--bb-head) - 9vh), 54vw); }
+  .bb-phone { display: block; position: absolute; z-index: 2; right: 6vw; top: calc(var(--bb-head) + 4vh); height: var(--ph); aspect-ratio: 9 / 16; }
+  .bb-phone__screen { position: absolute; inset: 0; overflow: hidden; border-radius: clamp(24px, 2.6vw, 38px); background: #231F20 url(assets/video/hero-poster.jpg) center / cover no-repeat; box-shadow: 0 0 0 6px #231F20, 0 0 0 7px rgba(242,242,233,.22), 0 44px 80px -32px rgba(0,0,0,.85), 0 0 110px -34px rgba(242,102,36,.5); }
+  .bb-phone__screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; -webkit-mask-image: none; mask-image: none; }
+  .bb-hero .bb-quotes { right: calc(6vw + var(--ph) * 9 / 16 - 64px); bottom: 10vh; }
+  .bb-hero__scrim { background: linear-gradient(90deg, rgba(27,22,23,.94) 0%, rgba(27,22,23,.86) 45%, rgba(27,22,23,.6) 100%), linear-gradient(0deg, rgba(27,22,23,.7), rgba(27,22,23,0) 34%); }
+}
+@media (min-width: 761px) and (max-width: 1279px) {
+  .bb-hero .bb-quotes { right: 6vw; bottom: 5vh; width: calc(var(--ph) * 9 / 16 + 36px); }
+  .bb-hero .bb-q--b { display: none; }
+}
