@@ -107,3 +107,12 @@ Build steps once decided: a `franchise_applications` table (insert-only for the 
 - `assets/video/community.mp4` (14.5 s, 4 MB, from `Burger_Brewery_Website_FORGE/Community/`) plays muted inside the BBY community card when it scrolls into view and pauses when it leaves. Poster: `community-poster.webp` (a frame from the clip). Captions are burned into the picture; TODO: a separate .vtt captions file. Keep it off the delivery page (it shows beer).
 - Do Together stamp in the hero is bigger (138 px desktop, 104 px phone).
 - "Click to find what pairs." is now a pill with burger and pint badges that clink on hover, plus a slow pulse and shine (all off for reduced-motion).
+
+## Our Team (added 2026-11-23) — NOT PUBLISHED YET, waiting on profiles
+Nav item "Our Team" (after Drops) and the `#team` section are built. People live in `config/site.js` under `team` (sorted A to Z by `sort`). Needed for each of Atharv, Chef Chander, Gurleen, Maadhav:
+- Full name as it should read (surnames for Atharv, Gurleen, Maadhav) and job title
+- Bio: 2 to 4 sentences, third person (what they do, what they believe about food or hospitality, one thing guests should know). About 50 to 80 words. Modelled on Impresario's "Our People" page.
+- Portrait: 4:5, shot at the same height and in the same light for all four (shown black and white, colour on hover). Save as `assets/team/<name>.jpg`, about 1200 px wide.
+- Go-to pairing (optional): their favourite burger + beer, e.g. "Oklahoma Smash + Kolsch"
+- LinkedIn or Instagram link (optional)
+Until a photo is added, a monogram tile is shown. Fields left empty are not shown.

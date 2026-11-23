@@ -46,6 +46,18 @@ window.BB_CONFIG = {
   mapsUrl: "https://maps.app.goo.gl/BrSWiB4urYfC66M5A",
   linkedinUrl: null, // TODO: company LinkedIn page URL (could not be confirmed by search)
 
+  // OUR TEAM. Fill these in and the "Our Team" section shows them (it sorts A to Z by `sort`, so order here does not matter).
+  // Every field except `name` is optional: a null field is simply not shown. Never put anything here that is not confirmed.
+  //   name     as it should read on the page            role   job title, e.g. "Head Chef"
+  //   bio      2 to 4 sentences, third person            pairing  their go-to burger + beer, e.g. "Oklahoma Smash + Kolsch"
+  //   photo    "assets/team/<name>.jpg" (portrait, 4:5)   link   LinkedIn or Instagram URL        linkLabel  e.g. "LinkedIn"
+  team: [
+    { name: "Atharv",       sort: "Atharv",  role: null, bio: null, pairing: null, photo: null, link: null, linkLabel: null }, // TODO: surname, role, bio, photo
+    { name: "Chef Chander", sort: "Chander", role: null, bio: null, pairing: null, photo: null, link: null, linkLabel: null }, // TODO: role, bio, photo
+    { name: "Gurleen",      sort: "Gurleen", role: null, bio: null, pairing: null, photo: null, link: null, linkLabel: null }, // TODO: surname, role, bio, photo
+    { name: "Maadhav",      sort: "Maadhav", role: null, bio: null, pairing: null, photo: null, link: null, linkLabel: null }  // TODO: full name, role, bio, photo
+  ],
+
   // TODO verify delivery cities
   deliveryCities: ["Bangalore", "Delhi NCR", "Mumbai"]
 };

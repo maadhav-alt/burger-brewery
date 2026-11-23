@@ -11,6 +11,7 @@ def between(a, b, start=0, inclusive_b=False):
 # ---------- reusable CSS from the round-1 page ----------
 css_base  = between(":root {", "/* ---------- 1 · hero ---------- */")
 css_base  = css_base.replace("@media (max-width: 1040px) {", "@media (max-width: 1320px) {", 1)
+css_base += "\n.bb-nav__link { white-space: nowrap; }\n@media (min-width: 1321px) and (max-width: 1580px) { .bb-nav__link { padding: 0 .52rem; font-size: .92rem; } .bb-nav .bb-btn { margin-left: 2px; } .bb-bar { gap: var(--sc-3); } }\n"
 css_taps  = "\n".join(l for l in between("/* ---------- 7 · beer: the tap ---------- */", "/* ---------- 7b").split("\n") if l.startswith(".bb-taps"))
 css_tog   = between("/* ---------- 8 · do together ---------- */", "/* ---------- 9 · the room ---------- */")
 css_menu  = between("/* ---------- 10 · menu rail ---------- */", "/* ---------- 11 · visit")
@@ -62,6 +63,7 @@ def header(p):  # p = "" on index, "index.html" on other pages
       <li><a class="bb-nav__link bb-nav__pair" href="{p}#pairings" data-open-pairs>Pairings <span class="bb-nav__trio" aria-hidden="true">{ICON_BURGER}{ICON_HEART}{ICON_PINT}</span></a></li>
       <li><a class="bb-nav__link" href="{p}#craft-on-tap">Craft on Tap</a></li>
       <li><a class="bb-nav__link" href="{p}#drops">Drops</a></li>
+      <li><a class="bb-nav__link" href="{p}#team">Our Team</a></li>
       <li class="bb-loc">
         <button class="bb-nav__link" type="button" aria-expanded="false" aria-controls="loc-menu">Locations <span class="bb-loc__caret" aria-hidden="true"></span></button>
         <ul class="bb-loc__menu" id="loc-menu" hidden>
