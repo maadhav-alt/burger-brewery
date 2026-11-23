@@ -59,7 +59,7 @@ window.BB_CONFIG = {
   ],
 
   // Burger Brewery Club (loyalty). Source: owner's Reelo club card. Points = subtotal before taxes and charges.
-  // Reward values are kept here for records but NOT shown on the page (site rule: no prices); the Reelo link shows them.
+  // Reward values (money off the bill) are shown on the Membership section when showRewardValues is true (owner's request).
   loyalty: {
     name: "Burger Brewery Club",
     checkUrl: "https://l.reelo.io/8fT7I",
@@ -73,7 +73,7 @@ window.BB_CONFIG = {
       { points: 10000, off: 1800 }
     ],
     terms: ["Cannot be combined with other offers.", "Reward redeemable in-store only.", "Points are issued on the subtotal (before taxes and charges).", "Standard T&Cs apply."],
-    showRewardValues: false
+    showRewardValues: true
   },
 
   // TODO verify delivery cities

@@ -474,3 +474,4 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 .bb-club__ladder small { font: 800 .8rem/1 var(--sc-font-text); letter-spacing: .08em; margin-left: .3em; }
 .bb-club__terms { list-style: none; margin: 1.25rem 0 0; padding: 0; font: 700 .88rem/1.45 var(--sc-font-text); display: grid; gap: .3rem; }
 .bb-club__terms li::before { content: "• "; }
+.bb-club__val { display: block; margin-top: .45rem; font: 800 clamp(.92rem, 1.3vw, 1.05rem)/1.2 var(--sc-font-text); font-style: normal; letter-spacing: 0; }

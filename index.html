@@ -635,6 +635,7 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 .bb-club__ladder small { font: 800 .8rem/1 var(--sc-font-text); letter-spacing: .08em; margin-left: .3em; }
 .bb-club__terms { list-style: none; margin: 1.25rem 0 0; padding: 0; font: 700 .88rem/1.45 var(--sc-font-text); display: grid; gap: .3rem; }
 .bb-club__terms li::before { content: "• "; }
+.bb-club__val { display: block; margin-top: .45rem; font: 800 clamp(.92rem, 1.3vw, 1.05rem)/1.2 var(--sc-font-text); font-style: normal; letter-spacing: 0; }
 
 .bb-textlink { background: none; border: 0; padding: 8px 0; color: var(--bb-cream); font: 800 1rem/1.3 var(--sc-font-text); text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 2px; cursor: pointer; }
 .bb-alltaps { margin-top: var(--sc-6); border-top: 1px solid rgba(242,242,233,.2); max-width: 760px; }
@@ -1402,7 +1403,7 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
         <h2 id="club-h">You were coming back anyway. Now it <em>pays</em>.</h2>
         <p class="bb-club__lead" data-club-earn></p>
         <a class="bb-btn" data-club-link href="#" target="_blank" rel="noopener">Check my points</a>
-        <p class="bb-club__small">See your points, what they’re worth and any live offers.</p>
+        <p class="bb-club__small">Check your balance and live offers any time.</p>
       </div>
       <div class="bb-club__card">
         <ol class="bb-club__ladder" data-club-ladder aria-label="Club reward levels"></ol>
@@ -1606,7 +1607,7 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
   paint(0); requestAnimationFrame(tick);
 })();
 </script>
-<script src="config/site.js?v=5b79e10d"></script>
+<script src="config/site.js?v=4e405e98"></script>
 <script src="scrollcraft.js"></script>
 <script>
 ScrollCraft.mount(document.body);
@@ -2157,7 +2158,7 @@ ScrollCraft.mount(document.body);
     sec.querySelector("[data-club-link]").href = L.checkUrl;
     sec.querySelector("[data-club-earn]").textContent = "Every night at the table adds up. " + (L.earn || "") + ", and when you’ve saved enough, the next round is on us. Well, partly.";
     var ol = sec.querySelector("[data-club-ladder]");
-    L.tiers.forEach(function (t) { var li = document.createElement("li"); li.innerHTML = t.points + "<small>PTS</small>"; ol.appendChild(li); });
+    L.tiers.forEach(function (t) { var li = document.createElement("li"); li.innerHTML = t.points + "<small>PTS</small>" + (L.showRewardValues && t.off ? "<em class=\"bb-club__val\">= \u20B9" + t.off + " off</em>" : ""); ol.appendChild(li); });
     var ul = sec.querySelector("[data-club-terms]");
     (L.terms || []).forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
     sec.hidden = false;
