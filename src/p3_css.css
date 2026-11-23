@@ -412,27 +412,6 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
   .bb-kitchen img, .bb-kitchen video { object-position: 50% 50%; -webkit-mask-image: linear-gradient(#000 60%, transparent 100%); mask-image: linear-gradient(#000 60%, transparent 100%); }
 }
 
-/* pairing button: burger and pint badges that clink, a slow pulse and a shine sweep */
-.bb-pairbtn { position: relative; display: inline-flex; align-items: center; gap: 14px; min-height: 64px; margin-top: var(--sc-5); padding: 8px 10px 8px 8px; border: 0; border-radius: 999px; background: var(--bb-orange); color: var(--bb-black); font: 800 1.08rem/1.1 var(--sc-font-text); letter-spacing: .005em; cursor: pointer; overflow: hidden; isolation: isolate; box-shadow: 0 0 0 0 rgba(242,102,36,.55); animation: bbPairPulse 2.8s ease-out infinite; transition: transform 260ms var(--sc-ease-out); }
-.bb-pairbtn[aria-expanded="true"] { animation: none; }
-.bb-pairbtn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.38) 50%, transparent 62%); transform: translateX(-120%); animation: bbPairShine 4.2s ease-in-out infinite 1.2s; }
-.bb-pairbtn__ic { flex: 0 0 48px; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; background: var(--bb-black); transition: transform 320ms cubic-bezier(.3,1.5,.5,1); }
-.bb-pairbtn__ic svg { width: 26px; height: 26px; }
-.bb-pairbtn__t { padding-inline: 4px; text-align: left; }
-.bb-pairbtn__x { position: absolute; left: 50%; top: 4px; width: 20px; height: 20px; margin-left: -10px; opacity: 0; transform: scale(.4) translateY(8px); transition: opacity 240ms, transform 320ms cubic-bezier(.3,1.5,.5,1); pointer-events: none; }
-.bb-pairbtn__x svg { width: 100%; height: 100%; }
-@media (hover: hover) and (pointer: fine) {
-  .bb-pairbtn:hover { transform: translateY(-3px); }
-  .bb-pairbtn:hover .bb-pairbtn__ic:first-child { transform: translateX(8px) rotate(-8deg); }
-  .bb-pairbtn:hover .bb-pairbtn__ic:last-child { transform: translateX(-8px) rotate(8deg); }
-  .bb-pairbtn:hover .bb-pairbtn__x { opacity: 1; transform: none; }
-}
-.bb-pairbtn:active { transform: scale(.98); }
-.bb-pairbtn:focus-visible { outline: 3px solid var(--bb-cream); outline-offset: 4px; }
-@keyframes bbPairPulse { 0% { box-shadow: 0 0 0 0 rgba(242,102,36,.55); } 70%, 100% { box-shadow: 0 0 0 16px rgba(242,102,36,0); } }
-@keyframes bbPairShine { 0%, 55% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
-@media (prefers-reduced-motion: reduce) { .bb-pairbtn, .bb-pairbtn::before, .bb-pairbtn__ic, .bb-pairbtn__x { animation: none !important; transition: none !important; } }
-
 /* BBY community card: copy and button on the left, the community clip on the right */
 .bb-join { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
 .bb-join__main { display: grid; gap: clamp(1.25rem, 3vh, 2rem); justify-items: start; }
@@ -465,4 +444,15 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
   .bb-pair__note { margin-left: 0; }
   .bb-pair__cta { justify-content: flex-start; }
 }
-@media (min-width: 1000px) { .bb-pair__left .bb-pairbtn { width: 100%; box-sizing: border-box; } .bb-pair__left .bb-pairbtn__t { flex: 1; text-align: center; padding-inline: 0; } }
+
+/* the two photos under the pairing: side by side on desktop (the second is web-only, phones show just the first) */
+.bb-pair__photos { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: var(--sc-7); }
+.bb-pair__photos .bb-pair__photo { margin: 0; }
+.bb-pair__photo--web { display: none; }
+@media (min-width: 761px) {
+  .bb-pair__photos { grid-template-columns: repeat(2, minmax(0, 560px)); column-gap: clamp(1.5rem, 3vw, 3rem); justify-content: start; align-items: start; }
+  .bb-pair__photos .bb-pair__photo { max-width: none; }
+  .bb-pair__photo--web { display: block; margin-top: clamp(2rem, 6vw, 5rem) !important; }
+}
+/* the burger options are always showing now: keep them compact on phones (two across) */
+@media (max-width: 760px) { .bb-pair__grid { grid-template-columns: 1fr 1fr; gap: 8px; } .bb-pb { min-height: 52px; padding: 8px 10px; gap: 8px; font-size: .92rem; line-height: 1.15; } }

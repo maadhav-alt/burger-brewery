@@ -116,7 +116,7 @@
   ];
   var slug = function (s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
   (function () {
-    var sec = document.getElementById("pairings"), grid = sec.querySelector("#pair-grid"), openBtn = sec.querySelector("[data-pairs-open]");
+    var sec = document.getElementById("pairings"), grid = sec.querySelector("#pair-grid"), openBtn = sec.querySelector("[data-pairs-open]") || document.createElement("button");   // the button was removed: all burgers are offered from the start
     var stage = sec.querySelector(".bb-pair__stage"), bImg = stage.querySelector(".bb-pair__burger"), gImg = stage.querySelector(".bb-pair__beer");
     var res = sec.querySelector(".bb-pair__result"), current = null, busy = false, queued = null;
     PAIRS.forEach(function (p) {

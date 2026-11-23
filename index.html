@@ -570,27 +570,6 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
   .bb-kitchen img, .bb-kitchen video { object-position: 50% 50%; -webkit-mask-image: linear-gradient(#000 60%, transparent 100%); mask-image: linear-gradient(#000 60%, transparent 100%); }
 }
 
-/* pairing button: burger and pint badges that clink, a slow pulse and a shine sweep */
-.bb-pairbtn { position: relative; display: inline-flex; align-items: center; gap: 14px; min-height: 64px; margin-top: var(--sc-5); padding: 8px 10px 8px 8px; border: 0; border-radius: 999px; background: var(--bb-orange); color: var(--bb-black); font: 800 1.08rem/1.1 var(--sc-font-text); letter-spacing: .005em; cursor: pointer; overflow: hidden; isolation: isolate; box-shadow: 0 0 0 0 rgba(242,102,36,.55); animation: bbPairPulse 2.8s ease-out infinite; transition: transform 260ms var(--sc-ease-out); }
-.bb-pairbtn[aria-expanded="true"] { animation: none; }
-.bb-pairbtn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.38) 50%, transparent 62%); transform: translateX(-120%); animation: bbPairShine 4.2s ease-in-out infinite 1.2s; }
-.bb-pairbtn__ic { flex: 0 0 48px; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; background: var(--bb-black); transition: transform 320ms cubic-bezier(.3,1.5,.5,1); }
-.bb-pairbtn__ic svg { width: 26px; height: 26px; }
-.bb-pairbtn__t { padding-inline: 4px; text-align: left; }
-.bb-pairbtn__x { position: absolute; left: 50%; top: 4px; width: 20px; height: 20px; margin-left: -10px; opacity: 0; transform: scale(.4) translateY(8px); transition: opacity 240ms, transform 320ms cubic-bezier(.3,1.5,.5,1); pointer-events: none; }
-.bb-pairbtn__x svg { width: 100%; height: 100%; }
-@media (hover: hover) and (pointer: fine) {
-  .bb-pairbtn:hover { transform: translateY(-3px); }
-  .bb-pairbtn:hover .bb-pairbtn__ic:first-child { transform: translateX(8px) rotate(-8deg); }
-  .bb-pairbtn:hover .bb-pairbtn__ic:last-child { transform: translateX(-8px) rotate(8deg); }
-  .bb-pairbtn:hover .bb-pairbtn__x { opacity: 1; transform: none; }
-}
-.bb-pairbtn:active { transform: scale(.98); }
-.bb-pairbtn:focus-visible { outline: 3px solid var(--bb-cream); outline-offset: 4px; }
-@keyframes bbPairPulse { 0% { box-shadow: 0 0 0 0 rgba(242,102,36,.55); } 70%, 100% { box-shadow: 0 0 0 16px rgba(242,102,36,0); } }
-@keyframes bbPairShine { 0%, 55% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
-@media (prefers-reduced-motion: reduce) { .bb-pairbtn, .bb-pairbtn::before, .bb-pairbtn__ic, .bb-pairbtn__x { animation: none !important; transition: none !important; } }
-
 /* BBY community card: copy and button on the left, the community clip on the right */
 .bb-join { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
 .bb-join__main { display: grid; gap: clamp(1.25rem, 3vh, 2rem); justify-items: start; }
@@ -623,7 +602,18 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
   .bb-pair__note { margin-left: 0; }
   .bb-pair__cta { justify-content: flex-start; }
 }
-@media (min-width: 1000px) { .bb-pair__left .bb-pairbtn { width: 100%; box-sizing: border-box; } .bb-pair__left .bb-pairbtn__t { flex: 1; text-align: center; padding-inline: 0; } }
+
+/* the two photos under the pairing: side by side on desktop (the second is web-only, phones show just the first) */
+.bb-pair__photos { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: var(--sc-7); }
+.bb-pair__photos .bb-pair__photo { margin: 0; }
+.bb-pair__photo--web { display: none; }
+@media (min-width: 761px) {
+  .bb-pair__photos { grid-template-columns: repeat(2, minmax(0, 560px)); column-gap: clamp(1.5rem, 3vw, 3rem); justify-content: start; align-items: start; }
+  .bb-pair__photos .bb-pair__photo { max-width: none; }
+  .bb-pair__photo--web { display: block; margin-top: clamp(2rem, 6vw, 5rem) !important; }
+}
+/* the burger options are always showing now: keep them compact on phones (two across) */
+@media (max-width: 760px) { .bb-pair__grid { grid-template-columns: 1fr 1fr; gap: 8px; } .bb-pb { min-height: 52px; padding: 8px 10px; gap: 8px; font-size: .92rem; line-height: 1.15; } }
 
 .bb-textlink { background: none; border: 0; padding: 8px 0; color: var(--bb-cream); font: 800 1rem/1.3 var(--sc-font-text); text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 2px; cursor: pointer; }
 .bb-alltaps { margin-top: var(--sc-6); border-top: 1px solid rgba(242,242,233,.2); max-width: 760px; }
@@ -1074,15 +1064,9 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
         <div class="bb-pair__left">
         <!-- Pairing clip (Oklahoma Smash + Kolsch): starts muted when it scrolls into view, stops when it leaves. Captions are burned into the picture. TODO: add a .vtt captions file. -->
                   <figure class="bb-pair__reel"><video muted loop playsinline controls controlslist="nodownload" preload="none" poster="assets/video/pairing-reel-poster.webp" data-src="assets/video/pairing-reel.mp4" width="478" height="850" aria-label="A 14-second clip: the Oklahoma Smash paired with a Kolsch. Muted, with captions; press the speaker for sound."></video></figure>
-        <button class="bb-pairbtn bb-pair__open" type="button" aria-expanded="false" aria-controls="pair-grid" data-pairs-open>
-                    <span class="bb-pairbtn__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11a9 7 0 0 1 18 0z" fill="#F26624"/><rect x="2.5" y="12.5" width="19" height="3" rx="1.5" fill="#FFF8E9"/><rect x="3" y="17" width="18" height="3.5" rx="1.75" fill="#F26624"/></svg></span>
-                    <span class="bb-pairbtn__x" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.2 1.7-2 3.1-3.2 5.3-3.2 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z" fill="#231F20"/></svg></span>
-                    <span class="bb-pairbtn__t">Click to find what pairs.</span>
-                    <span class="bb-pairbtn__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3h14l-1.6 18H6.6z" fill="none" stroke="#FFF8E9" stroke-width="2" stroke-linejoin="round"/><path d="M6.4 8h11.2l-1 11.6H7.4z" fill="#F26624"/></svg></span>
-                  </button>
         </div>
         <div class="bb-pair__right">
-          <div class="bb-pair__grid" id="pair-grid" role="group" aria-label="Pick a burger" hidden></div>
+          <div class="bb-pair__grid" id="pair-grid" role="group" aria-label="Pick a burger"></div>
           <div class="bb-pair__stage" aria-hidden="true">
             <img class="bb-pair__beer" src="assets/pairing/beer-default.webp" width="600" height="1017" alt="" decoding="async" loading="lazy">
             <div class="bb-heartx"></div>
@@ -1098,7 +1082,10 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
         </div>
       </div>
       <div class="bb-pair__cta"><a class="bb-btn" data-link="bookingUrl" href="#visit" target="_blank" rel="noopener">Book a table</a> <a class="bb-textlink" href="#craft-on-tap">See what’s on tap</a></div>
-      <figure class="bb-pair__photo"><img src="assets/photos/pairing-cheeseburger-lager-540.webp" srcset="assets/photos/pairing-cheeseburger-lager-540.webp 540w, assets/photos/pairing-cheeseburger-lager.webp 1080w" sizes="(max-width: 700px) 90vw, 420px" width="1080" height="1350" loading="lazy" decoding="async" alt="The Brewery Cheeseburger beside a pint of lager, each marked with a hand-drawn arrow and label"><figcaption>The Brewery Cheeseburger + Lager</figcaption></figure>
+      <div class="bb-pair__photos">
+        <figure class="bb-pair__photo"><img src="assets/photos/pairing-cheeseburger-lager-540.webp" srcset="assets/photos/pairing-cheeseburger-lager-540.webp 540w, assets/photos/pairing-cheeseburger-lager.webp 1080w" sizes="(max-width: 760px) 90vw, 560px" width="1080" height="1350" loading="lazy" decoding="async" alt="The Brewery Cheeseburger beside a pint of lager, each marked with a hand-drawn arrow and label"><figcaption>The Brewery Cheeseburger + Lager</figcaption></figure>
+        <figure class="bb-pair__photo bb-pair__photo--web"><img src="assets/photos/pairing-kitchen-neon-540.webp" srcset="assets/photos/pairing-kitchen-neon-540.webp 540w, assets/photos/pairing-kitchen-neon.webp 987w" sizes="560px" width="987" height="1183" loading="lazy" decoding="async" alt="The live kitchen at Burger Brewery Koramangala: the It’s Hearty neon sign above the long bar, with leather bar stools"><figcaption>The live kitchen.</figcaption></figure>
+      </div>
     </div>
   </section>
 
@@ -1595,7 +1582,7 @@ ScrollCraft.mount(document.body);
   var has = function (v) { return v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && !v.length); };
 
   /* ---------- asset probing: preferred file, else fallback, else hide, or a labelled frame in ?placeholders=1 ---------- */
-  var BB_HAVE = ["assets/brand/bb-stacked.png", "assets/brand/burger-base.png", "assets/brand/burger-base.webp", "assets/brand/burger-mid.png", "assets/brand/burger-mid.webp", "assets/brand/burger-top.png", "assets/brand/burger-top.webp", "assets/brand/stamp-do-together.png", "assets/brand/stamp-do-together.webp", "assets/burger-brewery-koramangala-menu.pdf", "assets/craft/blr-ghee-roast-pull.png", "assets/craft/blr-ghee-roast-pull.webp", "assets/craft/forbidden-pbj.png", "assets/craft/forbidden-pbj.webp", "assets/heart-b.png", "assets/img/room-booths.jpg", "assets/img/room-booths.webp", "assets/img/room-chef.jpg", "assets/img/room-chef.webp", "assets/img/room-friday-1.jpg", "assets/img/room-friday-1.webp", "assets/lineart/kitchen-smash.png", "assets/lineart/kitchen-smash.webp", "assets/lineart/tap-clear-960.webp", "assets/lineart/tap-handle.png", "assets/lineart/tap-handle.webp", "assets/lineart/tap-pour-480.jpg", "assets/lineart/tap-pour-480.webp", "assets/lineart/tap-pour-960.jpg", "assets/lineart/tap-pour-960.webp", "assets/logo-horizontal.png", "assets/menuart/clean-cut.webp", "assets/menuart/gelato-sundae.webp", "assets/menuart/sliders-trio.webp", "assets/pairing/beer-default.png", "assets/pairing/beer-default.webp", "assets/pairing/burger-default.png", "assets/pairing/burger-default.webp", "assets/pairing/burger-x-beer-menu.png", "assets/pairing/burgers/brewery-cheeseburger.png", "assets/pairing/burgers/jalapeno-smokehouse-smash.png", "assets/pairing/burgers/nashville-hot-chicken.png", "assets/pairing/burgers/oklahoma-smash.png", "assets/pairing/burgers/pesto-paneer.png", "assets/pairing/burgers/truffle-shroom.png", "assets/photos/beer-taps-corner.jpg", "assets/photos/burger-neon.jpg", "assets/photos/combo.jpg", "assets/photos/do-together-platter.jpg", "assets/photos/food/biscoff-shake.webp", "assets/photos/food/chicken-soulaki.webp", "assets/photos/food/chicken-tenders.webp", "assets/photos/food/dirty-fries.webp", "assets/photos/food/jalapeno-smokehouse-smash.webp", "assets/photos/food/mannheim-new-england-ipa.webp", "assets/photos/food/oklahoma-smash.webp", "assets/photos/food/toit-nitro-stout.webp", "assets/photos/food/veg-trio.webp", "assets/photos/join-burger.webp", "assets/photos/left-side.jpg", "assets/photos/live-kitchen.jpg", "assets/photos/outside.jpg", "assets/photos/pairing-cheeseburger-lager-540.webp", "assets/photos/pairing-cheeseburger-lager.webp", "assets/photos/resp/beer-taps-corner-1600.jpg", "assets/photos/resp/beer-taps-corner-1600.webp", "assets/photos/resp/beer-taps-corner-480.jpg", "assets/photos/resp/beer-taps-corner-480.webp", "assets/photos/resp/beer-taps-corner-960.jpg", "assets/photos/resp/beer-taps-corner-960.webp", "assets/photos/resp/combo-1600.jpg", "assets/photos/resp/combo-1600.webp", "assets/photos/resp/combo-480.jpg", "assets/photos/resp/combo-480.webp", "assets/photos/resp/combo-960.jpg", "assets/photos/resp/combo-960.webp", "assets/photos/resp/delivery-hands-1500.jpg", "assets/photos/resp/delivery-hands-1500.webp", "assets/photos/resp/delivery-hands-480.jpg", "assets/photos/resp/delivery-hands-480.webp", "assets/photos/resp/delivery-hands-960.jpg", "assets/photos/resp/delivery-hands-960.webp", "assets/photos/resp/do-together-platter-480.jpg", "assets/photos/resp/do-together-platter-480.webp", "assets/photos/resp/do-together-platter-960.jpg", "assets/photos/resp/do-together-platter-960.webp", "assets/photos/resp/left-side-1600.jpg", "assets/photos/resp/left-side-1600.webp", "assets/photos/resp/left-side-480.jpg", "assets/photos/resp/left-side-480.webp", "assets/photos/resp/left-side-960.jpg", "assets/photos/resp/left-side-960.webp", "assets/photos/resp/live-kitchen-1600.jpg", "assets/photos/resp/live-kitchen-1600.webp", "assets/photos/resp/live-kitchen-480.jpg", "assets/photos/resp/live-kitchen-480.webp", "assets/photos/resp/live-kitchen-960.jpg", "assets/photos/resp/live-kitchen-960.webp", "assets/photos/resp/outside-1600.jpg", "assets/photos/resp/outside-1600.webp", "assets/photos/resp/outside-480.jpg", "assets/photos/resp/outside-480.webp", "assets/photos/resp/outside-960.jpg", "assets/photos/resp/outside-960.webp", "assets/video/community-poster.webp", "assets/video/community.mp4", "assets/video/pairing-reel-poster.webp", "assets/video/pairing-reel.mp4"]; var probeCache = {};
+  var BB_HAVE = ["assets/brand/bb-stacked.png", "assets/brand/burger-base.png", "assets/brand/burger-base.webp", "assets/brand/burger-mid.png", "assets/brand/burger-mid.webp", "assets/brand/burger-top.png", "assets/brand/burger-top.webp", "assets/brand/stamp-do-together.png", "assets/brand/stamp-do-together.webp", "assets/burger-brewery-koramangala-menu.pdf", "assets/craft/blr-ghee-roast-pull.png", "assets/craft/blr-ghee-roast-pull.webp", "assets/craft/forbidden-pbj.png", "assets/craft/forbidden-pbj.webp", "assets/heart-b.png", "assets/img/room-booths.jpg", "assets/img/room-booths.webp", "assets/img/room-chef.jpg", "assets/img/room-chef.webp", "assets/img/room-friday-1.jpg", "assets/img/room-friday-1.webp", "assets/lineart/kitchen-smash.png", "assets/lineart/kitchen-smash.webp", "assets/lineart/tap-clear-960.webp", "assets/lineart/tap-handle.png", "assets/lineart/tap-handle.webp", "assets/lineart/tap-pour-480.jpg", "assets/lineart/tap-pour-480.webp", "assets/lineart/tap-pour-960.jpg", "assets/lineart/tap-pour-960.webp", "assets/logo-horizontal.png", "assets/menuart/clean-cut.webp", "assets/menuart/gelato-sundae.webp", "assets/menuart/sliders-trio.webp", "assets/pairing/beer-default.png", "assets/pairing/beer-default.webp", "assets/pairing/burger-default.png", "assets/pairing/burger-default.webp", "assets/pairing/burger-x-beer-menu.png", "assets/pairing/burgers/brewery-cheeseburger.png", "assets/pairing/burgers/jalapeno-smokehouse-smash.png", "assets/pairing/burgers/nashville-hot-chicken.png", "assets/pairing/burgers/oklahoma-smash.png", "assets/pairing/burgers/pesto-paneer.png", "assets/pairing/burgers/truffle-shroom.png", "assets/photos/beer-taps-corner.jpg", "assets/photos/burger-neon.jpg", "assets/photos/combo.jpg", "assets/photos/do-together-platter.jpg", "assets/photos/food/biscoff-shake.webp", "assets/photos/food/chicken-soulaki.webp", "assets/photos/food/chicken-tenders.webp", "assets/photos/food/dirty-fries.webp", "assets/photos/food/jalapeno-smokehouse-smash.webp", "assets/photos/food/mannheim-new-england-ipa.webp", "assets/photos/food/oklahoma-smash.webp", "assets/photos/food/toit-nitro-stout.webp", "assets/photos/food/veg-trio.webp", "assets/photos/join-burger.webp", "assets/photos/left-side.jpg", "assets/photos/live-kitchen.jpg", "assets/photos/outside.jpg", "assets/photos/pairing-cheeseburger-lager-540.webp", "assets/photos/pairing-cheeseburger-lager.webp", "assets/photos/pairing-kitchen-neon-540.webp", "assets/photos/pairing-kitchen-neon.webp", "assets/photos/resp/beer-taps-corner-1600.jpg", "assets/photos/resp/beer-taps-corner-1600.webp", "assets/photos/resp/beer-taps-corner-480.jpg", "assets/photos/resp/beer-taps-corner-480.webp", "assets/photos/resp/beer-taps-corner-960.jpg", "assets/photos/resp/beer-taps-corner-960.webp", "assets/photos/resp/combo-1600.jpg", "assets/photos/resp/combo-1600.webp", "assets/photos/resp/combo-480.jpg", "assets/photos/resp/combo-480.webp", "assets/photos/resp/combo-960.jpg", "assets/photos/resp/combo-960.webp", "assets/photos/resp/delivery-hands-1500.jpg", "assets/photos/resp/delivery-hands-1500.webp", "assets/photos/resp/delivery-hands-480.jpg", "assets/photos/resp/delivery-hands-480.webp", "assets/photos/resp/delivery-hands-960.jpg", "assets/photos/resp/delivery-hands-960.webp", "assets/photos/resp/do-together-platter-480.jpg", "assets/photos/resp/do-together-platter-480.webp", "assets/photos/resp/do-together-platter-960.jpg", "assets/photos/resp/do-together-platter-960.webp", "assets/photos/resp/left-side-1600.jpg", "assets/photos/resp/left-side-1600.webp", "assets/photos/resp/left-side-480.jpg", "assets/photos/resp/left-side-480.webp", "assets/photos/resp/left-side-960.jpg", "assets/photos/resp/left-side-960.webp", "assets/photos/resp/live-kitchen-1600.jpg", "assets/photos/resp/live-kitchen-1600.webp", "assets/photos/resp/live-kitchen-480.jpg", "assets/photos/resp/live-kitchen-480.webp", "assets/photos/resp/live-kitchen-960.jpg", "assets/photos/resp/live-kitchen-960.webp", "assets/photos/resp/outside-1600.jpg", "assets/photos/resp/outside-1600.webp", "assets/photos/resp/outside-480.jpg", "assets/photos/resp/outside-480.webp", "assets/photos/resp/outside-960.jpg", "assets/photos/resp/outside-960.webp", "assets/video/community-poster.webp", "assets/video/community.mp4", "assets/video/pairing-reel-poster.webp", "assets/video/pairing-reel.mp4"]; var probeCache = {};
   function probeImg(url) {
     if (BB_HAVE.indexOf(url) < 0) return Promise.resolve(false);
     if (!probeCache[url]) probeCache[url] = new Promise(function (res) { var i = new Image(); i.onload = function () { res(true); }; i.onerror = function () { res(false); }; i.src = url; });
@@ -1903,7 +1890,7 @@ ScrollCraft.mount(document.body);
   ];
   var slug = function (s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
   (function () {
-    var sec = document.getElementById("pairings"), grid = sec.querySelector("#pair-grid"), openBtn = sec.querySelector("[data-pairs-open]");
+    var sec = document.getElementById("pairings"), grid = sec.querySelector("#pair-grid"), openBtn = sec.querySelector("[data-pairs-open]") || document.createElement("button");   // the button was removed: all burgers are offered from the start
     var stage = sec.querySelector(".bb-pair__stage"), bImg = stage.querySelector(".bb-pair__burger"), gImg = stage.querySelector(".bb-pair__beer");
     var res = sec.querySelector(".bb-pair__result"), current = null, busy = false, queued = null;
     PAIRS.forEach(function (p) {
