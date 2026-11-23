@@ -122,6 +122,9 @@ for tplf, out, p in _jobs:
         html = fill(page_tpl(out), p)
     else:
         html = fill(open(tplf, encoding="utf-8").read(), p)
+    import hashlib
+    _v = hashlib.md5(open("config/site.js", "rb").read()).hexdigest()[:8]
+    html = html.replace('src="config/site.js"', 'src="config/site.js?v=%s"' % _v)
     # No prices anywhere on the site (they differ across India). The menu PDF is the only place prices live.
     html = re.sub(r'<span class="bb-item__price">[^<]*</span>', '', html)
     html = re.sub(r'<span class="bb-taps__price">[^<]*</span>', '', html)
