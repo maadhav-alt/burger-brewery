@@ -167,25 +167,6 @@
     onceInView(stage, function () { if (!current) play("oklahoma-smash"); }, 0);
   })();
 
-  /* ---------- Our Team: built from config/site.js (team), sorted A to Z; empty fields are not shown ---------- */
-  (function () {
-    var sec = document.getElementById("team"), list = sec && sec.querySelector("[data-team]");
-    var team = (window.BB_CONFIG && window.BB_CONFIG.team) || [];
-    if (!sec || !list || !team.length) return;
-    function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt) n.textContent = txt; return n; }
-    team.slice().sort(function (a, b) { return String(a.sort || a.name).localeCompare(String(b.sort || b.name)); }).forEach(function (m) {
-      var li = el("li", "bb-member"), ph = el("figure", "bb-member__ph");
-      if (m.photo) { var img = document.createElement("img"); img.src = m.photo; img.alt = m.name + (m.role ? ", " + m.role : ""); img.loading = "lazy"; img.decoding = "async"; img.width = 800; img.height = 1000; ph.appendChild(img); }
-      else { ph.classList.add("is-mono"); var mo = el("span", "bb-member__mono", (m.name.replace(/^Chef\s+/i, "").charAt(0) || "").toUpperCase()); mo.setAttribute("aria-hidden", "true"); ph.appendChild(mo); }
-      var tx = el("div", "bb-member__txt"); tx.appendChild(el("h3", "", m.name));
-      if (m.role) tx.appendChild(el("p", "bb-member__role", m.role));
-      if (m.bio) tx.appendChild(el("p", "bb-member__bio", m.bio));
-      if (m.pairing) { var pr = el("p", "bb-member__pair"); pr.appendChild(el("span", "", "Go-to pairing")); pr.appendChild(document.createTextNode(m.pairing)); tx.appendChild(pr); }
-      if (m.link) { var a = el("a", "bb-member__link", m.linkLabel || "Connect"); a.href = m.link; a.target = "_blank"; a.rel = "noopener"; tx.appendChild(a); }
-      li.appendChild(ph); li.appendChild(tx); list.appendChild(li);
-    });
-    sec.hidden = false;
-  })();
 
   /* ---------- clips (pairing + community): load and play muted while in view, pause when scrolled away; a visitor's own pause is respected ---------- */
   [].slice.call(document.querySelectorAll("video[data-src]")).forEach(function (v) {

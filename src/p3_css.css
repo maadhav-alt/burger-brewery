@@ -457,26 +457,20 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 /* the burger options are always showing now: keep them compact on phones (two across) */
 @media (max-width: 760px) { .bb-pair__grid { grid-template-columns: 1fr 1fr; gap: 8px; } .bb-pb { min-height: 52px; padding: 8px 10px; gap: 8px; font-size: .92rem; line-height: 1.15; } }
 
-/* Our Team: editorial rows, portrait and text alternating on desktop (a 4:5 portrait, name in the display face, role in orange caps, one short bio) */
-.bb-team { padding-block: clamp(3.5rem, 8vh, 6rem); border-top: 1px solid rgba(35,31,32,.14); }
-.bb-team[hidden] { display: none; }
-.bb-team h2 { font-size: clamp(2.2rem, 4.4vw, 4.2rem); font-weight: 900; letter-spacing: -.03em; line-height: .95; color: var(--bb-ink-cream); max-width: 16ch; }
-.bb-team__lead { margin: var(--sc-4) 0 0; max-width: 46ch; font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.6; }
-.bb-team__list { list-style: none; margin: clamp(2rem, 6vh, 4rem) 0 0; padding: 0; display: grid; gap: clamp(2.5rem, 7vh, 5rem); }
-.bb-member { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sc-5); align-items: center; }
-.bb-member__ph { margin: 0; position: relative; width: min(calc(100% - 18px), 340px); aspect-ratio: 4 / 5; border-radius: 22px; overflow: hidden; background: var(--bb-black); box-shadow: 14px 14px 0 var(--bb-orange); }
-.bb-member__ph img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); transition: filter 400ms var(--sc-ease-out); }
-@media (hover: hover) and (pointer: fine) { .bb-member:hover .bb-member__ph img { filter: none; } }
-.bb-member__ph.is-mono { display: grid; place-items: center; background: radial-gradient(circle at 30% 25%, #3a2a24, var(--bb-black) 70%); }
-.bb-member__mono { font: 900 clamp(5rem, 14vw, 9rem)/1 var(--sc-font-display); color: var(--bb-orange); letter-spacing: -.04em; }
-.bb-member h3 { font: 900 clamp(1.9rem, 3.4vw, 3rem)/1 var(--sc-font-display); letter-spacing: -.025em; color: var(--bb-ink-cream); }
-.bb-member__role { margin: 10px 0 0; font: 800 .8rem/1.2 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; color: #B8470F; }
-.bb-member__bio { margin: var(--sc-4) 0 0; max-width: 54ch; font-size: clamp(1rem, 1.2vw, 1.12rem); line-height: 1.65; color: #3b3537; }
-.bb-member__pair { margin: var(--sc-4) 0 0; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 8px 16px; border-radius: 999px; background: var(--bb-black); color: var(--bb-cream); font: 700 .95rem/1.2 var(--sc-font-text); }
-.bb-member__pair span { color: var(--bb-orange); font: 800 .7rem/1 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; }
-.bb-member__link { display: inline-flex; align-items: center; min-height: 44px; margin-top: var(--sc-4); margin-left: 12px; color: var(--bb-ink-cream); font: 800 .98rem/1 var(--sc-font-text); text-decoration: underline; text-underline-offset: .22em; }
-@media (min-width: 861px) {
-  .bb-member { grid-template-columns: minmax(0, 340px) minmax(0, 1fr); column-gap: clamp(2.5rem, 7vw, 6rem); }
-  .bb-member:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 340px); }
-  .bb-member:nth-child(even) .bb-member__ph { order: 2; justify-self: end; box-shadow: -14px 14px 0 var(--bb-orange); }
-}
+
+/* ---- Burger Brewery Club ---- */
+.bb-club { padding-block: clamp(3.5rem, 9vh, 6.5rem); color: var(--bb-cream); }
+.bb-club[hidden] { display: none; }
+.bb-club__in { display: grid; gap: clamp(2rem, 5vw, 5rem); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .bb-club__in { grid-template-columns: 1fr 1fr; } }
+.bb-club h2 { font-size: clamp(2.2rem, 4.6vw, 4.4rem); font-weight: 900; letter-spacing: -.03em; line-height: .95; max-width: 14ch; }
+.bb-club h2 em { color: var(--bb-orange); }
+.bb-club__lead { margin: var(--sc-4) 0 var(--sc-5); max-width: 38ch; font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.55; color: var(--sc-ink-soft); }
+.bb-club__small { margin: var(--sc-3) 0 0; font-size: .92rem; color: var(--sc-ink-soft); }
+.bb-club__card { background: var(--bb-orange); color: #1B1617; border-radius: 28px; padding: clamp(1.25rem, 3vw, 2.25rem); }
+.bb-club__ladder { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; }
+.bb-club__ladder li { padding: .9rem .6rem; border-bottom: 1.5px dashed rgba(27,22,23,.4); font: 900 clamp(1.6rem, 3vw, 2.4rem)/1 var(--sc-font-display); letter-spacing: -.02em; }
+.bb-club__ladder li:nth-child(odd) { border-right: 1.5px dashed rgba(27,22,23,.4); }
+.bb-club__ladder small { font: 800 .8rem/1 var(--sc-font-text); letter-spacing: .08em; margin-left: .3em; }
+.bb-club__terms { list-style: none; margin: 1.25rem 0 0; padding: 0; font: 700 .88rem/1.45 var(--sc-font-text); display: grid; gap: .3rem; }
+.bb-club__terms li::before { content: "• "; }

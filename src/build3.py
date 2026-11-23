@@ -63,7 +63,8 @@ def header(p):  # p = "" on index, "index.html" on other pages
       <li><a class="bb-nav__link bb-nav__pair" href="{p}#pairings" data-open-pairs>Pairings <span class="bb-nav__trio" aria-hidden="true">{ICON_BURGER}{ICON_HEART}{ICON_PINT}</span></a></li>
       <li><a class="bb-nav__link" href="{p}#craft-on-tap">Craft on Tap</a></li>
       <li><a class="bb-nav__link" href="{p}#drops">Drops</a></li>
-      <li><a class="bb-nav__link" href="{p}#team">Our Team</a></li>
+      <li><a class="bb-nav__link" href="team.html">Our Team</a></li>
+      <li><a class="bb-nav__link" href="{p}#club">Membership</a></li>
       <li class="bb-loc">
         <button class="bb-nav__link" type="button" aria-expanded="false" aria-controls="loc-menu">Locations <span class="bb-loc__caret" aria-hidden="true"></span></button>
         <ul class="bb-loc__menu" id="loc-menu" hidden>
@@ -105,8 +106,22 @@ def fill(tpl, p):
 
 FORMS_JS = '  /* ---------- franchise + team forms: saved to Supabase (enquiries) ---------- */\n  document.querySelectorAll("form[data-form]").forEach(function (f) {\n    f.addEventListener("submit", function (e) {\n      e.preventDefault();\n      var status = f.querySelector(".bb-form__status");\n      if (!f.checkValidity()) { f.reportValidity(); return; }\n      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };\n      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };\n      var first = row.name.split(" ")[0] || "there", btn = f.querySelector(\'[type="submit"]\');\n      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }\n      btn.disabled = true; status.textContent = "Sending…";\n      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })\n        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })\n        .then(function () { btn.disabled = false; });\n    });\n  });\n'
 
-for tplf, out, p in ((tpl_index, "index.html", ""), (tpl_deliv, "delivery.html", "index.html")):
-    html = fill(open(tplf, encoding="utf-8").read(), p)
+PAGES = {"team.html": ("Our Team · Burger Brewery", "Meet the people behind Burger Brewery.", "g-cream", "p3_team.html"),
+}
+def page_tpl(out):
+    t, dsc, cls, frag = PAGES[out]
+    s = open("src/tplP.html", encoding="utf-8").read()
+    return (s.replace("/*TITLE*/", t).replace("/*DESC*/", dsc).replace("/*BODYCLS*/", cls)
+             .replace("/*CSS_PAGES*/", open("src/p3_pagescss.css", encoding="utf-8").read())
+             .replace("<!--MAIN-->", open("src/" + frag, encoding="utf-8").read())
+             .replace("/*PAGE_JS*/", open("src/p3_pages.js", encoding="utf-8").read()))
+import os as _os
+_jobs = [(tpl_index, "index.html", ""), (tpl_deliv, "delivery.html", "index.html")] + [(None, k, "index.html") for k in PAGES]
+for tplf, out, p in _jobs:
+    if tplf is None:
+        html = fill(page_tpl(out), p)
+    else:
+        html = fill(open(tplf, encoding="utf-8").read(), p)
     # No prices anywhere on the site (they differ across India). The menu PDF is the only place prices live.
     html = re.sub(r'<span class="bb-item__price">[^<]*</span>', '', html)
     html = re.sub(r'<span class="bb-taps__price">[^<]*</span>', '', html)
@@ -114,6 +129,8 @@ for tplf, out, p in ((tpl_index, "index.html", ""), (tpl_deliv, "delivery.html",
     html = re.sub(r'<i>₹[^<]*</i>', '', html)
     html = html.replace(" Veg ₹720, non-veg ₹840.", "").replace("Sicilian pistachio, ₹210.", "Sicilian pistachio.")
     html = re.sub(r" ?Govt taxes as applicable; 10% discretionary service charge\.", "", html)
+    if out == "index.html":
+        html = html[:html.rindex("</body>")] + "<script>\n" + open("src/p3_clubjs.js", encoding="utf-8").read() + "</script>\n" + html[html.rindex("</body>"):]
     if out == "index.html":   # line art from the menu PDF at the foot of three menu panels
         for cid, src, w, h, cls in (("cat-originals", "clean-cut", 591, 429, "is-burger"), ("cat-sliders", "sliders-trio", 900, 419, "is-sliders"), ("cat-gelato", "gelato-sundae", 358, 570, "is-sundae")):
             i = html.index('id="%s"' % cid); j = html.index("</article>", i)
@@ -129,7 +146,7 @@ for tplf, out, p in ((tpl_index, "index.html", ""), (tpl_deliv, "delivery.html",
     html = html.replace("var probeCache", "var BB_HAVE = %s; var probeCache" % json.dumps(have), 1)
     html = html.replace("function probeImg(url) {\n", "function probeImg(url) {\n    if (BB_HAVE.indexOf(url) < 0) return Promise.resolve(false);\n", 1)
     html = html.replace("function probeFile(url) {\n", "function probeFile(url) {\n    if (BB_HAVE.indexOf(url) < 0) return Promise.resolve(false);\n", 1)
-    assert "BB_HAVE.indexOf(url) < 0" in html or out == "delivery.html", "probe patch missed"
+    assert "BB_HAVE.indexOf(url) < 0" in html or out != "index.html", "probe patch missed"
     html = html.replace(".bb-index a { position: relative; display: block; width: 46px;", ".bb-index a { position: relative; display: block; width: 46px; min-height: 24px;", 1)
     # Forms save to Supabase. tpl2.html is sliced by fixed line numbers in mk3.py, so the handler is swapped here instead of edited there.
     if out == "index.html":

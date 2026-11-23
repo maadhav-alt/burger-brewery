@@ -103,7 +103,7 @@ loop = """
 </html>
 """
 out = "\n".join([head, rd("p3_css.css"), keep_taps_css, rest_css, rm_css, index_nav, rd("p3_hero.html"), about, "", rd("p3_mid.html").replace("  <!-- 6 · DROPS", rd("p3_tap.html") + "  <!-- 6 · DROPS"),
-                 togroom, menu, rd("p3_food.html"), rd("p3_team.html"), visit, tail_markup, script_head, js_keep1, js_keep2, rd("p3_js.js"), js_keep3, loop])
+                 togroom, menu, rd("p3_food.html"), rd("p3_club.html"), visit, tail_markup, script_head, js_keep1, js_keep2, rd("p3_js.js"), js_keep3, loop])
 for bad in ["bb-receipt", "ticket", "rushFrame", "insideFrame", "bb-chip", "<!--RUSH-->", "/*CSS_RUSH*/", "/*CSS_INSIDE*/", "<!--SENSES-->"]:
     assert bad not in out, bad
 open(D + "/tpl3.html", "w", encoding="utf-8").write(out)

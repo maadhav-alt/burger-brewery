@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>/*TITLE*/</title>
+<meta name="description" content="/*DESC*/">
+<meta name="theme-color" content="#1B1617">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23231F20'/><path d='M6 15c0-6 4.5-9 10-9s10 3 10 9z' fill='%23F26624'/><rect x='5' y='17' width='22' height='4' rx='2' fill='%23F2F2E9'/><rect x='6' y='22' width='20' height='4' rx='2' fill='%23F26624'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Mulish:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+/*CSS_BASE*/
+[hidden] { display: none !important; }
+/*CSS_VISIT*/
+/*CSS_DLG*/
+.bb-nav__trio { display: inline-flex; align-items: center; gap: 1px; margin-left: 6px; }
+.bb-nav__trio svg { width: 15px; height: 15px; display: block; }
+.bb-loc { position: relative; }
+.bb-loc__caret { display: inline-block; width: 8px; height: 8px; margin-left: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; rotate: 45deg; translate: 0 -2px; }
+.bb-loc [aria-expanded="true"] .bb-loc__caret { rotate: 225deg; translate: 0 2px; }
+.bb-loc__menu { position: absolute; top: calc(100% + 8px); left: 0; min-width: 270px; list-style: none; margin: 0; padding: 8px; border-radius: 16px; background: var(--bb-cream); box-shadow: 0 24px 50px -20px rgba(35,31,32,.45), 0 0 0 1px rgba(35,31,32,.08); display: grid !important; gap: 2px; }
+.bb-loc__menu[hidden] { display: none !important; }
+.bb-loc__menu a { display: block; min-height: 44px; padding: 10px 14px; border-radius: 10px; color: var(--bb-black); text-decoration: none; font: 800 1rem/1.2 var(--sc-font-text); }
+.bb-loc__menu small { display: block; margin-top: 3px; font: 600 .8rem/1.3 var(--sc-font-text); color: #4d4648; }
+@media (max-width: 1320px) { .bb-nav.is-open .bb-loc__menu { position: static; box-shadow: none; background: transparent; padding: 0 0 8px 12px; min-width: 0; } }
+.bb-social { display: flex; gap: 6px; }
+.bb-social__a { display: grid !important; place-items: center; width: 44px; height: 44px; padding: 0 !important; border-radius: 12px; color: var(--bb-cream) !important; }
+.bb-social__a svg { width: 26px; height: 26px; }
+.bb-social__a[hidden] { display: none !important; }
+
+/*CSS_PAGES*/
+.bb-pg { padding-top: var(--bb-head); }
+.bb-pg > section { padding-top: clamp(3rem, 9vh, 6rem) !important; min-height: 70vh; }
+</style>
+</head>
+<body class="/*BODYCLS*/">
+<!--HEADER-->
+<main class="bb-pg">
+<!--MAIN-->
+<div class="sc-wrap">
+  <!--FOOTER-->
+</div>
+</main>
+<!--DIALOGS_NOAGE-->
+<script src="config/site.js"></script>
+<script>
+/*PAGE_JS*/
+</script>
+<script>
+(function () {
+  "use strict";
+  var CFG = window.BB_CONFIG || {};
+  var has = function (v) { return v !== null && v !== undefined && v !== ""; };
+  document.querySelectorAll("[data-link]").forEach(function (a) { var u = CFG[a.getAttribute("data-link")]; if (has(u)) a.href = u; else a.hidden = true; });
+  var nav = document.querySelector(".bb-nav"), toggle = document.querySelector(".bb-burgerbtn");
+  toggle.addEventListener("click", function () { var o = nav.classList.toggle("is-open"); toggle.setAttribute("aria-expanded", o); toggle.setAttribute("aria-label", o ? "Close navigation" : "Open navigation"); });
+  var btn = document.querySelector(".bb-loc > button"), menu = document.getElementById("loc-menu");
+  function set(o) { btn.setAttribute("aria-expanded", String(o)); menu.hidden = !o; }
+  btn.addEventListener("click", function (e) { e.stopPropagation(); set(menu.hidden); });
+  document.addEventListener("click", function (e) { if (!menu.hidden && !menu.contains(e.target)) set(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+  menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { set(false); nav.classList.remove("is-open"); }); });
+  document.querySelectorAll("[data-open]").forEach(function (b) { b.addEventListener("click", function () { var d = document.getElementById(b.getAttribute("data-open")); if (d && !d.open) d.showModal(); }); });
+  document.querySelectorAll("dialog [data-close]").forEach(function (b) { b.addEventListener("click", function () { b.closest("dialog").close(); }); });
+  document.querySelectorAll("form[data-form]").forEach(function (f) {
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = f.querySelector(".bb-form__status");
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };
+      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };
+      var first = row.name.split(" ")[0] || "there", btn = f.querySelector('[type="submit"]');
+      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }
+      btn.disabled = true; status.textContent = "Sending…";
+      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })
+        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })
+        .then(function () { btn.disabled = false; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

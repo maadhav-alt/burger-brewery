@@ -46,17 +46,35 @@ window.BB_CONFIG = {
   mapsUrl: "https://maps.app.goo.gl/BrSWiB4urYfC66M5A",
   linkedinUrl: null, // TODO: company LinkedIn page URL (could not be confirmed by search)
 
-  // OUR TEAM. Fill these in and the "Our Team" section shows them (it sorts A to Z by `sort`, so order here does not matter).
-  // Every field except `name` is optional: a null field is simply not shown. Never put anything here that is not confirmed.
-  //   name     as it should read on the page            role   job title, e.g. "Head Chef"
-  //   bio      2 to 4 sentences, third person            pairing  their go-to burger + beer, e.g. "Oklahoma Smash + Kolsch"
-  //   photo    "assets/team/<name>.jpg" (portrait, 4:5)   link   LinkedIn or Instagram URL        linkLabel  e.g. "LinkedIn"
+  // OUR TEAM (page team.html). Sorted A to Z by `sort`. Every field except name is optional: a null field is simply not shown.
+  //   name, role      as they should read       area   small orange line under the role
+  //   line   ONE first-person sentence in their own words: why they care, with a sensory detail (never write it for them)
+  //   prev   array of past employers (text only, no logos)      pairing  go-to burger + beer, e.g. "Oklahoma Smash + Kolsch"
+  //   photo  "assets/team/<name>.jpg" (square, face centred)    link  LinkedIn URL (the photo links to it)
   team: [
-    { name: "Atharv",       sort: "Atharv",  role: null, bio: null, pairing: null, photo: null, link: null, linkLabel: null }, // TODO: surname, role, bio, photo
-    { name: "Chef Chander", sort: "Chander", role: null, bio: null, pairing: null, photo: null, link: null, linkLabel: null }, // TODO: role, bio, photo
-    { name: "Gurleen",      sort: "Gurleen", role: null, bio: null, pairing: null, photo: null, link: null, linkLabel: null }, // TODO: surname, role, bio, photo
-    { name: "Maadhav",      sort: "Maadhav", role: null, bio: null, pairing: null, photo: null, link: null, linkLabel: null }  // TODO: full name, role, bio, photo
+    { name: "Atharv Agarwal",     sort: "Atharv",  role: "Founder\u2019s Office", area: "Operational Strategy", line: null, prev: ["SBI"], pairing: null, photo: "assets/team/atharv.jpg",  link: null }, // TODO VERIFY prev (Padukone also on his card), line, pairing, LinkedIn
+    { name: "Chef Chander Deep",  sort: "Chander", role: "Executive Chef",        area: "Kitchen & Product",    line: null, prev: ["Jamie Oliver Restaurants", "Marriott", "The LaLiT"], pairing: null, photo: "assets/team/chander.jpg", link: null }, // TODO line, pairing, LinkedIn
+    { name: "Gurleen Kaur",       sort: "Gurleen", role: "Founder\u2019s Office", area: "Marketing & Business Strategy", line: null, prev: ["Adidas", "KPMG"], pairing: null, photo: "assets/team/gurleen.jpg", link: null }, // TODO line, pairing, LinkedIn
+    { name: "Maadhav Veer Singh", sort: "Maadhav", role: "Founder & CEO",         area: null,                   line: null, prev: ["Stride Asset Management", "Goldman Sachs"], pairing: null, photo: "assets/team/maadhav.jpg", link: null } // TODO line, pairing, LinkedIn
   ],
+
+  // Burger Brewery Club (loyalty). Source: owner's Reelo club card. Points = subtotal before taxes and charges.
+  // Reward values are kept here for records but NOT shown on the page (site rule: no prices); the Reelo link shows them.
+  loyalty: {
+    name: "Burger Brewery Club",
+    checkUrl: "https://l.reelo.io/8fT7I",
+    earn: "1 point for every rupee spent",
+    tiers: [
+      { points: 1500,  off: 150 },
+      { points: 2000,  off: 225 },
+      { points: 3000,  off: 375 },
+      { points: 5000,  off: 700 },
+      { points: 7500,  off: 1200 },
+      { points: 10000, off: 1800 }
+    ],
+    terms: ["Cannot be combined with other offers.", "Reward redeemable in-store only.", "Points are issued on the subtotal (before taxes and charges).", "Standard T&Cs apply."],
+    showRewardValues: false
+  },
 
   // TODO verify delivery cities
   deliveryCities: ["Bangalore", "Delhi NCR", "Mumbai"]

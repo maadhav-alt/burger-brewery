@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Team · Burger Brewery</title>
+<meta name="description" content="Meet the people behind Burger Brewery.">
+<meta name="theme-color" content="#1B1617">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23231F20'/><path d='M6 15c0-6 4.5-9 10-9s10 3 10 9z' fill='%23F26624'/><rect x='5' y='17' width='22' height='4' rx='2' fill='%23F2F2E9'/><rect x='6' y='22' width='20' height='4' rx='2' fill='%23F26624'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Mulish:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+:root {
+  --sc-canvas: #F2F2E9;  --sc-surface: #E9E7DA;
+  --sc-ink:    #231F20;  --sc-ink-soft: #5A5250;
+  --sc-accent: #F26624;  --sc-accent-ink: #231F20;
+  --sc-font-display: "Fraunces", Georgia, serif;
+  --sc-font-text: "Mulish", system-ui, sans-serif;
+  --bb-orange: #F26624; --bb-black: #231F20; --bb-cream: #F2F2E9; --bb-paper: #FBFAF4;
+  --bb-head: 68px;
+  --bb-veg: #2F8A43; --bb-nonveg: #C2352A;
+  --bb-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.g-cream  { background: var(--bb-cream); --sc-ink: #231F20; --sc-ink-soft: #5A5250; color: var(--sc-ink); }
+.g-paper  { background: var(--bb-paper); --sc-ink: #231F20; --sc-ink-soft: #5A5250; color: var(--sc-ink); }
+.g-black  { background: var(--bb-black); --sc-ink: #F2F2E9; --sc-ink-soft: #BDB5A8; color: var(--sc-ink); }
+.g-orange { background: var(--bb-orange); --sc-ink: #231F20; --sc-ink-soft: #231F20; color: var(--sc-ink); }
+.g-black :focus-visible { outline-color: var(--bb-orange); }
+.g-orange :focus-visible { outline-color: var(--bb-black); }
+body { background: var(--bb-cream); overflow-x: clip; }
+h1, h2, h3 { font-family: var(--sc-font-display); font-optical-sizing: auto; margin: 0; }
+em { font-style: italic; }
+img { display: block; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.bb-label { font: 800 .78rem/1 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--sc-ink-soft); margin: 0 0 var(--sc-4); }
+.g-black .bb-label { color: var(--bb-orange); }
+.ln { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* photos: blur-to-focus on entry */
+.bb-photo { position: relative; overflow: hidden; border-radius: 20px; background: #2c2627; }
+.bb-photo img { width: 100%; height: 100%; object-fit: cover; }
+@media (prefers-reduced-motion: no-preference) {
+  .bb-photo img { filter: blur(18px) saturate(.8); transform: scale(1.08); transition: filter 900ms var(--sc-ease-out), transform 1200ms var(--sc-ease-out); }
+  .bb-photo.is-seen img { filter: none; transform: none; }
+}
+
+/* ---------- buttons ---------- */
+.bb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  min-height: 48px; padding: 0 1.4rem; border-radius: 999px; border: 2px solid transparent;
+  font: 800 1rem/1 var(--sc-font-text); letter-spacing: .01em; text-decoration: none; white-space: nowrap;
+  background: var(--bb-orange); color: var(--bb-black); cursor: pointer;
+  transition: transform 140ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out), color 160ms var(--sc-ease-out), border-color 160ms var(--sc-ease-out);
+}
+.bb-btn:active { transform: scale(.97); }
+.bb-btn--line { background: transparent; border-color: currentColor; color: inherit; }
+.g-orange .bb-btn { background: var(--bb-black); color: var(--bb-cream); }
+@media (hover: hover) and (pointer: fine) {
+  .bb-btn:hover { background: var(--bb-black); color: var(--bb-cream); }
+  .g-black .bb-btn:hover { background: var(--bb-cream); color: var(--bb-black); }
+  .bb-btn--line:hover { background: var(--bb-black); color: var(--bb-cream); border-color: var(--bb-black); }
+  .g-black .bb-btn--line:hover { background: var(--bb-cream); color: var(--bb-black); border-color: var(--bb-cream); }
+}
+.bb-link { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 2px; font-weight: 800; }
+.bb-actions { display: flex; flex-wrap: wrap; gap: var(--sc-3); margin-top: var(--sc-6); }
+
+/* ---------- head bar ---------- */
+.bb-bar { position: fixed; inset: 0 0 auto; z-index: 60; height: var(--bb-head); display: flex; align-items: center; gap: var(--sc-5);
+  padding-inline: var(--sc-gutter); background: var(--bb-cream); color: var(--bb-black); border-bottom: 1px solid rgba(35,31,32,.14); }
+.bb-logo { display: block; width: 188px; aspect-ratio: 5211 / 832; background: var(--bb-black);
+  -webkit-mask: url(assets/logo-horizontal.png) center / contain no-repeat; mask: url(assets/logo-horizontal.png) center / contain no-repeat; }
+.bb-nav { margin-left: auto; display: flex; align-items: center; gap: var(--sc-2); }
+.bb-nav ul { display: flex; gap: var(--sc-1); list-style: none; margin: 0; padding: 0; }
+.bb-nav__link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .8rem; border: 0; background: none; border-radius: 999px;
+  font: 700 .95rem/1 var(--sc-font-text); color: inherit; text-decoration: none; cursor: pointer; transition: background-color 150ms var(--sc-ease-out); }
+@media (hover: hover) and (pointer: fine) { .bb-nav__link:hover { background: rgba(35,31,32,.07); } }
+.bb-nav .bb-btn { min-height: 44px; margin-left: var(--sc-2); }
+.bb-burgerbtn { display: none; width: 48px; height: 48px; border: 0; background: none; padding: 10px; cursor: pointer; border-radius: 12px; }
+.bb-burgerbtn span { display: block; height: 5px; border-radius: 3px; background: var(--bb-black); }
+.bb-burgerbtn span:nth-child(1) { background: var(--bb-orange); border-radius: 10px 10px 3px 3px; height: 7px; }
+.bb-burgerbtn span + span { margin-top: 4px; }
+.bb-burgerbtn span:nth-child(3) { background: var(--bb-orange); }
+@media (max-width: 1320px) {
+  .bb-nav ul { display: none; }
+  .bb-burgerbtn { display: block; }
+  .bb-nav .bb-btn { margin-left: 0; }
+  .bb-nav.is-open ul { display: flex; position: fixed; top: var(--bb-head); inset-inline: 0; flex-direction: column; gap: 0;
+    background: var(--bb-cream); border-bottom: 1px solid rgba(35,31,32,.14); padding: var(--sc-3) var(--sc-gutter) var(--sc-5); }
+  .bb-nav.is-open .bb-nav__link { width: 100%; min-height: 52px; font-size: 1.15rem; padding-inline: 0; border-radius: 0; border-bottom: 1px solid rgba(35,31,32,.1); }
+}
+@media (max-width: 520px) { .bb-logo { width: 132px; } .bb-nav .bb-btn { padding: 0 1rem; font-size: .92rem; } }
+
+/* ---------- stack index (signature) ---------- */
+.bb-index { position: fixed; z-index: 55; right: 14px; top: 50%; translate: 0 -50%; padding: 10px 7px; border-radius: 999px;
+  background: var(--bb-cream); border: 1px solid rgba(35,31,32,.16); box-shadow: 0 10px 24px -14px rgba(35,31,32,.45); }
+.bb-index ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.bb-index a { position: relative; display: block; width: 46px; min-height: 24px; border-radius: 6px; }
+.bb-index svg { display: block; width: 100%; height: auto; opacity: .2; filter: grayscale(1); transform: translateY(-7px);
+  transition: opacity 240ms var(--sc-ease-out), transform 260ms var(--sc-ease-out), filter 240ms var(--sc-ease-out); }
+.bb-index a.is-in svg { opacity: 1; filter: none; transform: none; }
+.bb-index__tip { position: absolute; right: calc(100% + 12px); top: 50%; translate: 0 -50%; white-space: nowrap; pointer-events: none;
+  font: 800 .78rem/1 var(--sc-font-text); letter-spacing: .04em; background: var(--bb-black); color: var(--bb-cream);
+  padding: 7px 10px; border-radius: 999px; opacity: 0; transition: opacity 150ms var(--sc-ease-out); }
+.bb-index a:focus-visible .bb-index__tip { opacity: 1; }
+@media (hover: hover) and (pointer: fine) { .bb-index a:hover .bb-index__tip { opacity: 1; } }
+@media (max-width: 760px) { .bb-index { right: 6px; top: auto; bottom: 14px; translate: none; padding: 6px 4px; } .bb-index a { width: 28px; } .bb-index__tip { display: none; } }
+
+
+.bb-nav__link { white-space: nowrap; }
+@media (min-width: 1321px) and (max-width: 1580px) { .bb-nav__link { padding: 0 .52rem; font-size: .92rem; } .bb-nav .bb-btn { margin-left: 2px; } .bb-bar { gap: var(--sc-3); } }
+
+[hidden] { display: none !important; }
+/* ---------- 11 · visit: the bottom bun ---------- */
+.bb-visit [data-sc-stage] { background: var(--bb-black); display: flex; flex-direction: column; padding-top: var(--bb-head); }
+.bb-visit__split { flex: 1; display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+.bb-half { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(1.5rem, 4vw, 3.5rem); color: var(--bb-cream); }
+.bb-half + .bb-half { border-left: 1px solid rgba(242,242,233,.14); }
+.bb-half img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.bb-half::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(35,31,32,.05) 20%, rgba(35,31,32,.72) 52%, rgba(35,31,32,.94) 86%); }
+.bb-half > :not(img) { position: relative; z-index: 2; }
+.bb-half .bb-label { color: #F6D9C4; }
+.bb-half h2 { font-size: clamp(2.4rem, 4.6vw, 4.8rem); font-weight: 900; letter-spacing: -.025em; line-height: .94; text-wrap: balance; }
+.bb-half p { margin: var(--sc-3) 0 0; max-width: 38ch; line-height: 1.55; color: #E3DDD3; }
+.bb-half .bb-actions { margin-top: var(--sc-5); }
+.bb-half:last-of-type { padding-right: calc(clamp(1.5rem, 4vw, 3.5rem) + 64px); }
+.bb-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-3) var(--sc-6); padding: var(--sc-5) calc(var(--sc-gutter) + 64px) var(--sc-5) var(--sc-gutter);
+  border-top: 1px solid rgba(242,242,233,.16); font-size: .9rem; color: var(--sc-ink-soft); }
+.bb-foot__mark { width: auto; height: 64px; }
+@media (max-width: 860px) { .bb-foot__mark { display: none; } }
+.bb-foot ul { display: flex; flex-wrap: wrap; gap: var(--sc-1) var(--sc-5); list-style: none; margin: 0; padding: 0; }
+.bb-foot button, .bb-foot a { background: none; border: 0; padding: 6px 0; color: var(--sc-ink); font: 700 .9rem/1.2 var(--sc-font-text); cursor: pointer; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .bb-foot button:hover, .bb-foot a:hover { text-decoration: underline; text-underline-offset: .2em; } }
+.bb-foot small { margin-left: auto; font-size: .82rem; }
+@media (max-width: 860px) {
+  .bb-visit__split { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  .bb-half + .bb-half { border-left: 0; border-top: 1px solid rgba(242,242,233,.14); }
+  .bb-half { padding: var(--sc-5) calc(var(--sc-gutter) + 36px) var(--sc-5) var(--sc-gutter); }
+  .bb-half h2 { font-size: 2rem; }
+  .bb-half p { font-size: .9rem; }
+  .bb-half .bb-actions { margin-top: var(--sc-3); }
+  .bb-half .bb-btn { min-height: 44px; padding: 0 1rem; font-size: .9rem; }
+  .bb-foot { padding: var(--sc-3) calc(var(--sc-gutter) + 36px) var(--sc-3) var(--sc-gutter); gap: var(--sc-1) var(--sc-4); }
+  .bb-foot .bb-logo { display: none; }
+  .bb-foot small { margin-left: 0; }
+}
+
+
+/* ---------- dialogs ---------- */
+.bb-dialog { border: 0; padding: 0; width: min(40rem, calc(100vw - 32px)); max-height: calc(100svh - 32px); border-radius: 20px; background: var(--bb-cream); color: var(--bb-black); box-shadow: 0 30px 80px -30px rgba(35,31,32,.6); }
+.bb-dialog::backdrop { background: rgba(35,31,32,.62); }
+.bb-dialog__in { padding: clamp(1.5rem, 4vw, 2.75rem); overflow: auto; max-height: calc(100svh - 32px); }
+.bb-dialog h2 { text-wrap: balance; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -.02em; line-height: 1; padding-right: 3rem; }
+.bb-dialog__x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(35,31,32,.08); font: 700 1.4rem/1 var(--sc-font-text); color: var(--bb-black); cursor: pointer; }
+.bb-dialog p { line-height: 1.65; margin: var(--sc-4) 0 0; }
+.bb-dialog .lead { font: italic 700 1.3rem/1.3 var(--sc-font-display); }
+.bb-form { margin-top: var(--sc-5); display: grid; gap: var(--sc-4); }
+.bb-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-4); }
+@media (max-width: 560px) { .bb-form .row2 { grid-template-columns: 1fr; } }
+.bb-field label { display: block; font: 800 .9rem/1.3 var(--sc-font-text); margin-bottom: 6px; }
+.bb-field input, .bb-field select, .bb-field textarea { width: 100%; min-height: 48px; border-radius: 12px; border: 1.5px solid rgba(35,31,32,.35); background: var(--bb-paper); padding: 10px 14px; font: 600 1rem/1.4 var(--sc-font-text); color: var(--bb-black); caret-color: var(--bb-orange); }
+.bb-field textarea { min-height: 96px; resize: vertical; }
+.bb-field input:focus-visible, .bb-field select:focus-visible, .bb-field textarea:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 2px; border-color: var(--bb-black); }
+.bb-form__status { margin: 0; padding: var(--sc-4); border-radius: 12px; background: #FBE3D6; font-weight: 600; line-height: 1.5; }
+.bb-form__status:empty { display: none; }
+.bb-hint { font-size: .85rem; color: var(--sc-ink-soft); margin: 4px 0 0; }
+.bb-age { width: min(30rem, calc(100vw - 32px)); text-align: center; }
+.bb-age .bb-heart { width: 120px; margin: 0 auto var(--sc-4); }
+.bb-age .bb-heart__text { font-size: 1.1rem; }
+.bb-age h2 { padding: 0; }
+.bb-age .bb-actions { justify-content: center; }
+.bb-age::backdrop { background: var(--bb-orange); }
+
+
+.bb-nav__trio { display: inline-flex; align-items: center; gap: 1px; margin-left: 6px; }
+.bb-nav__trio svg { width: 15px; height: 15px; display: block; }
+.bb-loc { position: relative; }
+.bb-loc__caret { display: inline-block; width: 8px; height: 8px; margin-left: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; rotate: 45deg; translate: 0 -2px; }
+.bb-loc [aria-expanded="true"] .bb-loc__caret { rotate: 225deg; translate: 0 2px; }
+.bb-loc__menu { position: absolute; top: calc(100% + 8px); left: 0; min-width: 270px; list-style: none; margin: 0; padding: 8px; border-radius: 16px; background: var(--bb-cream); box-shadow: 0 24px 50px -20px rgba(35,31,32,.45), 0 0 0 1px rgba(35,31,32,.08); display: grid !important; gap: 2px; }
+.bb-loc__menu[hidden] { display: none !important; }
+.bb-loc__menu a { display: block; min-height: 44px; padding: 10px 14px; border-radius: 10px; color: var(--bb-black); text-decoration: none; font: 800 1rem/1.2 var(--sc-font-text); }
+.bb-loc__menu small { display: block; margin-top: 3px; font: 600 .8rem/1.3 var(--sc-font-text); color: #4d4648; }
+@media (max-width: 1320px) { .bb-nav.is-open .bb-loc__menu { position: static; box-shadow: none; background: transparent; padding: 0 0 8px 12px; min-width: 0; } }
+.bb-social { display: flex; gap: 6px; }
+.bb-social__a { display: grid !important; place-items: center; width: 44px; height: 44px; padding: 0 !important; border-radius: 12px; color: var(--bb-cream) !important; }
+.bb-social__a svg { width: 26px; height: 26px; }
+.bb-social__a[hidden] { display: none !important; }
+
+/* Our Team: four circular portraits with the orange ring, centred cards, name > role > area > previously > pairing */
+.bb-team { padding-block: clamp(3.5rem, 8vh, 6rem); }
+.bb-team[hidden] { display: none; }
+.bb-team .sc-wrap > .bb-label, .bb-team h2, .bb-team__lead { text-align: center; margin-inline: auto; }
+.bb-team h2 { font-size: clamp(2.2rem, 4.4vw, 4.2rem); font-weight: 900; letter-spacing: -.03em; line-height: .95; color: var(--bb-ink-cream); max-width: 16ch; }
+.bb-team__lead { margin-top: var(--sc-4); max-width: 46ch; font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.6; }
+.bb-team__list { list-style: none; margin: clamp(2.5rem, 7vh, 4.5rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: clamp(2.5rem, 5vh, 3.5rem) clamp(1.5rem, 3vw, 3rem); }
+.bb-member { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.bb-member__ring { display: block; width: clamp(170px, 18vw, 210px); aspect-ratio: 1; border-radius: 50%; border: 4px solid var(--bb-orange); padding: 5px; background: var(--bb-cream); transition: transform 300ms var(--sc-ease-out); }
+a.bb-member__ring:hover { transform: scale(1.04); }
+.bb-member__ph { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--bb-black); }
+.bb-member__ph img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.bb-member__ph.is-mono { display: grid; place-items: center; }
+.bb-member__mono { font: 900 4.5rem/1 var(--sc-font-display); color: var(--bb-orange); }
+.bb-member__line { margin: var(--sc-4) 0 0; max-width: 26ch; font: italic 600 1.05rem/1.45 var(--sc-font-display); color: #3b3537; }
+.bb-member h3 { margin: var(--sc-4) 0 0; font: 900 clamp(1.4rem, 1.9vw, 1.75rem)/1.05 var(--sc-font-display); letter-spacing: -.02em; color: var(--bb-ink-cream); }
+.bb-member__role { margin: 10px 0 0; padding: 7px 16px; background: var(--bb-black); color: var(--bb-cream); font: 800 .78rem/1.2 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; }
+.bb-member__area { margin: 12px 0 0; font: 800 .82rem/1.3 var(--sc-font-text); letter-spacing: .1em; text-transform: uppercase; color: #B8470F; }
+.bb-member__prev { margin: 12px 0 0; max-width: 26ch; font-size: .92rem; line-height: 1.45; color: #4d4648; }
+.bb-member__pair { margin: var(--sc-4) 0 0; display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 10px; padding: 8px 16px; border-radius: 999px; background: var(--bb-black); color: var(--bb-cream); font: 700 .9rem/1.2 var(--sc-font-text); }
+.bb-member__pair span { color: var(--bb-orange); font: 800 .68rem/1 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; }
+.bb-team h2, .bb-team__lead { display: block; width: 100%; text-wrap: balance; }
+.bb-team h2 { max-width: 18ch; }
+
+.bb-pg { padding-top: var(--bb-head); }
+.bb-pg > section { padding-top: clamp(3rem, 9vh, 6rem) !important; min-height: 70vh; }
+</style>
+</head>
+<body class="g-cream">
+<header class="bb-bar">
+  <a class="bb-logo" href="index.html#top" aria-label="Burger Brewery, back to the top"></a>
+  <nav class="bb-nav" aria-label="Main">
+    <button class="bb-burgerbtn" type="button" aria-expanded="false" aria-controls="bb-navlist" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    <ul id="bb-navlist">
+      <li><a class="bb-nav__link" href="index.html#about">About Us</a></li>
+      <li><a class="bb-nav__link" href="index.html#menu">Menu</a></li>
+      <li><a class="bb-nav__link bb-nav__pair" href="index.html#pairings" data-open-pairs>Pairings <span class="bb-nav__trio" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 7 0 0 1 18 0z" fill="#F26624"/><rect x="2.5" y="12.5" width="19" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="17" width="18" height="3.5" rx="1.75" fill="#F26624"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.2 1.7-2 3.1-3.2 5.3-3.2 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z" fill="#F26624"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14l-1.6 18H6.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6.4 8h11.2l-1 11.6H7.4z" fill="#F26624"/></svg></span></a></li>
+      <li><a class="bb-nav__link" href="index.html#craft-on-tap">Craft on Tap</a></li>
+      <li><a class="bb-nav__link" href="index.html#drops">Drops</a></li>
+      <li><a class="bb-nav__link" href="team.html">Our Team</a></li>
+      <li><a class="bb-nav__link" href="index.html#club">Membership</a></li>
+      <li class="bb-loc">
+        <button class="bb-nav__link" type="button" aria-expanded="false" aria-controls="loc-menu">Locations <span class="bb-loc__caret" aria-hidden="true"></span></button>
+        <ul class="bb-loc__menu" id="loc-menu" hidden>
+          <li><a href="index.html#visit">Bangalore <small>Koramangala 1st Block, dine in</small></a></li>
+          <li><a href="delivery.html#mumbai">Mumbai <small>Delivery</small></a></li>
+          <li><a href="delivery.html#delhi-ncr">Delhi NCR <small>Delivery</small></a></li>
+        </ul>
+      </li>
+      <li><button class="bb-nav__link" type="button" data-open="dlg-franchise">Franchise with Us</button></li>
+    </ul>
+    <a class="bb-btn" data-link="bookingUrl" href="index.html#visit" target="_blank" rel="noopener">Book a table</a>
+  </nav>
+</header>
+<main class="bb-pg">
+
+  <!-- 8c · OUR TEAM: profiles come from config/site.js (team). Hidden entirely if the list is empty. -->
+  <section id="team" class="bb-team g-cream" aria-labelledby="team-h" hidden>
+    <div class="sc-wrap">
+      <p class="bb-label">Our Team</p>
+      <h2 id="team-h">The people who make it hearty.</h2>
+      <p class="bb-team__lead">Building India’s go-to burger and beer brand.</p>
+      <ol class="bb-team__list" data-team></ol>
+    </div>
+  </section>
+
+<div class="sc-wrap">
+  <footer class="bb-foot">
+        <img class="bb-foot__mark" src="assets/brand/bb-stacked.png" width="353" height="500" alt="Burger Brewery" loading="lazy">
+        <ul>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><button type="button" data-open="dlg-team">Join the Team</button></li>
+          <li><button type="button" data-open="dlg-franchise">Franchise with Us</button></li>
+          <li><a href="assets/burger-brewery-koramangala-menu.pdf" target="_blank" rel="noopener">Menu (PDF)</a></li>
+        </ul>
+        <div class="bb-social">
+          <a class="bb-social__a" data-link="instagramUrl" href="https://www.instagram.com/burgerbrewery_official/" target="_blank" rel="noopener" aria-label="Burger Brewery on Instagram, @burgerbrewery_official"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg></a>
+          <!-- TODO: set linkedinUrl in config/site.js. The LinkedIn icon stays hidden until then. -->
+          <a class="bb-social__a" data-link="linkedinUrl" href="#" target="_blank" rel="noopener" aria-label="Burger Brewery on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="currentColor"/><path d="M7.2 10.2h2.3V17H7.2zM8.35 6.6a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM11 10.2h2.2v.95c.4-.7 1.3-1.15 2.3-1.15 2 0 2.6 1.25 2.6 3.1V17h-2.3v-3.4c0-.9-.2-1.6-1.1-1.6-1 0-1.4.7-1.4 1.7V17H11z" fill="var(--bb-black)"/></svg></a>
+        </div>
+        <small>© 2026 Burger Brewery. Please drink responsibly.</small>
+      </footer>
+</div>
+</main>
+<!-- Franchise with Us -->
+<dialog class="bb-dialog" id="dlg-franchise" aria-labelledby="fr-h">
+  <div class="bb-dialog__in">
+    <button class="bb-dialog__x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="fr-h">Franchise with Us</h2>
+    <p>Bring Burger Brewery to your city. We’re building India’s favourite burger and beer table, one city at a time, and we’re choosy about who builds it with us. Tell us about you.</p>
+    <form class="bb-form" method="post" action="#" data-form="franchise">
+      <div class="row2">
+        <div class="bb-field"><label for="fr-name">Your name</label><input id="fr-name" name="name" autocomplete="name" required></div>
+        <div class="bb-field"><label for="fr-city">City</label><input id="fr-city" name="city" autocomplete="address-level2" required></div>
+      </div>
+      <div class="row2">
+        <div class="bb-field"><label for="fr-phone">Phone</label><input id="fr-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="bb-field"><label for="fr-email">Email</label><input id="fr-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="bb-field"><label for="fr-inv">Investment range</label>
+        <select id="fr-inv" name="investment" required><option value="">Choose one</option><option>Under ₹50 lakh</option><option>₹50 lakh to ₹1 crore</option><option>Over ₹1 crore</option><option>Not sure yet</option></select></div>
+      <div class="bb-field"><label for="fr-msg">Anything else?</label><textarea id="fr-msg" name="message"></textarea></div>
+      <p class="bb-form__status" role="status" aria-live="polite"></p>
+      <div><button class="bb-btn" type="submit">Send enquiry</button></div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Join the Team -->
+<dialog class="bb-dialog" id="dlg-team" aria-labelledby="tm-h">
+  <div class="bb-dialog__in">
+    <button class="bb-dialog__x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="tm-h">Join the Team</h2>
+    <p>Kitchen, floor or bar. If a rushed burger bothers you, we should talk.</p>
+    <form class="bb-form" method="post" action="#" enctype="multipart/form-data" data-form="team">
+      <div class="row2">
+        <div class="bb-field"><label for="tm-name">Your name</label><input id="tm-name" name="name" autocomplete="name" required></div>
+        <div class="bb-field"><label for="tm-role">Role</label>
+          <select id="tm-role" name="role" required><option value="">Choose one</option><option>Kitchen</option><option>Floor and service</option><option>Bar</option><option>Management</option></select></div>
+      </div>
+      <div class="row2">
+        <div class="bb-field"><label for="tm-phone">Phone</label><input id="tm-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="bb-field"><label for="tm-email">Email</label><input id="tm-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="bb-field"><label for="tm-city">Preferred outlet or city</label><input id="tm-city" name="city" value="Koramangala, Bangalore"></div>
+      <p class="bb-form__status" role="status" aria-live="polite"></p>
+      <div><button class="bb-btn" type="submit">Send application</button></div>
+    </form>
+  </div>
+</dialog>
+
+
+<script src="config/site.js"></script>
+<script>
+  /* ---------- Our Team: built from config/site.js (team), sorted A to Z; empty fields are not shown ---------- */
+  (function () {
+    var sec = document.getElementById("team"), list = sec && sec.querySelector("[data-team]");
+    var team = (window.BB_CONFIG && window.BB_CONFIG.team) || [];
+    if (!sec || !list || !team.length) return;
+    function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt) n.textContent = txt; return n; }
+    team.slice().sort(function (a, b) { return String(a.sort || a.name).localeCompare(String(b.sort || b.name)); }).forEach(function (m) {
+      var li = el("li", "bb-member"), ph = el("div", "bb-member__ph");
+      if (m.photo) { var img = document.createElement("img"); img.src = m.photo; img.alt = m.name + (m.role ? ", " + m.role : ""); img.width = 400; img.height = 400; img.loading = "lazy"; img.decoding = "async"; ph.appendChild(img); }
+      else { ph.classList.add("is-mono"); var mo = el("span", "bb-member__mono", (m.name.replace(/^Chef\s+/i, "").charAt(0) || "").toUpperCase()); mo.setAttribute("aria-hidden", "true"); ph.appendChild(mo); }
+      if (m.link) { var a = el("a", "bb-member__ring"); a.href = m.link; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("aria-label", m.name + " on LinkedIn"); a.appendChild(ph); li.appendChild(a); } else { var r = el("div", "bb-member__ring"); r.appendChild(ph); li.appendChild(r); }
+      if (m.line) li.appendChild(el("p", "bb-member__line", "\u201C" + m.line + "\u201D"));
+      li.appendChild(el("h3", "", m.name));
+      if (m.role) li.appendChild(el("p", "bb-member__role", m.role));
+      if (m.area) li.appendChild(el("p", "bb-member__area", m.area));
+      if (m.prev && m.prev.length) li.appendChild(el("p", "bb-member__prev", "Previously: " + m.prev.join(", ")));
+      if (m.pairing) { var pr = el("p", "bb-member__pair"); pr.appendChild(el("span", "", "Goes with")); pr.appendChild(document.createTextNode(m.pairing)); li.appendChild(pr); }
+      list.appendChild(li);
+    });
+    sec.hidden = false;
+  })();
+
+</script>
+<script>
+(function () {
+  "use strict";
+  var CFG = window.BB_CONFIG || {};
+  var has = function (v) { return v !== null && v !== undefined && v !== ""; };
+  document.querySelectorAll("[data-link]").forEach(function (a) { var u = CFG[a.getAttribute("data-link")]; if (has(u)) a.href = u; else a.hidden = true; });
+  var nav = document.querySelector(".bb-nav"), toggle = document.querySelector(".bb-burgerbtn");
+  toggle.addEventListener("click", function () { var o = nav.classList.toggle("is-open"); toggle.setAttribute("aria-expanded", o); toggle.setAttribute("aria-label", o ? "Close navigation" : "Open navigation"); });
+  var btn = document.querySelector(".bb-loc > button"), menu = document.getElementById("loc-menu");
+  function set(o) { btn.setAttribute("aria-expanded", String(o)); menu.hidden = !o; }
+  btn.addEventListener("click", function (e) { e.stopPropagation(); set(menu.hidden); });
+  document.addEventListener("click", function (e) { if (!menu.hidden && !menu.contains(e.target)) set(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+  menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { set(false); nav.classList.remove("is-open"); }); });
+  document.querySelectorAll("[data-open]").forEach(function (b) { b.addEventListener("click", function () { var d = document.getElementById(b.getAttribute("data-open")); if (d && !d.open) d.showModal(); }); });
+  document.querySelectorAll("dialog [data-close]").forEach(function (b) { b.addEventListener("click", function () { b.closest("dialog").close(); }); });
+  document.querySelectorAll("form[data-form]").forEach(function (f) {
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = f.querySelector(".bb-form__status");
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };
+      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };
+      var first = row.name.split(" ")[0] || "there", btn = f.querySelector('[type="submit"]');
+      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }
+      btn.disabled = true; status.textContent = "Sending…";
+      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })
+        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })
+        .then(function () { btn.disabled = false; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
