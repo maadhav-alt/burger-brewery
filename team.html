@@ -70,7 +70,7 @@ img { display: block; }
 .bb-bar { position: fixed; inset: 0 0 auto; z-index: 60; height: var(--bb-head); display: flex; align-items: center; gap: var(--sc-5);
   padding-inline: var(--sc-gutter); background: var(--bb-cream); color: var(--bb-black); border-bottom: 1px solid rgba(35,31,32,.14); }
 .bb-logo { display: block; width: 188px; aspect-ratio: 5211 / 832; background: var(--bb-black);
-  -webkit-mask: url(assets/logo-horizontal.png) center / contain no-repeat; mask: url(assets/logo-horizontal.png) center / contain no-repeat; }
+  -webkit-mask: url(assets/logo-mask.webp) center / contain no-repeat; mask: url(assets/logo-mask.webp) center / contain no-repeat; }
 .bb-nav { margin-left: auto; display: flex; align-items: center; gap: var(--sc-2); }
 .bb-nav ul { display: flex; gap: var(--sc-1); list-style: none; margin: 0; padding: 0; }
 .bb-nav__link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .8rem; border: 0; background: none; border-radius: 999px;
@@ -259,6 +259,7 @@ a.bb-member__ring:hover { transform: scale(1.04); }
 .bb-pg { padding-top: var(--bb-head); }
 .bb-pg > section { padding-top: clamp(3rem, 9vh, 6rem) !important; min-height: 70vh; }
 </style>
+<script src="config/site.js?v=8ebda23a"></script>
 </head>
 <body class="g-cream">
 <header class="bb-bar">
@@ -364,7 +365,6 @@ a.bb-member__ring:hover { transform: scale(1.04); }
 </dialog>
 
 
-<script src="config/site.js?v=8ebda23a"></script>
 <script>
   /* ---------- Our Team: built from config/site.js (team), sorted A to Z; empty fields are not shown ---------- */
   (function () {

@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#1B1617">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23231F20'/><path d='M6 15c0-6 4.5-9 10-9s10 3 10 9z' fill='%23F26624'/><rect x='5' y='17' width='22' height='4' rx='2' fill='%23F2F2E9'/><rect x='6' y='22' width='20' height='4' rx='2' fill='%23F26624'/></svg>">
-<link rel="preload" as="image" href="assets/photos/resp/live-kitchen-1600.webp" imagesrcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" href="assets/photos/resp/live-kitchen-1600.webp" imagesrcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-800.webp 800w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
 <!-- TODO: headings should use Farnham Display (licensed). It is not in the project, so Fraunces stands in via --sc-font-display. Add the .woff2 files and an @font-face, then swap the variable. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +80,7 @@ img { display: block; }
 .bb-bar { position: fixed; inset: 0 0 auto; z-index: 60; height: var(--bb-head); display: flex; align-items: center; gap: var(--sc-5);
   padding-inline: var(--sc-gutter); background: var(--bb-cream); color: var(--bb-black); border-bottom: 1px solid rgba(35,31,32,.14); }
 .bb-logo { display: block; width: 188px; aspect-ratio: 5211 / 832; background: var(--bb-black);
-  -webkit-mask: url(assets/logo-horizontal.png) center / contain no-repeat; mask: url(assets/logo-horizontal.png) center / contain no-repeat; }
+  -webkit-mask: url(assets/logo-mask.webp) center / contain no-repeat; mask: url(assets/logo-mask.webp) center / contain no-repeat; }
 .bb-nav { margin-left: auto; display: flex; align-items: center; gap: var(--sc-2); }
 .bb-nav ul { display: flex; gap: var(--sc-1); list-style: none; margin: 0; padding: 0; }
 .bb-nav__link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .8rem; border: 0; background: none; border-radius: 999px;
@@ -500,7 +500,7 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 .bb-load__in { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; padding: 22px var(--sc-gutter) 26px; transition: opacity 320ms ease, transform 520ms cubic-bezier(.5,0,.75,0); }
 .bb-load.is-open .bb-load__in { opacity: 0; transform: scale(.94); }
 .bb-load__top { display: flex; align-items: center; justify-content: space-between; }
-.bb-load__logo { width: 168px; aspect-ratio: 5211 / 832; background: var(--bb-black); -webkit-mask: url(assets/logo-horizontal.png) center / contain no-repeat; mask: url(assets/logo-horizontal.png) center / contain no-repeat; }
+.bb-load__logo { width: 168px; aspect-ratio: 5211 / 832; background: var(--bb-black); -webkit-mask: url(assets/logo-mask.webp) center / contain no-repeat; mask: url(assets/logo-mask.webp) center / contain no-repeat; }
 .bb-load__skip { min-height: 44px; padding: 0 6px; border: 0; background: none; color: var(--bb-black); font: 700 .9rem/1 var(--sc-font-text); text-decoration: underline; text-underline-offset: .25em; cursor: pointer; }
 .bb-load__stage { position: relative; align-self: center; justify-self: center; display: flex; align-items: flex-end; gap: clamp(10px, 3vw, 44px); padding-bottom: 6px; border-bottom: 2px solid var(--bb-orange); }
 .bb-load__pint { height: clamp(220px, 46vh, 420px); width: auto; transition: transform 460ms cubic-bezier(.3,1.35,.5,1); }
@@ -1051,7 +1051,7 @@ a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px
   <section id="top" class="bb-hero g-black" aria-labelledby="hero-h">
     <div class="bb-plane bb-kitchen" data-depth="far">
       <img class="bb-hero__still" src="assets/photos/resp/live-kitchen-1600.jpg"
-        srcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w"
+        srcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-800.webp 800w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w"
         sizes="100vw" width="1600" height="1600" fetchpriority="high" loading="eager" decoding="async"
         alt="The live kitchen at Burger Brewery Koramangala, under the It’s Hearty neon">
     </div>
@@ -1095,7 +1095,7 @@ a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px
       <figure class="bb-about__art" aria-label="Line drawing from our menu: a cook smashing patties on the flat top, smoke curling up">
         <svg viewBox="0 0 1600 814" role="img" aria-label="A cook smashing patties on the flat top, smoke curling up, drawn in orange line art">
           <defs><mask id="drawMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="814"><path class="bb-draw__stroke" pathLength="1" d="M-505 884 L0 -70 L64 -70 L-441 884 L-377 884 L128 -70 L192 -70 L-313 884 L-249 884 L256 -70 L320 -70 L-185 884 L-121 884 L384 -70 L448 -70 L-57 884 L7 884 L512 -70 L576 -70 L71 884 L135 884 L640 -70 L704 -70 L199 884 L263 884 L768 -70 L832 -70 L327 884 L391 884 L896 -70 L960 -70 L455 884 L519 884 L1024 -70 L1088 -70 L583 884 L647 884 L1152 -70 L1216 -70 L711 884 L775 884 L1280 -70 L1344 -70 L839 884 L903 884 L1408 -70 L1472 -70 L967 884 L1031 884 L1536 -70 L1600 -70 L1095 884 L1159 884 L1664 -70 L1728 -70 L1223 884 L1287 884 L1792 -70 L1856 -70 L1351 884 L1415 884 L1920 -70 L1984 -70 L1479 884 L1543 884 L2048 -70 L2112 -70 L1607 884 L1671 884 L2176 -70"/></mask></defs>
-          <image href="assets/lineart/kitchen-smash.webp" width="1600" height="814" mask="url(#drawMask)"/>
+          <image data-href="assets/lineart/kitchen-smash.webp" width="1600" height="814" mask="url(#drawMask)"/>
         </svg>
       </figure>
     </div>
@@ -1115,7 +1115,7 @@ a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px
       <div class="bb-pair__cols">
         <div class="bb-pair__left">
         <!-- Pairing clip (Oklahoma Smash + Kolsch): starts muted when it scrolls into view, stops when it leaves. Captions are burned into the picture. TODO: add a .vtt captions file. -->
-                  <figure class="bb-pair__reel"><video muted loop playsinline controls controlslist="nodownload" preload="none" poster="assets/video/pairing-reel-poster.webp" data-src="assets/video/pairing-reel.mp4" width="478" height="850" aria-label="A 14-second clip: the Oklahoma Smash paired with a Kolsch. Muted, with captions; press the speaker for sound."></video></figure>
+                  <figure class="bb-pair__reel"><video muted loop playsinline controls controlslist="nodownload" preload="none" data-poster="assets/video/pairing-reel-poster.webp" data-src="assets/video/pairing-reel.mp4" width="478" height="850" aria-label="A 14-second clip: the Oklahoma Smash paired with a Kolsch. Muted, with captions; press the speaker for sound."></video></figure>
         </div>
         <div class="bb-pair__right">
           <div class="bb-pair__grid" id="pair-grid" role="group" aria-label="Pick a burger"></div>
@@ -1184,7 +1184,7 @@ a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px
             <linearGradient id="tLiq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--beer-hi,#F6D872)"/><stop offset=".55" style="stop-color:var(--beer,#E3A52B)"/><stop offset="1" style="stop-color:var(--beer,#E3A52B)"/></linearGradient>
             <pattern id="tLiqHatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><line x1="0" y1="0" x2="0" y2="7" stroke="#2a1000" stroke-width="1" opacity=".16"/></pattern>
           </defs>
-          <image href="assets/lineart/tap-clear-960.webp" width="467" height="1000" preserveAspectRatio="none"/>
+          <image data-href="assets/lineart/tap-clear-960.webp" width="467" height="1000" preserveAspectRatio="none"/>
           <!-- beer: translucent, engraved with fine hatching, topped with foam -->
           <g clip-path="url(#tInside)">
             <g clip-path="url(#tLiqClip)">
@@ -1287,7 +1287,7 @@ a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px
           </button>
         </div>
         <!-- Community clip: starts muted when it scrolls into view, stops when it leaves. Captions are burned into the picture. TODO: add a .vtt captions file. -->
-        <figure class="bb-join__vid"><video muted loop playsinline controls controlslist="nodownload" preload="none" poster="assets/video/community-poster.webp" data-src="assets/video/community.mp4" width="480" height="854" aria-label="A 14-second clip from the BBY Community Table at Burger Brewery. Muted, with captions; press the speaker for sound."></video><figcaption>From the BBY Community Table.</figcaption></figure>
+        <figure class="bb-join__vid"><video muted loop playsinline controls controlslist="nodownload" preload="none" data-poster="assets/video/community-poster.webp" data-src="assets/video/community.mp4" width="480" height="854" aria-label="A 14-second clip from the BBY Community Table at Burger Brewery. Muted, with captions; press the speaker for sound."></video><figcaption>From the BBY Community Table.</figcaption></figure>
       </div>
       <div id="drops-rnd"></div>
     </div>
@@ -1324,7 +1324,7 @@ a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px
       </div>
       <div class="bb-grid4">
         <figure class="g1"><div class="bb-photo"><img data-prefer="assets/img/room-friday-1.webp" data-alt-prefer="A table of smash burgers, chicken tenders and potato crisps with a cola and a beer, in front of the green booths" data-cap-prefer="A table, mid-order" style="object-position:50% 58%"
-          src="assets/photos/resp/live-kitchen-960.jpg" srcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 56vw" width="960" height="960" loading="lazy" decoding="async"
+          src="assets/photos/resp/live-kitchen-960.jpg" srcset="assets/photos/resp/live-kitchen-480.webp 480w, assets/photos/resp/live-kitchen-800.webp 800w, assets/photos/resp/live-kitchen-960.webp 960w, assets/photos/resp/live-kitchen-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 56vw" width="960" height="960" loading="lazy" decoding="async"
           alt="The counter under the It’s Hearty neon, with leather bar stools"></div><figcaption>The It’s Hearty counter</figcaption></figure>
         <figure class="g2"><div class="bb-photo"><img data-prefer="assets/img/room-chef.webp" data-alt-prefer="A tray of sliders at the kitchen pass, under the It’s Hearty neon" data-cap-prefer="Sliders at the pass" style="object-position:50% 66%"
           src="assets/photos/resp/combo-960.jpg" srcset="assets/photos/resp/combo-480.webp 480w, assets/photos/resp/combo-960.webp 960w" sizes="(max-width: 860px) 46vw, 40vw" width="960" height="960" loading="lazy" decoding="async"
@@ -1651,14 +1651,14 @@ ScrollCraft.mount(document.body);
   var has = function (v) { return v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && !v.length); };
 
   /* ---------- asset probing: preferred file, else fallback, else hide, or a labelled frame in ?placeholders=1 ---------- */
-  var BB_HAVE = ["assets/brand/bb-stacked.png", "assets/brand/burger-base.png", "assets/brand/burger-base.webp", "assets/brand/burger-mid.png", "assets/brand/burger-mid.webp", "assets/brand/burger-top.png", "assets/brand/burger-top.webp", "assets/brand/stamp-do-together.png", "assets/brand/stamp-do-together.webp", "assets/burger-brewery-koramangala-menu.pdf", "assets/craft/blr-ghee-roast-pull.png", "assets/craft/blr-ghee-roast-pull.webp", "assets/craft/forbidden-pbj.png", "assets/craft/forbidden-pbj.webp", "assets/heart-b.png", "assets/img/room-booths.jpg", "assets/img/room-booths.webp", "assets/img/room-chef.jpg", "assets/img/room-chef.webp", "assets/img/room-friday-1.jpg", "assets/img/room-friday-1.webp", "assets/lineart/kitchen-smash.png", "assets/lineart/kitchen-smash.webp", "assets/lineart/tap-clear-960.webp", "assets/lineart/tap-handle.png", "assets/lineart/tap-handle.webp", "assets/lineart/tap-pour-480.jpg", "assets/lineart/tap-pour-480.webp", "assets/lineart/tap-pour-960.jpg", "assets/lineart/tap-pour-960.webp", "assets/logo-horizontal.png", "assets/menuart/clean-cut.webp", "assets/menuart/gelato-sundae.webp", "assets/menuart/sliders-trio.webp", "assets/pairing/beer-default.png", "assets/pairing/beer-default.webp", "assets/pairing/burger-default.png", "assets/pairing/burger-default.webp", "assets/pairing/burger-x-beer-menu.png", "assets/pairing/burgers/brewery-cheeseburger.png", "assets/pairing/burgers/jalapeno-smokehouse-smash.png", "assets/pairing/burgers/nashville-hot-chicken.png", "assets/pairing/burgers/oklahoma-smash.png", "assets/pairing/burgers/pesto-paneer.png", "assets/pairing/burgers/truffle-shroom.png", "assets/photos/beer-taps-corner.jpg", "assets/photos/burger-neon.jpg", "assets/photos/combo.jpg", "assets/photos/do-together-platter.jpg", "assets/photos/food/biscoff-shake.webp", "assets/photos/food/chicken-soulaki.webp", "assets/photos/food/chicken-tenders.webp", "assets/photos/food/dirty-fries.webp", "assets/photos/food/jalapeno-smokehouse-smash.webp", "assets/photos/food/mannheim-new-england-ipa.webp", "assets/photos/food/oklahoma-smash.webp", "assets/photos/food/toit-nitro-stout.webp", "assets/photos/food/veg-trio.webp", "assets/photos/join-burger.webp", "assets/photos/left-side.jpg", "assets/photos/live-kitchen.jpg", "assets/photos/outside.jpg", "assets/photos/pairing-cheeseburger-lager-540.webp", "assets/photos/pairing-cheeseburger-lager.webp", "assets/photos/pairing-kitchen-neon-540.webp", "assets/photos/pairing-kitchen-neon.webp", "assets/photos/resp/beer-taps-corner-1600.jpg", "assets/photos/resp/beer-taps-corner-1600.webp", "assets/photos/resp/beer-taps-corner-480.jpg", "assets/photos/resp/beer-taps-corner-480.webp", "assets/photos/resp/beer-taps-corner-960.jpg", "assets/photos/resp/beer-taps-corner-960.webp", "assets/photos/resp/combo-1600.jpg", "assets/photos/resp/combo-1600.webp", "assets/photos/resp/combo-480.jpg", "assets/photos/resp/combo-480.webp", "assets/photos/resp/combo-960.jpg", "assets/photos/resp/combo-960.webp", "assets/photos/resp/delivery-hands-1500.jpg", "assets/photos/resp/delivery-hands-1500.webp", "assets/photos/resp/delivery-hands-480.jpg", "assets/photos/resp/delivery-hands-480.webp", "assets/photos/resp/delivery-hands-960.jpg", "assets/photos/resp/delivery-hands-960.webp", "assets/photos/resp/do-together-platter-480.jpg", "assets/photos/resp/do-together-platter-480.webp", "assets/photos/resp/do-together-platter-960.jpg", "assets/photos/resp/do-together-platter-960.webp", "assets/photos/resp/left-side-1600.jpg", "assets/photos/resp/left-side-1600.webp", "assets/photos/resp/left-side-480.jpg", "assets/photos/resp/left-side-480.webp", "assets/photos/resp/left-side-960.jpg", "assets/photos/resp/left-side-960.webp", "assets/photos/resp/live-kitchen-1600.jpg", "assets/photos/resp/live-kitchen-1600.webp", "assets/photos/resp/live-kitchen-480.jpg", "assets/photos/resp/live-kitchen-480.webp", "assets/photos/resp/live-kitchen-960.jpg", "assets/photos/resp/live-kitchen-960.webp", "assets/photos/resp/outside-1600.jpg", "assets/photos/resp/outside-1600.webp", "assets/photos/resp/outside-480.jpg", "assets/photos/resp/outside-480.webp", "assets/photos/resp/outside-960.jpg", "assets/photos/resp/outside-960.webp", "assets/team/atharv.jpg", "assets/team/chander.jpg", "assets/team/gurleen.jpg", "assets/team/maadhav.jpg", "assets/video/community-poster.webp", "assets/video/community.mp4", "assets/video/pairing-reel-poster.webp", "assets/video/pairing-reel.mp4"]; var probeCache = {};
+  var BB_HAVE = ["assets/brand/bb-stacked.png", "assets/brand/burger-base.png", "assets/brand/burger-base.webp", "assets/brand/burger-mid.png", "assets/brand/burger-mid.webp", "assets/brand/burger-top.png", "assets/brand/burger-top.webp", "assets/brand/stamp-do-together.png", "assets/brand/stamp-do-together.webp", "assets/burger-brewery-koramangala-menu.pdf", "assets/craft/blr-ghee-roast-pull.png", "assets/craft/blr-ghee-roast-pull.webp", "assets/craft/forbidden-pbj.png", "assets/craft/forbidden-pbj.webp", "assets/heart-b.png", "assets/img/room-booths.jpg", "assets/img/room-booths.webp", "assets/img/room-chef.jpg", "assets/img/room-chef.webp", "assets/img/room-friday-1.jpg", "assets/img/room-friday-1.webp", "assets/lineart/kitchen-smash.png", "assets/lineart/kitchen-smash.webp", "assets/lineart/tap-clear-960.webp", "assets/lineart/tap-handle.png", "assets/lineart/tap-handle.webp", "assets/lineart/tap-pour-480.jpg", "assets/lineart/tap-pour-480.webp", "assets/lineart/tap-pour-960.jpg", "assets/lineart/tap-pour-960.webp", "assets/logo-horizontal.png", "assets/logo-mask.webp", "assets/menuart/clean-cut.webp", "assets/menuart/gelato-sundae.webp", "assets/menuart/sliders-trio.webp", "assets/pairing/beer-default.png", "assets/pairing/beer-default.webp", "assets/pairing/burger-default.png", "assets/pairing/burger-default.webp", "assets/pairing/burger-x-beer-menu.png", "assets/pairing/burgers/brewery-cheeseburger.png", "assets/pairing/burgers/jalapeno-smokehouse-smash.png", "assets/pairing/burgers/nashville-hot-chicken.png", "assets/pairing/burgers/oklahoma-smash.png", "assets/pairing/burgers/pesto-paneer.png", "assets/pairing/burgers/truffle-shroom.png", "assets/photos/beer-taps-corner.jpg", "assets/photos/burger-neon.jpg", "assets/photos/combo.jpg", "assets/photos/do-together-platter.jpg", "assets/photos/food/biscoff-shake.webp", "assets/photos/food/chicken-soulaki.webp", "assets/photos/food/chicken-tenders.webp", "assets/photos/food/dirty-fries.webp", "assets/photos/food/jalapeno-smokehouse-smash.webp", "assets/photos/food/mannheim-new-england-ipa.webp", "assets/photos/food/oklahoma-smash.webp", "assets/photos/food/toit-nitro-stout.webp", "assets/photos/food/veg-trio.webp", "assets/photos/join-burger.webp", "assets/photos/left-side.jpg", "assets/photos/live-kitchen.jpg", "assets/photos/outside.jpg", "assets/photos/pairing-cheeseburger-lager-540.webp", "assets/photos/pairing-cheeseburger-lager.webp", "assets/photos/pairing-kitchen-neon-540.webp", "assets/photos/pairing-kitchen-neon.webp", "assets/photos/resp/beer-taps-corner-1600.jpg", "assets/photos/resp/beer-taps-corner-1600.webp", "assets/photos/resp/beer-taps-corner-480.jpg", "assets/photos/resp/beer-taps-corner-480.webp", "assets/photos/resp/beer-taps-corner-960.jpg", "assets/photos/resp/beer-taps-corner-960.webp", "assets/photos/resp/combo-1600.jpg", "assets/photos/resp/combo-1600.webp", "assets/photos/resp/combo-480.jpg", "assets/photos/resp/combo-480.webp", "assets/photos/resp/combo-960.jpg", "assets/photos/resp/combo-960.webp", "assets/photos/resp/delivery-hands-1500.jpg", "assets/photos/resp/delivery-hands-1500.webp", "assets/photos/resp/delivery-hands-480.jpg", "assets/photos/resp/delivery-hands-480.webp", "assets/photos/resp/delivery-hands-960.jpg", "assets/photos/resp/delivery-hands-960.webp", "assets/photos/resp/do-together-platter-480.jpg", "assets/photos/resp/do-together-platter-480.webp", "assets/photos/resp/do-together-platter-960.jpg", "assets/photos/resp/do-together-platter-960.webp", "assets/photos/resp/left-side-1600.jpg", "assets/photos/resp/left-side-1600.webp", "assets/photos/resp/left-side-480.jpg", "assets/photos/resp/left-side-480.webp", "assets/photos/resp/left-side-960.jpg", "assets/photos/resp/left-side-960.webp", "assets/photos/resp/live-kitchen-1600.jpg", "assets/photos/resp/live-kitchen-1600.webp", "assets/photos/resp/live-kitchen-480.jpg", "assets/photos/resp/live-kitchen-480.webp", "assets/photos/resp/live-kitchen-800.webp", "assets/photos/resp/live-kitchen-960.jpg", "assets/photos/resp/live-kitchen-960.webp", "assets/photos/resp/outside-1600.jpg", "assets/photos/resp/outside-1600.webp", "assets/photos/resp/outside-480.jpg", "assets/photos/resp/outside-480.webp", "assets/photos/resp/outside-960.jpg", "assets/photos/resp/outside-960.webp", "assets/team/atharv.jpg", "assets/team/chander.jpg", "assets/team/gurleen.jpg", "assets/team/maadhav.jpg", "assets/video/community-poster.webp", "assets/video/community.mp4", "assets/video/pairing-reel-poster.webp", "assets/video/pairing-reel.mp4"]; var probeCache = {};
   function probeImg(url) {
-    if (BB_HAVE.indexOf(url) < 0) return Promise.resolve(false);
+    return Promise.resolve(BB_HAVE.indexOf(url) >= 0);  // manifest answers; no eager download (Lighthouse: bandwidth stays with the hero)
     if (!probeCache[url]) probeCache[url] = new Promise(function (res) { var i = new Image(); i.onload = function () { res(true); }; i.onerror = function () { res(false); }; i.src = url; });
     return probeCache[url];
   }
   function probeFile(url) {
-    if (BB_HAVE.indexOf(url) < 0) return Promise.resolve(false);
+    return Promise.resolve(BB_HAVE.indexOf(url) >= 0);
     if (!probeCache[url]) probeCache[url] = fetch(url, { method: "HEAD" }).then(function (r) { return r.ok; }).catch(function () { return false; });
     return probeCache[url];
   }
@@ -2192,6 +2192,28 @@ ScrollCraft.mount(document.body);
     sec.hidden = false;
   })();
 
+</script>
+<script>
+/* below-the-fold SVG line art and video posters: fetched after page load, only when within ~1.5 screens, so the hero gets the bandwidth */
+(function () {
+  "use strict";
+  var items = [].slice.call(document.querySelectorAll("image[data-href], video[data-poster]"));
+  function go(el) {
+    if (el.hasAttribute("data-href")) { el.setAttribute("href", el.getAttribute("data-href")); el.removeAttribute("data-href"); }
+    if (el.hasAttribute("data-poster")) { el.setAttribute("poster", el.getAttribute("data-poster")); el.removeAttribute("data-poster"); }
+  }
+  if (!("IntersectionObserver" in window)) { items.forEach(go); return; }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); (e.target.__lz || []).forEach(go); } });
+  }, { rootMargin: "1500px 0px" });
+  function arm() {
+    items.forEach(function (el) {
+      var t = el.ownerSVGElement || el;
+      (t.__lz = t.__lz || []).push(el); io.observe(t);
+    });
+  }
+  if (document.readyState === "complete") arm(); else addEventListener("load", arm);   // never competes with the hero or fonts
+})();
 </script>
 </body>
 </html>

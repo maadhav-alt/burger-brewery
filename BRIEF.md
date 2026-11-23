@@ -161,3 +161,10 @@ Owner supplied `BrandElements/` (transparent PNGs) and two more photos. Used: ha
 - Opening loader "Built for a beer": line-art burger stacks and the it's Hearty pint fills to a real 0-100, heart-with-X stamps, screen splits onto the hero. Once per session; `?loader=1` replays it.
 - About: kitchen line art from menu page 2, drawn in on scroll. Drops: one line through the burgers into a ticking stopwatch.
 - Craft on Tap now uses the engraved tap from menu page 5; the glass fills on scroll and tints to the beer in focus.
+
+## Revision 10 (2026-11-23): mobile speed + SEO (Lighthouse)
+- Baseline (live, slow-4G phone): Performance 59-93 run to run, SEO 90 (no robots.txt). After (local, gzip like Pages): home 88-94, about/team/delivery 100; accessibility, best practices, SEO 100 everywhere. Home page weight 2.27 MB -> 1.31 MB.
+- Hero gets the bandwidth: 800w hero variant for phones; 11 KB `logo-mask.webp` replaces the 5211px logo PNG in the masks; About/Craft on Tap line art and video posters load after page load, ~1.5 screens ahead (`LAZY_JS` in build3.py); optional-asset probes answer from the `BB_HAVE` manifest instead of downloading the files.
+- Team page: config/site.js loads in <head> so profiles exist before first paint (layout shift 0.22 -> 0.001).
+- `robots.txt` + `sitemap.xml` added (hidden game page left out). Menu PDF 9.6 MB -> 6.6 MB (its one photo re-encoded; the vector line art is untouched and is most of what's left).
+- Not changed: the first-visit loader and age gate (they cost Speed Index on a cold visit, a brand choice for the owner).
