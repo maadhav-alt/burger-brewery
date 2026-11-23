@@ -600,7 +600,7 @@ ScrollCraft.mount(document.body);
       if (r[0]) { var s1 = document.createElement("source"); s1.src = "assets/video/hero-loop.webm"; s1.type = "video/webm"; v.appendChild(s1); }
       if (r[1]) { var s2 = document.createElement("source"); s2.src = "assets/video/hero-loop.mp4"; s2.type = "video/mp4"; v.appendChild(s2); }
       v.addEventListener("playing", function () { still.style.opacity = 0; });
-      var mq = matchMedia("(min-width: 761px)"), scr = document.querySelector(".bb-phone__screen"); function place() { (mq.matches && scr ? scr : host).appendChild(v); } place(); mq.addEventListener("change", place); v.play && v.play().catch(function () {});
+      host.appendChild(v); v.play && v.play().catch(function () {});
     });
   })();
 
