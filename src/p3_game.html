@@ -1,0 +1,326 @@
+  <!-- GAME: "Burger vs Beer", a Pac-Man style maze game. The burger eats every beer; the ghosts chase it; a big pint lets it eat the ghosts.
+       Linked from the "Do Together" stamp in the hero. Self-contained canvas game, no external assets. -->
+  <style>
+  .bb-game { padding-block: clamp(1.5rem, 4vh, 2.5rem) clamp(2rem, 6vh, 4rem); color: var(--bb-cream); }
+  .bb-game__in { max-width: 560px; margin-inline: auto; text-align: center; }
+  .bb-game h1 { font: 900 clamp(1.8rem, 5vw, 2.6rem)/1 var(--sc-font-display); letter-spacing: -.02em; }
+  .bb-game h1 em { color: var(--bb-orange); }
+  .bb-game__sub { margin: 8px 0 14px; color: var(--sc-ink-soft); font-size: .98rem; }
+  .bb-game__hud { display: flex; justify-content: space-between; align-items: center; padding: 8px 4px; font: 800 .85rem/1 var(--sc-font-text); letter-spacing: .12em; text-transform: uppercase; }
+  .bb-game__hud b { display: block; margin-top: 4px; font: 900 1.35rem/1 var(--sc-font-display); letter-spacing: 0; color: var(--bb-cream); }
+  .bb-game__hud span { color: var(--bb-orange); }
+  .bb-game__stage { position: relative; display: inline-block; border-radius: 18px; overflow: hidden; background: #120E0F; box-shadow: 0 0 0 3px var(--bb-orange), 0 24px 60px -20px rgba(0,0,0,.7); }
+  #bbgame { display: block; touch-action: none; }
+  .bb-game__ov { position: absolute; inset: 0; display: grid; place-content: center; gap: 12px; padding: 20px; background: rgba(18,14,15,.88); text-align: center; }
+  .bb-game__ov[hidden] { display: none; }
+  .bb-game__ov h2 { font: 900 clamp(1.6rem, 6vw, 2.2rem)/1 var(--sc-font-display); }
+  .bb-game__ov p { margin: 0; color: var(--sc-ink-soft); max-width: 30ch; margin-inline: auto; line-height: 1.5; }
+  .bb-game__ov .bb-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .bb-game__pad { display: none; margin: 14px auto 0; width: 190px; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(3, 60px); gap: 5px; justify-content: center; }
+  .bb-game__pad button { width: 60px; height: 60px; border-radius: 16px; border: 0; background: rgba(242,242,233,.12); color: var(--bb-cream); font-size: 1.5rem; }
+  .bb-game__pad button:active { background: var(--bb-orange); color: #1B1617; }
+  @media (hover: none) { .bb-game__pad { display: grid; } }
+  .bb-game .bb-btn--ghost { background: transparent; color: var(--bb-cream); box-shadow: inset 0 0 0 2px var(--bb-cream); }
+  .bb-game__help { margin: 14px 0 0; font-size: .88rem; color: var(--sc-ink-soft); }
+  </style>
+  <section class="bb-game g-black" aria-labelledby="gm-h">
+    <div class="bb-game__in">
+      <h1 id="gm-h">Burger <em>vs</em> Beer</h1>
+      <p class="bb-game__sub">Eat every beer. Dodge the ghosts. Grab a big pint to eat them back.</p>
+      <div class="bb-game__hud" aria-live="off">
+        <div>Score<b id="gm-score">0</b></div>
+        <div>Level<b id="gm-level">1</b></div>
+        <div>Best<b id="gm-best">0</b></div>
+        <div>Lives<b id="gm-lives"><span>♥♥♥</span></b></div>
+      </div>
+      <div class="bb-game__stage">
+        <canvas id="bbgame" width="456" height="504" role="img" aria-label="Burger vs Beer game board. Use the arrow keys, WASD, swipe, or the on-screen pad to move the burger."></canvas>
+        <div class="bb-game__ov" id="gm-ov">
+          <h2 id="gm-ovh">Ready to play?</h2>
+          <p id="gm-ovp">Steer the burger with the arrow keys or WASD, or swipe on your phone.</p>
+          <div class="bb-actions"><button class="bb-btn" type="button" id="gm-go">Play</button></div>
+          <div class="bb-actions" id="gm-after" hidden><a class="bb-btn bb-btn--ghost" href="index.html#visit">Book a table</a><a class="bb-btn bb-btn--ghost" href="index.html">Back to the site</a></div>
+        </div>
+      </div>
+      <div class="bb-game__pad" id="gm-pad" aria-label="Move">
+        <span></span><button type="button" data-d="up" aria-label="Up">▲</button><span></span>
+        <button type="button" data-d="left" aria-label="Left">◀</button><span></span><button type="button" data-d="right" aria-label="Right">▶</button>
+        <span></span><button type="button" data-d="down" aria-label="Down">▼</button><span></span>
+      </div>
+      <p class="bb-game__help">Arrow keys or WASD to move · P to pause · Swipe on a phone</p>
+    </div>
+  </section>
+  <script>
+  (function () {
+    "use strict";
+    var MAP = [
+      "###################",
+      "#........#........#",
+      "#o##.###.#.###.##o#",
+      "#.................#",
+      "#.##.#.#####.#.##.#",
+      "#....#...#...#....#",
+      "####.### # ###.####",
+      "   #.#       #.#   ",
+      "####.# ##-## #.####",
+      "    .  #GGG#  .    ",
+      "####.# ##### #.####",
+      "   #.#       #.#   ",
+      "####.# ##### #.####",
+      "#........#........#",
+      "#.##.###.#.###.##.#",
+      "#o.#.....P.....#.o#",
+      "##.#.#.#####.#.#.##",
+      "#....#...#...#....#",
+      "#.######.#.######.#",
+      "#.................#",
+      "###################"
+    ];
+    var W = 19, H = 21, cv = document.getElementById("bbgame"), ctx = cv.getContext("2d");
+    var $ = function (id) { return document.getElementById(id); };
+    var elScore = $("gm-score"), elLevel = $("gm-level"), elBest = $("gm-best"), elLives = $("gm-lives"), ov = $("gm-ov"), ovh = $("gm-ovh"), ovp = $("gm-ovp"), go = $("gm-go"), after = $("gm-after");
+    var T = 24, DPR = 1;
+    var DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+    var grid, pellets, left, score, best = 0, lives, level, state, stateT, player, ghosts, fright, readyT, over = false;
+    try { best = parseInt(localStorage.getItem("bb-game-best") || "0", 10) || 0; } catch (e) {}
+    elBest.textContent = best;
+
+    function fit() {
+      var wrapW = cv.parentNode.parentNode.clientWidth || 400;
+      var maxH = Math.max(280, innerHeight - 300);
+      T = Math.max(14, Math.floor(Math.min(wrapW / W, maxH / H, 30)));
+      DPR = Math.min(2, window.devicePixelRatio || 1);
+      cv.width = W * T * DPR; cv.height = H * T * DPR; cv.style.width = W * T + "px"; cv.style.height = H * T + "px";
+    }
+    function cell(x, y) { x = (x + W) % W; if (y < 0 || y >= H) return "#"; return grid[y][x]; }
+    function playerOpen(x, y) { var c = cell(x, y); return c !== "#" && c !== "-" && !(c === " " && isVoid(x, y)); }
+    function ghostOpen(x, y, door) { var c = cell(x, y); if (c === "#") return false; if (c === "-") return door; return !(c === " " && isVoid(x, y)); }
+    var voidMap = null;
+    function buildVoid() {   // spaces that cannot be reached from the player's start are solid
+      voidMap = []; for (var y = 0; y < H; y++) { voidMap.push([]); for (var x = 0; x < W; x++) voidMap[y].push(true); }
+      var q = [[9, 15]]; voidMap[15][9] = false;
+      while (q.length) { var p = q.shift(); for (var k in DIRS) { var nx = (p[0] + DIRS[k][0] + W) % W, ny = p[1] + DIRS[k][1]; if (ny < 0 || ny >= H) continue; var c = MAP[ny][nx]; if (c === "#" || (c === "-")) continue; if (voidMap[ny][nx]) { voidMap[ny][nx] = false; q.push([nx, ny]); } } }
+      // the ghost house and the door are reachable by ghosts only
+      for (var gx = 8; gx <= 10; gx++) voidMap[9][gx] = false; voidMap[8][9] = false;
+    }
+    function isVoid(x, y) { return voidMap[y] && voidMap[y][(x + W) % W]; }
+    function bfsFrom(tx, ty) {
+      var d = []; for (var y = 0; y < H; y++) { d.push([]); for (var x = 0; x < W; x++) d[y].push(9999); }
+      d[ty][tx] = 0; var q = [[tx, ty]];
+      while (q.length) { var p = q.shift(); for (var k in DIRS) { var nx = (p[0] + DIRS[k][0] + W) % W, ny = p[1] + DIRS[k][1]; if (ny < 0 || ny >= H || !ghostOpen(nx, ny, true)) continue; if (d[ny][nx] > d[p[1]][p[0]] + 1) { d[ny][nx] = d[p[1]][p[0]] + 1; q.push([nx, ny]); } } }
+      return d;
+    }
+    var homeDist;
+
+    function resetBoard() {
+      grid = MAP.map(function (r) { return r.split(""); }); pellets = 0;
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) { var c = grid[y][x]; if (c === "." || c === "o") pellets++; if (c === "P" || c === "G") grid[y][x] = " "; }
+      left = pellets;
+    }
+    function speeds() { var m = Math.min(1.5, 1 + 0.06 * (level - 1)); return { p: 6.3 * m, g: 5.4 * m, f: 3.4, e: 11 }; }
+    function resetActors() {
+      player = { x: 9, y: 15, dx: 0, dy: 0, wx: -1, wy: 0, mouth: 0.3, mt: 0, ang: Math.PI };
+      var cols = ["#F26624", "#F2F2E9", "#F4B740", "#B8470F"];
+      ghosts = [
+        { x: 9, y: 7, dx: -1, dy: 0, st: "normal", color: cols[0], rel: 0, rnd: 0.12, mode: 0 },
+        { x: 8, y: 9, dx: 0, dy: 0, st: "house", color: cols[1], rel: 2, rnd: 0.2, mode: 1 },
+        { x: 9, y: 9, dx: 0, dy: 0, st: "house", color: cols[2], rel: 5, rnd: 0.3, mode: 2 },
+        { x: 10, y: 9, dx: 0, dy: 0, st: "house", color: cols[3], rel: 8, rnd: 0.25, mode: 3 }
+      ];
+      fright = 0; clock = 0;
+    }
+    var clock = 0;
+    function atCenter(e) { return Math.abs(e.x - Math.round(e.x)) < 1e-6 && Math.abs(e.y - Math.round(e.y)) < 1e-6; }
+    function advance(e, dist, pick) {
+      var guard = 0;
+      while (dist > 1e-6 && guard++ < 8) {
+        if (atCenter(e)) { e.x = Math.round(e.x); e.y = Math.round(e.y); if (e.x < 0) e.x += W; if (e.x >= W) e.x -= W; pick(e); if (!e.dx && !e.dy) break; }
+        var nx = e.dx > 0 ? Math.floor(e.x + 1e-6) + 1 : e.dx < 0 ? Math.ceil(e.x - 1e-6) - 1 : e.x;
+        var ny = e.dy > 0 ? Math.floor(e.y + 1e-6) + 1 : e.dy < 0 ? Math.ceil(e.y - 1e-6) - 1 : e.y;
+        var d = Math.abs(nx - e.x) + Math.abs(ny - e.y), m = Math.min(dist, d);
+        e.x += e.dx * m; e.y += e.dy * m; dist -= m;
+        if (m === d) { e.x = nx; e.y = ny; }
+        if (e.x <= -1) e.x += W; if (e.x >= W) e.x -= W;
+      }
+    }
+    function pickPlayer(e) {
+      var tx = Math.round(e.x), ty = Math.round(e.y);
+      if ((e.wx || e.wy) && playerOpen(tx + e.wx, ty + e.wy)) { e.dx = e.wx; e.dy = e.wy; }
+      else if (!playerOpen(tx + e.dx, ty + e.dy)) { e.dx = 0; e.dy = 0; }
+      if (e.dx || e.dy) e.ang = Math.atan2(e.dy, e.dx);
+    }
+    function target(g) {
+      var px = player.x, py = player.y;
+      if (g.mode === 1) return [px + player.dx * 4, py + player.dy * 4];
+      if (g.mode === 2) return [px - player.dx * 3 + (Math.random() < .5 ? 5 : -5), py + 3];
+      if (g.mode === 3) { var d = Math.hypot(px - g.x, py - g.y); return d > 7 ? [px, py] : [1, 19]; }
+      return [px, py];
+    }
+    function pickGhost(g) {
+      var tx = Math.round(g.x), ty = Math.round(g.y), opts = [], k;
+      var door = g.st === "eyes";
+      if (g.st === "eyes") {
+        var best = 9999, bd = null;
+        for (k in DIRS) { var ex = (tx + DIRS[k][0] + W) % W, ey = ty + DIRS[k][1]; if (ey < 0 || ey >= H || !ghostOpen(ex, ey, true)) continue; if (homeDist[ey][ex] < best) { best = homeDist[ey][ex]; bd = DIRS[k]; } }
+        if (bd) { g.dx = bd[0]; g.dy = bd[1]; } return;
+      }
+      for (k in DIRS) { var ox = DIRS[k][0], oy = DIRS[k][1]; if (ox === -g.dx && oy === -g.dy && (g.dx || g.dy)) continue; if (ghostOpen(tx + ox, ty + oy, false)) opts.push([ox, oy]); }
+      if (!opts.length) { g.dx = -g.dx; g.dy = -g.dy; return; }
+      var ch;
+      if (g.fright > 0 || Math.random() < g.rnd) ch = opts[Math.floor(Math.random() * opts.length)];
+      else { var t = target(g), bd2 = 1e9; opts.forEach(function (o) { var d = Math.pow(tx + o[0] - t[0], 2) + Math.pow(ty + o[1] - t[1], 2); if (d < bd2) { bd2 = d; ch = o; } }); }
+      g.dx = ch[0]; g.dy = ch[1];
+    }
+    function updateGhost(g, dt, sp) {
+      if (g.st === "house") {
+        g.bob = (g.bob || 0) + dt * 6; if (clock >= g.rel) g.st = "leaving"; return;
+      }
+      if (g.st === "leaving") {
+        var s = sp.g * dt;
+        if (Math.abs(g.x - 9) > 0.01) { var dir = g.x < 9 ? 1 : -1; g.x += Math.min(Math.abs(9 - g.x), s) * dir; }
+        else { g.x = 9; g.y -= s; if (g.y <= 7) { g.y = 7; g.st = "normal"; g.dx = Math.random() < .5 ? -1 : 1; g.dy = 0; } }
+        return;
+      }
+      if (g.st === "eyes") {
+        advance(g, sp.e * dt, pickGhost);
+        if (Math.abs(g.x - 9) < 0.05 && Math.abs(g.y - 9) < 0.05) { g.x = 9; g.y = 9; g.st = "leaving"; g.fright = 0; g.dx = 0; g.dy = 0; }
+        return;
+      }
+      advance(g, (g.fright > 0 ? sp.f : sp.g) * dt, pickGhost);
+    }
+
+    function setLives() { var s = ""; for (var i = 0; i < lives; i++) s += "♥"; elLives.innerHTML = "<span>" + (s || "–") + "</span>"; }
+    function setScore(n) { score = n; elScore.textContent = n; if (n > best) { best = n; elBest.textContent = n; try { localStorage.setItem("bb-game-best", String(n)); } catch (e) {} } }
+    function showOv(h, p, btn, withAfter) { ovh.textContent = h; ovp.textContent = p; go.textContent = btn; after.hidden = !withAfter; ov.hidden = false; }
+
+    function newGame() { level = 1; lives = 3; setScore(0); elLevel.textContent = 1; setLives(); resetBoard(); resetActors(); state = "ready"; stateT = 1.4; ov.hidden = true; over = false; }
+    function nextLevel() { level++; elLevel.textContent = level; resetBoard(); resetActors(); state = "ready"; stateT = 1.4; }
+    function loseLife() { lives--; setLives(); if (lives <= 0) { state = "over"; over = true; showOv("Game over", "You scored " + score + ". Hungry for the real thing? A table is waiting.", "Play again", true); } else { resetActors(); state = "ready"; stateT = 1.4; } }
+
+    function update(dt) {
+      var sp = speeds();
+      if (state === "ready") { stateT -= dt; if (stateT <= 0) state = "play"; return; }
+      if (state === "dying") { stateT -= dt; if (stateT <= 0) loseLife(); return; }
+      if (state === "cleared") { stateT -= dt; if (stateT <= 0) nextLevel(); return; }
+      if (state !== "play") return;
+      clock += dt;
+      // player
+      var p = player;
+      if ((p.wx || p.wy) && p.wx === -p.dx && p.wy === -p.dy && (p.dx || p.dy)) { p.dx = p.wx; p.dy = p.wy; p.ang = Math.atan2(p.dy, p.dx); }
+      advance(p, sp.p * dt, pickPlayer);
+      if (p.dx || p.dy) { p.mt += dt * 9; p.mouth = 0.05 + 0.3 * Math.abs(Math.sin(p.mt)); }
+      var cx = Math.round(p.x) % W, cy = Math.round(p.y);
+      if (Math.abs(p.x - Math.round(p.x)) < 0.4 && Math.abs(p.y - cy) < 0.4) {
+        var c = grid[cy][(cx + W) % W];
+        if (c === "." || c === "o") {
+          grid[cy][(cx + W) % W] = " "; left--; setScore(score + (c === "o" ? 50 : 10));
+          if (c === "o") { fright = 7; ghosts.forEach(function (g) { if (g.st === "normal") { g.fright = 7; g.dx = -g.dx; g.dy = -g.dy; } }); ghosts.eaten = 0; }
+        }
+      }
+      if (fright > 0) { fright -= dt; ghosts.forEach(function (g) { if (g.fright > 0) g.fright = fright; }); if (fright <= 0) { fright = 0; ghosts.forEach(function (g) { g.fright = 0; }); } }
+      ghosts.forEach(function (g) { updateGhost(g, dt, sp); });
+      // collisions
+      for (var i = 0; i < ghosts.length; i++) {
+        var g = ghosts[i]; if (g.st === "eyes" || g.st === "house") continue;
+        if (Math.hypot(g.x - p.x, g.y - p.y) < 0.62) {
+          if (g.fright > 0) { g.st = "eyes"; g.fright = 0; ghosts.eaten = (ghosts.eaten || 0) + 1; setScore(score + 200 * Math.pow(2, Math.min(3, ghosts.eaten - 1))); }
+          else { state = "dying"; stateT = 1.2; p.dieT = 0; return; }
+        }
+      }
+      if (left <= 0) { state = "cleared"; stateT = 1.8; }
+    }
+
+    // ---------- drawing ----------
+    function px(x) { return x * T + T / 2; }
+    function drawMaze() {
+      ctx.fillStyle = "#120E0F"; ctx.fillRect(0, 0, W * T, H * T);
+      ctx.lineWidth = Math.max(2, T * 0.09); ctx.lineCap = "round"; ctx.strokeStyle = "#F26624";
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+        var c = MAP[y][x];
+        if (c === "#") {
+          ctx.fillStyle = "#1f1617"; ctx.fillRect(x * T, y * T, T, T);
+          var e = [[0, -1, x * T, y * T, (x + 1) * T, y * T], [0, 1, x * T, (y + 1) * T, (x + 1) * T, (y + 1) * T], [-1, 0, x * T, y * T, x * T, (y + 1) * T], [1, 0, (x + 1) * T, y * T, (x + 1) * T, (y + 1) * T]];
+          e.forEach(function (d) { var nx = x + d[0], ny = y + d[1]; var n = (ny < 0 || ny >= H || nx < 0 || nx >= W) ? "#" : MAP[ny][nx]; if (n !== "#" && !(n === " " && voidMap[ny] && voidMap[ny][nx])) { ctx.beginPath(); ctx.moveTo(d[2], d[3]); ctx.lineTo(d[4], d[5]); ctx.stroke(); } });
+        } else if (c === "-") { ctx.fillStyle = "#F2F2E9"; ctx.fillRect(x * T, y * T + T * 0.42, T, T * 0.16); }
+      }
+    }
+    function pint(cx, cy, w, h) {
+      ctx.fillStyle = "#F4B740"; ctx.beginPath(); ctx.moveTo(cx - w / 2, cy - h / 2); ctx.lineTo(cx + w / 2, cy - h / 2); ctx.lineTo(cx + w * 0.36, cy + h / 2); ctx.lineTo(cx - w * 0.36, cy + h / 2); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = "#FFF8E9"; ctx.fillRect(cx - w / 2, cy - h / 2 - h * 0.12, w, h * 0.3);
+    }
+    function drawPellets(t) {
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+        var c = grid[y][x];
+        if (c === ".") pint(px(x), px(y), T * 0.26, T * 0.34);
+        else if (c === "o") { var s = 1 + 0.12 * Math.sin(t * 6); pint(px(x), px(y), T * 0.56 * s, T * 0.7 * s); }
+      }
+    }
+    function drawBurger(cx, cy, r, mouth, ang) {
+      ctx.save(); ctx.beginPath();
+      if (mouth > 0.03) { ctx.moveTo(cx, cy); ctx.arc(cx, cy, r, ang + mouth, ang + Math.PI * 2 - mouth); ctx.closePath(); } else ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.clip();
+      var bands = [["#E58A3A", 0, .40], ["#6BA34A", .40, .50], ["#4a2a1c", .50, .68], ["#F4B740", .68, .75], ["#E58A3A", .75, 1]];
+      bands.forEach(function (b) { ctx.fillStyle = b[0]; ctx.fillRect(cx - r, cy - r + 2 * r * b[1], 2 * r, 2 * r * (b[2] - b[1]) + 0.5); });
+      ctx.fillStyle = "#FFF1D6"; [[-.35, -.62], [0, -.74], [.35, -.62], [-.18, -.46], [.2, -.45]].forEach(function (s) { ctx.beginPath(); ctx.ellipse(cx + s[0] * r, cy + s[1] * r, r * .09, r * .05, 0, 0, 7); ctx.fill(); });
+      ctx.restore();
+      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(cx + r * 0.12, cy - r * 0.28, r * 0.17, 0, 7); ctx.fill();
+      ctx.fillStyle = "#1B1617"; ctx.beginPath(); ctx.arc(cx + r * 0.16, cy - r * 0.27, r * 0.08, 0, 7); ctx.fill();
+    }
+    function drawGhost(g, t) {
+      var cx = px(g.x), cy = px(g.y) + (g.st === "house" ? Math.sin(g.bob || 0) * T * .05 : 0), r = T * 0.42;
+      if (g.st !== "eyes") {
+        var fr = g.fright > 0, flash = fr && g.fright < 2 && Math.floor(t * 6) % 2;
+        ctx.fillStyle = fr ? (flash ? "#F2F2E9" : "#2B3F7A") : g.color;
+        ctx.beginPath(); ctx.moveTo(cx - r, cy + r); ctx.lineTo(cx - r, cy); ctx.arc(cx, cy, r, Math.PI, 0); ctx.lineTo(cx + r, cy + r);
+        var wv = 4, sw = (2 * r) / wv, ph = Math.floor(t * 8) % 2;
+        for (var i = 0; i < wv; i++) { var x0 = cx + r - i * sw; ctx.lineTo(x0 - sw / 2, cy + r - (((i + ph) % 2) ? r * .3 : 0)); ctx.lineTo(x0 - sw, cy + r); }
+        ctx.closePath(); ctx.fill();
+      }
+      if (g.fright > 0 && g.st !== "eyes") {
+        ctx.fillStyle = "#F2F2E9"; ctx.beginPath(); ctx.arc(cx - r * .35, cy - r * .15, r * .13, 0, 7); ctx.arc(cx + r * .35, cy - r * .15, r * .13, 0, 7); ctx.fill();
+      } else {
+        var ox = (g.dx || 0) * r * .12, oy = (g.dy || 0) * r * .12;
+        [-1, 1].forEach(function (s) { ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.ellipse(cx + s * r * .38, cy - r * .15, r * .26, r * .32, 0, 0, 7); ctx.fill(); ctx.fillStyle = "#1B1617"; ctx.beginPath(); ctx.arc(cx + s * r * .38 + ox, cy - r * .12 + oy, r * .13, 0, 7); ctx.fill(); });
+      }
+    }
+    function drawText(txt, color) { ctx.fillStyle = color || "#F4B740"; ctx.font = "900 " + Math.round(T * 0.8) + "px Fraunces, Georgia, serif"; ctx.textAlign = "center"; ctx.fillText(txt, W * T / 2, px(11) + T * .25); }
+    function draw(t) {
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      drawMaze(); drawPellets(t);
+      if (state === "dying") { var k = Math.min(1, 1 - stateT / 1.2); drawBurger(px(player.x), px(player.y), T * 0.44 * (1 - k * 0.2), 0.05 + k * 3, player.ang); }
+      else { ghosts.forEach(function (g) { drawGhost(g, t); }); drawBurger(px(player.x), px(player.y), T * 0.44, state === "ready" ? 0.3 : player.mouth, player.ang); }
+      if (state === "ready") drawText("READY!");
+      if (state === "cleared") drawText("LEVEL CLEARED!", "#F2F2E9");
+    }
+
+    // ---------- loop + input ----------
+    var last = 0, acc = 0, paused = false, started = false;
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      var dt = Math.min(0.05, (ts - last) / 1000 || 0); last = ts;
+      if (started && !paused && state !== "over") { acc += dt; while (acc >= 1 / 60) { update(1 / 60); acc -= 1 / 60; } }
+      draw(ts / 1000);
+    }
+    function setDir(name) { if (!DIRS[name]) return; player.wx = DIRS[name][0]; player.wy = DIRS[name][1]; }
+    addEventListener("keydown", function (e) {
+      var m = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right", w: "up", s: "down", a: "left", d: "right", W: "up", S: "down", A: "left", D: "right" }[e.key];
+      if (m) { if (started) { setDir(m); } e.preventDefault(); return; }
+      if (e.key === "p" || e.key === "P") { if (started && state !== "over") { paused = !paused; if (paused) showOv("Paused", "Press P or Play to carry on.", "Resume", false); else ov.hidden = true; } }
+      if ((e.key === "Enter" || e.key === " ") && !ov.hidden && document.activeElement !== go) { e.preventDefault(); go.click(); }
+    });
+    go.addEventListener("click", function () {
+      if (paused) { paused = false; ov.hidden = true; return; }
+      started = true; newGame();
+    });
+    document.querySelectorAll("#gm-pad button").forEach(function (b) { b.addEventListener("pointerdown", function (e) { e.preventDefault(); if (started) setDir(b.getAttribute("data-d")); }); });
+    var sx = 0, sy = 0;
+    cv.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    cv.addEventListener("touchend", function (e) { var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy; if (Math.max(Math.abs(dx), Math.abs(dy)) < 22 || !started) return; setDir(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : (dy > 0 ? "down" : "up")); }, { passive: true });
+    document.addEventListener("visibilitychange", function () { if (document.hidden && started && !paused && state !== "over") { paused = true; showOv("Paused", "Tap Resume to carry on.", "Resume", false); } });
+    addEventListener("resize", fit);
+
+    buildVoid(); resetBoard(); homeDist = bfsFrom(9, 9); fit(); level = 1; lives = 3; setLives(); resetActors(); state = "ready"; stateT = 1e9;
+    requestAnimationFrame(frame);
+    window.__bbgame = { get state() { return state; }, get score() { return score; }, get left() { return left; }, player: function () { return player; }, ghosts: function () { return ghosts; } };
+  })();
+  </script>

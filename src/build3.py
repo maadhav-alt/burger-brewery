@@ -106,12 +106,14 @@ def fill(tpl, p):
 
 FORMS_JS = '  /* ---------- franchise + team forms: saved to Supabase (enquiries) ---------- */\n  document.querySelectorAll("form[data-form]").forEach(function (f) {\n    f.addEventListener("submit", function (e) {\n      e.preventDefault();\n      var status = f.querySelector(".bb-form__status");\n      if (!f.checkValidity()) { f.reportValidity(); return; }\n      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };\n      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };\n      var first = row.name.split(" ")[0] || "there", btn = f.querySelector(\'[type="submit"]\');\n      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }\n      btn.disabled = true; status.textContent = "Sending…";\n      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })\n        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })\n        .then(function () { btn.disabled = false; });\n    });\n  });\n'
 
-PAGES = {"about.html": ("About Burger Brewery · Burger and craft beer restaurant in Bengaluru", "Burger Brewery is a burger and craft beer restaurant in Bengaluru. Every burger is built to be paired with a craft beer. Meet the founder and the story.", "g-cream", "p3_about.html"),
+PAGES = {"game.html": ("Burger vs Beer · Burger Brewery", "A little game from Burger Brewery.", "g-black", "p3_game.html"),
+         "about.html": ("About Burger Brewery · Burger and craft beer restaurant in Bengaluru", "Burger Brewery is a burger and craft beer restaurant in Bengaluru. Every burger is built to be paired with a craft beer. Meet the founder and the story.", "g-cream", "p3_about.html"),
          "team.html": ("Our Team · Burger Brewery", "Meet the people behind Burger Brewery.", "g-cream", "p3_team.html"),
 }
 def page_tpl(out):
     t, dsc, cls, frag = PAGES[out]
     s = open("src/tplP.html", encoding="utf-8").read()
+    if out == "game.html": s = s.replace("<title>", '<meta name="robots" content="noindex, nofollow">\n<title>', 1)
     return (s.replace("/*TITLE*/", t).replace("/*DESC*/", dsc).replace("/*BODYCLS*/", cls)
              .replace("/*CSS_PAGES*/", open("src/p3_pagescss.css", encoding="utf-8").read())
              .replace("<!--MAIN-->", open("src/" + frag, encoding="utf-8").read())

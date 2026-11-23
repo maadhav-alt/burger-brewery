@@ -494,3 +494,8 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 .bb-q figcaption a { color: inherit; text-decoration: underline; text-decoration-color: var(--bb-orange); text-underline-offset: 3px; }
 .bb-q figcaption a::after { content: ""; position: absolute; inset: 0; border-radius: 18px; }
 @media (hover: hover) and (pointer: fine) { .bb-q:hover { transform: translateY(-3px); box-shadow: 0 24px 44px -16px rgba(0,0,0,.7); } }
+
+/* the Do Together stamp is a quiet link to the hidden game page (no nav, no footer entry) */
+a.bb-dt { display: block; cursor: pointer; text-decoration: none; transition: transform 260ms var(--sc-ease-out); }
+@media (hover: hover) and (pointer: fine) { a.bb-dt:hover { transform: rotate(-6deg) scale(1.05); } }
+a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px; border-radius: 50%; }

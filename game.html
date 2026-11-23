@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Burger vs Beer · Burger Brewery</title>
+<meta name="description" content="A little game from Burger Brewery.">
+<meta name="theme-color" content="#1B1617">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23231F20'/><path d='M6 15c0-6 4.5-9 10-9s10 3 10 9z' fill='%23F26624'/><rect x='5' y='17' width='22' height='4' rx='2' fill='%23F2F2E9'/><rect x='6' y='22' width='20' height='4' rx='2' fill='%23F26624'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..900;1,9..144,600..900&family=Mulish:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+:root {
+  --sc-canvas: #F2F2E9;  --sc-surface: #E9E7DA;
+  --sc-ink:    #231F20;  --sc-ink-soft: #5A5250;
+  --sc-accent: #F26624;  --sc-accent-ink: #231F20;
+  --sc-font-display: "Fraunces", Georgia, serif;
+  --sc-font-text: "Mulish", system-ui, sans-serif;
+  --bb-orange: #F26624; --bb-black: #231F20; --bb-cream: #F2F2E9; --bb-paper: #FBFAF4;
+  --bb-head: 68px;
+  --bb-veg: #2F8A43; --bb-nonveg: #C2352A;
+  --bb-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.g-cream  { background: var(--bb-cream); --sc-ink: #231F20; --sc-ink-soft: #5A5250; color: var(--sc-ink); }
+.g-paper  { background: var(--bb-paper); --sc-ink: #231F20; --sc-ink-soft: #5A5250; color: var(--sc-ink); }
+.g-black  { background: var(--bb-black); --sc-ink: #F2F2E9; --sc-ink-soft: #BDB5A8; color: var(--sc-ink); }
+.g-orange { background: var(--bb-orange); --sc-ink: #231F20; --sc-ink-soft: #231F20; color: var(--sc-ink); }
+.g-black :focus-visible { outline-color: var(--bb-orange); }
+.g-orange :focus-visible { outline-color: var(--bb-black); }
+body { background: var(--bb-cream); overflow-x: clip; }
+h1, h2, h3 { font-family: var(--sc-font-display); font-optical-sizing: auto; margin: 0; }
+em { font-style: italic; }
+img { display: block; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.bb-label { font: 800 .78rem/1 var(--sc-font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--sc-ink-soft); margin: 0 0 var(--sc-4); }
+.g-black .bb-label { color: var(--bb-orange); }
+.ln { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* photos: blur-to-focus on entry */
+.bb-photo { position: relative; overflow: hidden; border-radius: 20px; background: #2c2627; }
+.bb-photo img { width: 100%; height: 100%; object-fit: cover; }
+@media (prefers-reduced-motion: no-preference) {
+  .bb-photo img { filter: blur(18px) saturate(.8); transform: scale(1.08); transition: filter 900ms var(--sc-ease-out), transform 1200ms var(--sc-ease-out); }
+  .bb-photo.is-seen img { filter: none; transform: none; }
+}
+
+/* ---------- buttons ---------- */
+.bb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  min-height: 48px; padding: 0 1.4rem; border-radius: 999px; border: 2px solid transparent;
+  font: 800 1rem/1 var(--sc-font-text); letter-spacing: .01em; text-decoration: none; white-space: nowrap;
+  background: var(--bb-orange); color: var(--bb-black); cursor: pointer;
+  transition: transform 140ms var(--sc-ease-out), background-color 160ms var(--sc-ease-out), color 160ms var(--sc-ease-out), border-color 160ms var(--sc-ease-out);
+}
+.bb-btn:active { transform: scale(.97); }
+.bb-btn--line { background: transparent; border-color: currentColor; color: inherit; }
+.g-orange .bb-btn { background: var(--bb-black); color: var(--bb-cream); }
+@media (hover: hover) and (pointer: fine) {
+  .bb-btn:hover { background: var(--bb-black); color: var(--bb-cream); }
+  .g-black .bb-btn:hover { background: var(--bb-cream); color: var(--bb-black); }
+  .bb-btn--line:hover { background: var(--bb-black); color: var(--bb-cream); border-color: var(--bb-black); }
+  .g-black .bb-btn--line:hover { background: var(--bb-cream); color: var(--bb-black); border-color: var(--bb-cream); }
+}
+.bb-link { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 2px; font-weight: 800; }
+.bb-actions { display: flex; flex-wrap: wrap; gap: var(--sc-3); margin-top: var(--sc-6); }
+
+/* ---------- head bar ---------- */
+.bb-bar { position: fixed; inset: 0 0 auto; z-index: 60; height: var(--bb-head); display: flex; align-items: center; gap: var(--sc-5);
+  padding-inline: var(--sc-gutter); background: var(--bb-cream); color: var(--bb-black); border-bottom: 1px solid rgba(35,31,32,.14); }
+.bb-logo { display: block; width: 188px; aspect-ratio: 5211 / 832; background: var(--bb-black);
+  -webkit-mask: url(assets/logo-horizontal.png) center / contain no-repeat; mask: url(assets/logo-horizontal.png) center / contain no-repeat; }
+.bb-nav { margin-left: auto; display: flex; align-items: center; gap: var(--sc-2); }
+.bb-nav ul { display: flex; gap: var(--sc-1); list-style: none; margin: 0; padding: 0; }
+.bb-nav__link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .8rem; border: 0; background: none; border-radius: 999px;
+  font: 700 .95rem/1 var(--sc-font-text); color: inherit; text-decoration: none; cursor: pointer; transition: background-color 150ms var(--sc-ease-out); }
+@media (hover: hover) and (pointer: fine) { .bb-nav__link:hover { background: rgba(35,31,32,.07); } }
+.bb-nav .bb-btn { min-height: 44px; margin-left: var(--sc-2); }
+.bb-burgerbtn { display: none; width: 48px; height: 48px; border: 0; background: none; padding: 10px; cursor: pointer; border-radius: 12px; }
+.bb-burgerbtn span { display: block; height: 5px; border-radius: 3px; background: var(--bb-black); }
+.bb-burgerbtn span:nth-child(1) { background: var(--bb-orange); border-radius: 10px 10px 3px 3px; height: 7px; }
+.bb-burgerbtn span + span { margin-top: 4px; }
+.bb-burgerbtn span:nth-child(3) { background: var(--bb-orange); }
+@media (max-width: 1320px) {
+  .bb-nav ul { display: none; }
+  .bb-burgerbtn { display: block; }
+  .bb-nav .bb-btn { margin-left: 0; }
+  .bb-nav.is-open ul { display: flex; position: fixed; top: var(--bb-head); inset-inline: 0; flex-direction: column; gap: 0;
+    background: var(--bb-cream); border-bottom: 1px solid rgba(35,31,32,.14); padding: var(--sc-3) var(--sc-gutter) var(--sc-5); }
+  .bb-nav.is-open .bb-nav__link { width: 100%; min-height: 52px; font-size: 1.15rem; padding-inline: 0; border-radius: 0; border-bottom: 1px solid rgba(35,31,32,.1); }
+}
+@media (max-width: 520px) { .bb-logo { width: 132px; } .bb-nav .bb-btn { padding: 0 1rem; font-size: .92rem; } }
+
+/* ---------- stack index (signature) ---------- */
+.bb-index { position: fixed; z-index: 55; right: 14px; top: 50%; translate: 0 -50%; padding: 10px 7px; border-radius: 999px;
+  background: var(--bb-cream); border: 1px solid rgba(35,31,32,.16); box-shadow: 0 10px 24px -14px rgba(35,31,32,.45); }
+.bb-index ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.bb-index a { position: relative; display: block; width: 46px; min-height: 24px; border-radius: 6px; }
+.bb-index svg { display: block; width: 100%; height: auto; opacity: .2; filter: grayscale(1); transform: translateY(-7px);
+  transition: opacity 240ms var(--sc-ease-out), transform 260ms var(--sc-ease-out), filter 240ms var(--sc-ease-out); }
+.bb-index a.is-in svg { opacity: 1; filter: none; transform: none; }
+.bb-index__tip { position: absolute; right: calc(100% + 12px); top: 50%; translate: 0 -50%; white-space: nowrap; pointer-events: none;
+  font: 800 .78rem/1 var(--sc-font-text); letter-spacing: .04em; background: var(--bb-black); color: var(--bb-cream);
+  padding: 7px 10px; border-radius: 999px; opacity: 0; transition: opacity 150ms var(--sc-ease-out); }
+.bb-index a:focus-visible .bb-index__tip { opacity: 1; }
+@media (hover: hover) and (pointer: fine) { .bb-index a:hover .bb-index__tip { opacity: 1; } }
+@media (max-width: 760px) { .bb-index { right: 6px; top: auto; bottom: 14px; translate: none; padding: 6px 4px; } .bb-index a { width: 28px; } .bb-index__tip { display: none; } }
+
+
+.bb-nav__link { white-space: nowrap; }
+@media (min-width: 1321px) and (max-width: 1580px) { .bb-nav__link { padding: 0 .52rem; font-size: .92rem; } .bb-nav .bb-btn { margin-left: 2px; } .bb-bar { gap: var(--sc-3); } }
+
+[hidden] { display: none !important; }
+/* ---------- 11 · visit: the bottom bun ---------- */
+.bb-visit [data-sc-stage] { background: var(--bb-black); display: flex; flex-direction: column; padding-top: var(--bb-head); }
+.bb-visit__split { flex: 1; display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+.bb-half { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(1.5rem, 4vw, 3.5rem); color: var(--bb-cream); }
+.bb-half + .bb-half { border-left: 1px solid rgba(242,242,233,.14); }
+.bb-half img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.bb-half::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(35,31,32,.05) 20%, rgba(35,31,32,.72) 52%, rgba(35,31,32,.94) 86%); }
+.bb-half > :not(img) { position: relative; z-index: 2; }
+.bb-half .bb-label { color: #F6D9C4; }
+.bb-half h2 { font-size: clamp(2.4rem, 4.6vw, 4.8rem); font-weight: 900; letter-spacing: -.025em; line-height: .94; text-wrap: balance; }
+.bb-half p { margin: var(--sc-3) 0 0; max-width: 38ch; line-height: 1.55; color: #E3DDD3; }
+.bb-half .bb-actions { margin-top: var(--sc-5); }
+.bb-half:last-of-type { padding-right: calc(clamp(1.5rem, 4vw, 3.5rem) + 64px); }
+.bb-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sc-3) var(--sc-6); padding: var(--sc-5) calc(var(--sc-gutter) + 64px) var(--sc-5) var(--sc-gutter);
+  border-top: 1px solid rgba(242,242,233,.16); font-size: .9rem; color: var(--sc-ink-soft); }
+.bb-foot__mark { width: auto; height: 64px; }
+@media (max-width: 860px) { .bb-foot__mark { display: none; } }
+.bb-foot ul { display: flex; flex-wrap: wrap; gap: var(--sc-1) var(--sc-5); list-style: none; margin: 0; padding: 0; }
+.bb-foot button, .bb-foot a { background: none; border: 0; padding: 6px 0; color: var(--sc-ink); font: 700 .9rem/1.2 var(--sc-font-text); cursor: pointer; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .bb-foot button:hover, .bb-foot a:hover { text-decoration: underline; text-underline-offset: .2em; } }
+.bb-foot small { margin-left: auto; font-size: .82rem; }
+@media (max-width: 860px) {
+  .bb-visit__split { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  .bb-half + .bb-half { border-left: 0; border-top: 1px solid rgba(242,242,233,.14); }
+  .bb-half { padding: var(--sc-5) calc(var(--sc-gutter) + 36px) var(--sc-5) var(--sc-gutter); }
+  .bb-half h2 { font-size: 2rem; }
+  .bb-half p { font-size: .9rem; }
+  .bb-half .bb-actions { margin-top: var(--sc-3); }
+  .bb-half .bb-btn { min-height: 44px; padding: 0 1rem; font-size: .9rem; }
+  .bb-foot { padding: var(--sc-3) calc(var(--sc-gutter) + 36px) var(--sc-3) var(--sc-gutter); gap: var(--sc-1) var(--sc-4); }
+  .bb-foot .bb-logo { display: none; }
+  .bb-foot small { margin-left: 0; }
+}
+
+
+/* ---------- dialogs ---------- */
+.bb-dialog { border: 0; padding: 0; width: min(40rem, calc(100vw - 32px)); max-height: calc(100svh - 32px); border-radius: 20px; background: var(--bb-cream); color: var(--bb-black); box-shadow: 0 30px 80px -30px rgba(35,31,32,.6); }
+.bb-dialog::backdrop { background: rgba(35,31,32,.62); }
+.bb-dialog__in { padding: clamp(1.5rem, 4vw, 2.75rem); overflow: auto; max-height: calc(100svh - 32px); }
+.bb-dialog h2 { text-wrap: balance; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -.02em; line-height: 1; padding-right: 3rem; }
+.bb-dialog__x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(35,31,32,.08); font: 700 1.4rem/1 var(--sc-font-text); color: var(--bb-black); cursor: pointer; }
+.bb-dialog p { line-height: 1.65; margin: var(--sc-4) 0 0; }
+.bb-dialog .lead { font: italic 700 1.3rem/1.3 var(--sc-font-display); }
+.bb-form { margin-top: var(--sc-5); display: grid; gap: var(--sc-4); }
+.bb-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sc-4); }
+@media (max-width: 560px) { .bb-form .row2 { grid-template-columns: 1fr; } }
+.bb-field label { display: block; font: 800 .9rem/1.3 var(--sc-font-text); margin-bottom: 6px; }
+.bb-field input, .bb-field select, .bb-field textarea { width: 100%; min-height: 48px; border-radius: 12px; border: 1.5px solid rgba(35,31,32,.35); background: var(--bb-paper); padding: 10px 14px; font: 600 1rem/1.4 var(--sc-font-text); color: var(--bb-black); caret-color: var(--bb-orange); }
+.bb-field textarea { min-height: 96px; resize: vertical; }
+.bb-field input:focus-visible, .bb-field select:focus-visible, .bb-field textarea:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 2px; border-color: var(--bb-black); }
+.bb-form__status { margin: 0; padding: var(--sc-4); border-radius: 12px; background: #FBE3D6; font-weight: 600; line-height: 1.5; }
+.bb-form__status:empty { display: none; }
+.bb-hint { font-size: .85rem; color: var(--sc-ink-soft); margin: 4px 0 0; }
+.bb-age { width: min(30rem, calc(100vw - 32px)); text-align: center; }
+.bb-age .bb-heart { width: 120px; margin: 0 auto var(--sc-4); }
+.bb-age .bb-heart__text { font-size: 1.1rem; }
+.bb-age h2 { padding: 0; }
+.bb-age .bb-actions { justify-content: center; }
+.bb-age::backdrop { background: var(--bb-orange); }
+
+
+.bb-nav__trio { display: inline-flex; align-items: center; gap: 1px; margin-left: 6px; }
+.bb-nav__trio svg { width: 15px; height: 15px; display: block; }
+.bb-loc { position: relative; }
+.bb-loc__caret { display: inline-block; width: 8px; height: 8px; margin-left: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; rotate: 45deg; translate: 0 -2px; }
+.bb-loc [aria-expanded="true"] .bb-loc__caret { rotate: 225deg; translate: 0 2px; }
+.bb-loc__menu { position: absolute; top: calc(100% + 8px); left: 0; min-width: 270px; list-style: none; margin: 0; padding: 8px; border-radius: 16px; background: var(--bb-cream); box-shadow: 0 24px 50px -20px rgba(35,31,32,.45), 0 0 0 1px rgba(35,31,32,.08); display: grid !important; gap: 2px; }
+.bb-loc__menu[hidden] { display: none !important; }
+.bb-loc__menu a { display: block; min-height: 44px; padding: 10px 14px; border-radius: 10px; color: var(--bb-black); text-decoration: none; font: 800 1rem/1.2 var(--sc-font-text); }
+.bb-loc__menu small { display: block; margin-top: 3px; font: 600 .8rem/1.3 var(--sc-font-text); color: #4d4648; }
+@media (max-width: 1320px) { .bb-nav.is-open .bb-loc__menu { position: static; box-shadow: none; background: transparent; padding: 0 0 8px 12px; min-width: 0; } }
+.bb-social { display: flex; gap: 6px; }
+.bb-social__a { display: grid !important; place-items: center; width: 44px; height: 44px; padding: 0 !important; border-radius: 12px; color: var(--bb-cream) !important; }
+.bb-social__a svg { width: 26px; height: 26px; }
+.bb-social__a[hidden] { display: none !important; }
+
+/* Our Team: four circular portraits with the orange ring, centred cards, name > role > area > previously > pairing */
+.bb-team { padding-block: clamp(3.5rem, 8vh, 6rem); }
+.bb-team[hidden] { display: none; }
+.bb-team .sc-wrap > .bb-label, .bb-team h2, .bb-team__lead { text-align: center; margin-inline: auto; }
+.bb-team h2 { font-size: clamp(2.2rem, 4.4vw, 4.2rem); font-weight: 900; letter-spacing: -.03em; line-height: .95; color: var(--bb-ink-cream); max-width: 16ch; }
+.bb-team__lead { margin-top: var(--sc-4); max-width: 46ch; font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.6; }
+.bb-team__list { list-style: none; margin: clamp(2.5rem, 7vh, 4.5rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: clamp(2.5rem, 5vh, 3.5rem) clamp(1.5rem, 3vw, 3rem); }
+.bb-member { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.bb-member__ring { display: block; width: clamp(170px, 18vw, 210px); aspect-ratio: 1; border-radius: 50%; border: 4px solid var(--bb-orange); padding: 5px; background: var(--bb-cream); transition: transform 300ms var(--sc-ease-out); }
+a.bb-member__ring:hover { transform: scale(1.04); }
+.bb-member__ph { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--bb-black); }
+.bb-member__ph img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.bb-member__ph.is-mono { display: grid; place-items: center; }
+.bb-member__mono { font: 900 4.5rem/1 var(--sc-font-display); color: var(--bb-orange); }
+.bb-member__line { margin: var(--sc-4) 0 0; max-width: 26ch; font: italic 600 1.05rem/1.45 var(--sc-font-display); color: #3b3537; }
+.bb-member h3 { margin: var(--sc-4) 0 0; font: 900 clamp(1.4rem, 1.9vw, 1.75rem)/1.05 var(--sc-font-display); letter-spacing: -.02em; color: var(--bb-ink-cream); }
+.bb-member__role { margin: 10px 0 0; padding: 7px 16px; background: var(--bb-black); color: var(--bb-cream); font: 800 .78rem/1.2 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; }
+.bb-member__area { margin: 12px 0 0; font: 800 .82rem/1.3 var(--sc-font-text); letter-spacing: .1em; text-transform: uppercase; color: #B8470F; }
+.bb-member__prev { margin: 12px 0 0; max-width: 26ch; font-size: .92rem; line-height: 1.45; color: #4d4648; }
+.bb-member__pair { margin: var(--sc-4) 0 0; display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 10px; padding: 8px 16px; border-radius: 999px; background: var(--bb-black); color: var(--bb-cream); font: 700 .9rem/1.2 var(--sc-font-text); }
+.bb-member__pair span { color: var(--bb-orange); font: 800 .68rem/1 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; }
+.bb-team h2, .bb-team__lead { display: block; width: 100%; text-wrap: balance; }
+.bb-team h2 { max-width: 18ch; }
+
+/* About landing */
+.bb-about { padding-block: clamp(3rem, 8vh, 5.5rem); }
+.bb-about__in { max-width: 860px; }
+.bb-about h1 { font-size: clamp(2.2rem, 5vw, 4.4rem); font-weight: 900; letter-spacing: -.03em; line-height: .98; color: var(--bb-ink-cream); max-width: 18ch; text-wrap: balance; }
+.bb-about__lead { margin: var(--sc-4) 0 0; font-size: clamp(1.15rem, 1.6vw, 1.4rem); line-height: 1.55; color: #3b3537; }
+.bb-about__facts { margin: clamp(2rem, 5vh, 3rem) 0 0; display: grid; border-top: 2px solid var(--bb-ink-cream); }
+.bb-about__facts > div { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 1rem 0; border-bottom: 1px dashed rgba(35,31,32,.35); }
+@media (min-width: 700px) { .bb-about__facts > div { grid-template-columns: 200px 1fr; gap: 1.5rem; } }
+.bb-about__facts dt { font: 800 .8rem/1.4 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; color: #B8470F; padding-top: .2rem; }
+.bb-about__facts dd { margin: 0; font-size: 1.08rem; line-height: 1.55; color: var(--bb-ink-cream); }
+.bb-about__story { margin-top: clamp(2.5rem, 7vh, 4rem); }
+.bb-about__story h2 { font: 900 clamp(1.8rem, 3.4vw, 2.8rem)/1 var(--sc-font-display); letter-spacing: -.02em; color: var(--bb-ink-cream); margin-bottom: var(--sc-4); }
+.bb-about__story p { margin: 0 0 1rem; max-width: 62ch; font-size: 1.08rem; line-height: 1.7; color: #3b3537; }
+.bb-about blockquote { margin: 1.75rem 0; padding: .25rem 0 .25rem 1.25rem; border-left: 4px solid var(--bb-orange); font: italic 700 clamp(1.4rem, 2.6vw, 2rem)/1.25 var(--sc-font-display); color: var(--bb-ink-cream); }
+.bb-about cite { display: block; margin-top: .6rem; font: 700 .85rem/1.3 var(--sc-font-text); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: #4d4648; }
+.bb-about .bb-actions { margin-top: clamp(2rem, 5vh, 3rem); display: flex; flex-wrap: wrap; gap: 12px; }
+.bb-about .bb-btn--ghost { background: transparent; color: var(--bb-ink-cream); box-shadow: inset 0 0 0 2px var(--bb-ink-cream); }
+.bb-member__bio { margin: 12px 0 0; max-width: 34ch; font-size: .95rem; line-height: 1.55; color: #3b3537; }
+.bb-team__list { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+/* Our Team, scroll style: one profile per screen, big portrait beside the text, alternating sides */
+.bb-team__list { display: block; margin-top: clamp(2rem, 6vh, 4rem); }
+.bb-member { display: grid; grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 0; min-height: min(86vh, 760px); align-content: center; padding-block: clamp(2rem, 6vh, 4rem); border-top: 1px solid rgba(35,31,32,.14); }
+.bb-member__ring { width: min(78vw, 420px); border-width: 6px; padding: 8px; translate: 0 var(--drift, 0px); }
+.bb-member h3 { font-size: clamp(2rem, 4.2vw, 3.4rem); margin-top: var(--sc-5); }
+.bb-member__role { font-size: .9rem; padding: 9px 20px; }
+.bb-member__area { font-size: .95rem; }
+.bb-member__bio { max-width: 48ch; font-size: clamp(1.02rem, 1.3vw, 1.2rem); line-height: 1.65; margin-top: 16px; }
+.bb-member__prev { max-width: 48ch; font-size: .98rem; }
+.bb-member__pair { font-size: 1rem; padding: 10px 20px; }
+@media (min-width: 900px) {
+  .bb-member { grid-template-columns: minmax(0, 460px) minmax(0, 1fr); column-gap: clamp(3rem, 8vw, 7rem); justify-items: start; text-align: left; }
+  .bb-member > * { grid-column: 2; }
+  .bb-member > .bb-member__ring { grid-column: 1; grid-row: 1 / span 8; width: min(100%, 460px); align-self: center; }
+  .bb-member:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); }
+  .bb-member:nth-child(even) > * { grid-column: 1; }
+  .bb-member:nth-child(even) > .bb-member__ring { grid-column: 2; justify-self: end; }
+  .bb-member h3 { margin-top: 0; }
+  .bb-member__pair { justify-content: flex-start; }
+}
+.bb-member.is-armed { opacity: 0; transform: translateY(40px); transition: opacity 700ms var(--sc-ease-out), transform 700ms var(--sc-ease-out); }
+.bb-member.is-armed.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .bb-member.is-armed { opacity: 1; transform: none; transition: none; } .bb-member__ring { translate: none; } }
+
+.bb-pg { padding-top: var(--bb-head); }
+.bb-pg > section { padding-top: clamp(3rem, 9vh, 6rem) !important; min-height: 70vh; }
+</style>
+</head>
+<body class="g-black">
+<header class="bb-bar">
+  <a class="bb-logo" href="index.html#top" aria-label="Burger Brewery, back to the top"></a>
+  <nav class="bb-nav" aria-label="Main">
+    <button class="bb-burgerbtn" type="button" aria-expanded="false" aria-controls="bb-navlist" aria-label="Open navigation"><span></span><span></span><span></span></button>
+    <ul id="bb-navlist">
+      <li><a class="bb-nav__link" href="index.html#about">About Us</a></li>
+      <li><a class="bb-nav__link" href="index.html#menu">Menu</a></li>
+      <li><a class="bb-nav__link bb-nav__pair" href="index.html#pairings" data-open-pairs>Pairings <span class="bb-nav__trio" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 7 0 0 1 18 0z" fill="#F26624"/><rect x="2.5" y="12.5" width="19" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="17" width="18" height="3.5" rx="1.75" fill="#F26624"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.2 1.7-2 3.1-3.2 5.3-3.2 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z" fill="#F26624"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14l-1.6 18H6.6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6.4 8h11.2l-1 11.6H7.4z" fill="#F26624"/></svg></span></a></li>
+      <li><a class="bb-nav__link" href="index.html#craft-on-tap">Craft on Tap</a></li>
+      <li><a class="bb-nav__link" href="index.html#drops">Drops</a></li>
+      <li><a class="bb-nav__link" href="team.html">Our Team</a></li>
+      <li><a class="bb-nav__link" href="index.html#club">Loyalty Points</a></li>
+      <li class="bb-loc">
+        <button class="bb-nav__link" type="button" aria-expanded="false" aria-controls="loc-menu">Locations <span class="bb-loc__caret" aria-hidden="true"></span></button>
+        <ul class="bb-loc__menu" id="loc-menu" hidden>
+          <li><a href="index.html#visit">Bangalore <small>Koramangala 1st Block, dine in</small></a></li>
+          <li><a href="delivery.html#mumbai">Mumbai <small>Delivery</small></a></li>
+          <li><a href="delivery.html#delhi-ncr">Delhi NCR <small>Delivery</small></a></li>
+        </ul>
+      </li>
+      <li><button class="bb-nav__link" type="button" data-open="dlg-franchise">Franchise with Us</button></li>
+    </ul>
+    <a class="bb-btn" data-link="bookingUrl" href="index.html#visit" target="_blank" rel="noopener">Book a table</a>
+  </nav>
+</header>
+<main class="bb-pg">
+  <!-- GAME: "Burger vs Beer", a Pac-Man style maze game. The burger eats every beer; the ghosts chase it; a big pint lets it eat the ghosts.
+       Linked from the "Do Together" stamp in the hero. Self-contained canvas game, no external assets. -->
+  <style>
+  .bb-game { padding-block: clamp(1.5rem, 4vh, 2.5rem) clamp(2rem, 6vh, 4rem); color: var(--bb-cream); }
+  .bb-game__in { max-width: 560px; margin-inline: auto; text-align: center; }
+  .bb-game h1 { font: 900 clamp(1.8rem, 5vw, 2.6rem)/1 var(--sc-font-display); letter-spacing: -.02em; }
+  .bb-game h1 em { color: var(--bb-orange); }
+  .bb-game__sub { margin: 8px 0 14px; color: var(--sc-ink-soft); font-size: .98rem; }
+  .bb-game__hud { display: flex; justify-content: space-between; align-items: center; padding: 8px 4px; font: 800 .85rem/1 var(--sc-font-text); letter-spacing: .12em; text-transform: uppercase; }
+  .bb-game__hud b { display: block; margin-top: 4px; font: 900 1.35rem/1 var(--sc-font-display); letter-spacing: 0; color: var(--bb-cream); }
+  .bb-game__hud span { color: var(--bb-orange); }
+  .bb-game__stage { position: relative; display: inline-block; border-radius: 18px; overflow: hidden; background: #120E0F; box-shadow: 0 0 0 3px var(--bb-orange), 0 24px 60px -20px rgba(0,0,0,.7); }
+  #bbgame { display: block; touch-action: none; }
+  .bb-game__ov { position: absolute; inset: 0; display: grid; place-content: center; gap: 12px; padding: 20px; background: rgba(18,14,15,.88); text-align: center; }
+  .bb-game__ov[hidden] { display: none; }
+  .bb-game__ov h2 { font: 900 clamp(1.6rem, 6vw, 2.2rem)/1 var(--sc-font-display); }
+  .bb-game__ov p { margin: 0; color: var(--sc-ink-soft); max-width: 30ch; margin-inline: auto; line-height: 1.5; }
+  .bb-game__ov .bb-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .bb-game__pad { display: none; margin: 14px auto 0; width: 190px; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(3, 60px); gap: 5px; justify-content: center; }
+  .bb-game__pad button { width: 60px; height: 60px; border-radius: 16px; border: 0; background: rgba(242,242,233,.12); color: var(--bb-cream); font-size: 1.5rem; }
+  .bb-game__pad button:active { background: var(--bb-orange); color: #1B1617; }
+  @media (hover: none) { .bb-game__pad { display: grid; } }
+  .bb-game .bb-btn--ghost { background: transparent; color: var(--bb-cream); box-shadow: inset 0 0 0 2px var(--bb-cream); }
+  .bb-game__help { margin: 14px 0 0; font-size: .88rem; color: var(--sc-ink-soft); }
+  </style>
+  <section class="bb-game g-black" aria-labelledby="gm-h">
+    <div class="bb-game__in">
+      <h1 id="gm-h">Burger <em>vs</em> Beer</h1>
+      <p class="bb-game__sub">Eat every beer. Dodge the ghosts. Grab a big pint to eat them back.</p>
+      <div class="bb-game__hud" aria-live="off">
+        <div>Score<b id="gm-score">0</b></div>
+        <div>Level<b id="gm-level">1</b></div>
+        <div>Best<b id="gm-best">0</b></div>
+        <div>Lives<b id="gm-lives"><span>♥♥♥</span></b></div>
+      </div>
+      <div class="bb-game__stage">
+        <canvas id="bbgame" width="456" height="504" role="img" aria-label="Burger vs Beer game board. Use the arrow keys, WASD, swipe, or the on-screen pad to move the burger."></canvas>
+        <div class="bb-game__ov" id="gm-ov">
+          <h2 id="gm-ovh">Ready to play?</h2>
+          <p id="gm-ovp">Steer the burger with the arrow keys or WASD, or swipe on your phone.</p>
+          <div class="bb-actions"><button class="bb-btn" type="button" id="gm-go">Play</button></div>
+          <div class="bb-actions" id="gm-after" hidden><a class="bb-btn bb-btn--ghost" href="index.html#visit">Book a table</a><a class="bb-btn bb-btn--ghost" href="index.html">Back to the site</a></div>
+        </div>
+      </div>
+      <div class="bb-game__pad" id="gm-pad" aria-label="Move">
+        <span></span><button type="button" data-d="up" aria-label="Up">▲</button><span></span>
+        <button type="button" data-d="left" aria-label="Left">◀</button><span></span><button type="button" data-d="right" aria-label="Right">▶</button>
+        <span></span><button type="button" data-d="down" aria-label="Down">▼</button><span></span>
+      </div>
+      <p class="bb-game__help">Arrow keys or WASD to move · P to pause · Swipe on a phone</p>
+    </div>
+  </section>
+  <script>
+  (function () {
+    "use strict";
+    var MAP = [
+      "###################",
+      "#........#........#",
+      "#o##.###.#.###.##o#",
+      "#.................#",
+      "#.##.#.#####.#.##.#",
+      "#....#...#...#....#",
+      "####.### # ###.####",
+      "   #.#       #.#   ",
+      "####.# ##-## #.####",
+      "    .  #GGG#  .    ",
+      "####.# ##### #.####",
+      "   #.#       #.#   ",
+      "####.# ##### #.####",
+      "#........#........#",
+      "#.##.###.#.###.##.#",
+      "#o.#.....P.....#.o#",
+      "##.#.#.#####.#.#.##",
+      "#....#...#...#....#",
+      "#.######.#.######.#",
+      "#.................#",
+      "###################"
+    ];
+    var W = 19, H = 21, cv = document.getElementById("bbgame"), ctx = cv.getContext("2d");
+    var $ = function (id) { return document.getElementById(id); };
+    var elScore = $("gm-score"), elLevel = $("gm-level"), elBest = $("gm-best"), elLives = $("gm-lives"), ov = $("gm-ov"), ovh = $("gm-ovh"), ovp = $("gm-ovp"), go = $("gm-go"), after = $("gm-after");
+    var T = 24, DPR = 1;
+    var DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+    var grid, pellets, left, score, best = 0, lives, level, state, stateT, player, ghosts, fright, readyT, over = false;
+    try { best = parseInt(localStorage.getItem("bb-game-best") || "0", 10) || 0; } catch (e) {}
+    elBest.textContent = best;
+
+    function fit() {
+      var wrapW = cv.parentNode.parentNode.clientWidth || 400;
+      var maxH = Math.max(280, innerHeight - 300);
+      T = Math.max(14, Math.floor(Math.min(wrapW / W, maxH / H, 30)));
+      DPR = Math.min(2, window.devicePixelRatio || 1);
+      cv.width = W * T * DPR; cv.height = H * T * DPR; cv.style.width = W * T + "px"; cv.style.height = H * T + "px";
+    }
+    function cell(x, y) { x = (x + W) % W; if (y < 0 || y >= H) return "#"; return grid[y][x]; }
+    function playerOpen(x, y) { var c = cell(x, y); return c !== "#" && c !== "-" && !(c === " " && isVoid(x, y)); }
+    function ghostOpen(x, y, door) { var c = cell(x, y); if (c === "#") return false; if (c === "-") return door; return !(c === " " && isVoid(x, y)); }
+    var voidMap = null;
+    function buildVoid() {   // spaces that cannot be reached from the player's start are solid
+      voidMap = []; for (var y = 0; y < H; y++) { voidMap.push([]); for (var x = 0; x < W; x++) voidMap[y].push(true); }
+      var q = [[9, 15]]; voidMap[15][9] = false;
+      while (q.length) { var p = q.shift(); for (var k in DIRS) { var nx = (p[0] + DIRS[k][0] + W) % W, ny = p[1] + DIRS[k][1]; if (ny < 0 || ny >= H) continue; var c = MAP[ny][nx]; if (c === "#" || (c === "-")) continue; if (voidMap[ny][nx]) { voidMap[ny][nx] = false; q.push([nx, ny]); } } }
+      // the ghost house and the door are reachable by ghosts only
+      for (var gx = 8; gx <= 10; gx++) voidMap[9][gx] = false; voidMap[8][9] = false;
+    }
+    function isVoid(x, y) { return voidMap[y] && voidMap[y][(x + W) % W]; }
+    function bfsFrom(tx, ty) {
+      var d = []; for (var y = 0; y < H; y++) { d.push([]); for (var x = 0; x < W; x++) d[y].push(9999); }
+      d[ty][tx] = 0; var q = [[tx, ty]];
+      while (q.length) { var p = q.shift(); for (var k in DIRS) { var nx = (p[0] + DIRS[k][0] + W) % W, ny = p[1] + DIRS[k][1]; if (ny < 0 || ny >= H || !ghostOpen(nx, ny, true)) continue; if (d[ny][nx] > d[p[1]][p[0]] + 1) { d[ny][nx] = d[p[1]][p[0]] + 1; q.push([nx, ny]); } } }
+      return d;
+    }
+    var homeDist;
+
+    function resetBoard() {
+      grid = MAP.map(function (r) { return r.split(""); }); pellets = 0;
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) { var c = grid[y][x]; if (c === "." || c === "o") pellets++; if (c === "P" || c === "G") grid[y][x] = " "; }
+      left = pellets;
+    }
+    function speeds() { var m = Math.min(1.5, 1 + 0.06 * (level - 1)); return { p: 6.3 * m, g: 5.4 * m, f: 3.4, e: 11 }; }
+    function resetActors() {
+      player = { x: 9, y: 15, dx: 0, dy: 0, wx: -1, wy: 0, mouth: 0.3, mt: 0, ang: Math.PI };
+      var cols = ["#F26624", "#F2F2E9", "#F4B740", "#B8470F"];
+      ghosts = [
+        { x: 9, y: 7, dx: -1, dy: 0, st: "normal", color: cols[0], rel: 0, rnd: 0.12, mode: 0 },
+        { x: 8, y: 9, dx: 0, dy: 0, st: "house", color: cols[1], rel: 2, rnd: 0.2, mode: 1 },
+        { x: 9, y: 9, dx: 0, dy: 0, st: "house", color: cols[2], rel: 5, rnd: 0.3, mode: 2 },
+        { x: 10, y: 9, dx: 0, dy: 0, st: "house", color: cols[3], rel: 8, rnd: 0.25, mode: 3 }
+      ];
+      fright = 0; clock = 0;
+    }
+    var clock = 0;
+    function atCenter(e) { return Math.abs(e.x - Math.round(e.x)) < 1e-6 && Math.abs(e.y - Math.round(e.y)) < 1e-6; }
+    function advance(e, dist, pick) {
+      var guard = 0;
+      while (dist > 1e-6 && guard++ < 8) {
+        if (atCenter(e)) { e.x = Math.round(e.x); e.y = Math.round(e.y); if (e.x < 0) e.x += W; if (e.x >= W) e.x -= W; pick(e); if (!e.dx && !e.dy) break; }
+        var nx = e.dx > 0 ? Math.floor(e.x + 1e-6) + 1 : e.dx < 0 ? Math.ceil(e.x - 1e-6) - 1 : e.x;
+        var ny = e.dy > 0 ? Math.floor(e.y + 1e-6) + 1 : e.dy < 0 ? Math.ceil(e.y - 1e-6) - 1 : e.y;
+        var d = Math.abs(nx - e.x) + Math.abs(ny - e.y), m = Math.min(dist, d);
+        e.x += e.dx * m; e.y += e.dy * m; dist -= m;
+        if (m === d) { e.x = nx; e.y = ny; }
+        if (e.x <= -1) e.x += W; if (e.x >= W) e.x -= W;
+      }
+    }
+    function pickPlayer(e) {
+      var tx = Math.round(e.x), ty = Math.round(e.y);
+      if ((e.wx || e.wy) && playerOpen(tx + e.wx, ty + e.wy)) { e.dx = e.wx; e.dy = e.wy; }
+      else if (!playerOpen(tx + e.dx, ty + e.dy)) { e.dx = 0; e.dy = 0; }
+      if (e.dx || e.dy) e.ang = Math.atan2(e.dy, e.dx);
+    }
+    function target(g) {
+      var px = player.x, py = player.y;
+      if (g.mode === 1) return [px + player.dx * 4, py + player.dy * 4];
+      if (g.mode === 2) return [px - player.dx * 3 + (Math.random() < .5 ? 5 : -5), py + 3];
+      if (g.mode === 3) { var d = Math.hypot(px - g.x, py - g.y); return d > 7 ? [px, py] : [1, 19]; }
+      return [px, py];
+    }
+    function pickGhost(g) {
+      var tx = Math.round(g.x), ty = Math.round(g.y), opts = [], k;
+      var door = g.st === "eyes";
+      if (g.st === "eyes") {
+        var best = 9999, bd = null;
+        for (k in DIRS) { var ex = (tx + DIRS[k][0] + W) % W, ey = ty + DIRS[k][1]; if (ey < 0 || ey >= H || !ghostOpen(ex, ey, true)) continue; if (homeDist[ey][ex] < best) { best = homeDist[ey][ex]; bd = DIRS[k]; } }
+        if (bd) { g.dx = bd[0]; g.dy = bd[1]; } return;
+      }
+      for (k in DIRS) { var ox = DIRS[k][0], oy = DIRS[k][1]; if (ox === -g.dx && oy === -g.dy && (g.dx || g.dy)) continue; if (ghostOpen(tx + ox, ty + oy, false)) opts.push([ox, oy]); }
+      if (!opts.length) { g.dx = -g.dx; g.dy = -g.dy; return; }
+      var ch;
+      if (g.fright > 0 || Math.random() < g.rnd) ch = opts[Math.floor(Math.random() * opts.length)];
+      else { var t = target(g), bd2 = 1e9; opts.forEach(function (o) { var d = Math.pow(tx + o[0] - t[0], 2) + Math.pow(ty + o[1] - t[1], 2); if (d < bd2) { bd2 = d; ch = o; } }); }
+      g.dx = ch[0]; g.dy = ch[1];
+    }
+    function updateGhost(g, dt, sp) {
+      if (g.st === "house") {
+        g.bob = (g.bob || 0) + dt * 6; if (clock >= g.rel) g.st = "leaving"; return;
+      }
+      if (g.st === "leaving") {
+        var s = sp.g * dt;
+        if (Math.abs(g.x - 9) > 0.01) { var dir = g.x < 9 ? 1 : -1; g.x += Math.min(Math.abs(9 - g.x), s) * dir; }
+        else { g.x = 9; g.y -= s; if (g.y <= 7) { g.y = 7; g.st = "normal"; g.dx = Math.random() < .5 ? -1 : 1; g.dy = 0; } }
+        return;
+      }
+      if (g.st === "eyes") {
+        advance(g, sp.e * dt, pickGhost);
+        if (Math.abs(g.x - 9) < 0.05 && Math.abs(g.y - 9) < 0.05) { g.x = 9; g.y = 9; g.st = "leaving"; g.fright = 0; g.dx = 0; g.dy = 0; }
+        return;
+      }
+      advance(g, (g.fright > 0 ? sp.f : sp.g) * dt, pickGhost);
+    }
+
+    function setLives() { var s = ""; for (var i = 0; i < lives; i++) s += "♥"; elLives.innerHTML = "<span>" + (s || "–") + "</span>"; }
+    function setScore(n) { score = n; elScore.textContent = n; if (n > best) { best = n; elBest.textContent = n; try { localStorage.setItem("bb-game-best", String(n)); } catch (e) {} } }
+    function showOv(h, p, btn, withAfter) { ovh.textContent = h; ovp.textContent = p; go.textContent = btn; after.hidden = !withAfter; ov.hidden = false; }
+
+    function newGame() { level = 1; lives = 3; setScore(0); elLevel.textContent = 1; setLives(); resetBoard(); resetActors(); state = "ready"; stateT = 1.4; ov.hidden = true; over = false; }
+    function nextLevel() { level++; elLevel.textContent = level; resetBoard(); resetActors(); state = "ready"; stateT = 1.4; }
+    function loseLife() { lives--; setLives(); if (lives <= 0) { state = "over"; over = true; showOv("Game over", "You scored " + score + ". Hungry for the real thing? A table is waiting.", "Play again", true); } else { resetActors(); state = "ready"; stateT = 1.4; } }
+
+    function update(dt) {
+      var sp = speeds();
+      if (state === "ready") { stateT -= dt; if (stateT <= 0) state = "play"; return; }
+      if (state === "dying") { stateT -= dt; if (stateT <= 0) loseLife(); return; }
+      if (state === "cleared") { stateT -= dt; if (stateT <= 0) nextLevel(); return; }
+      if (state !== "play") return;
+      clock += dt;
+      // player
+      var p = player;
+      if ((p.wx || p.wy) && p.wx === -p.dx && p.wy === -p.dy && (p.dx || p.dy)) { p.dx = p.wx; p.dy = p.wy; p.ang = Math.atan2(p.dy, p.dx); }
+      advance(p, sp.p * dt, pickPlayer);
+      if (p.dx || p.dy) { p.mt += dt * 9; p.mouth = 0.05 + 0.3 * Math.abs(Math.sin(p.mt)); }
+      var cx = Math.round(p.x) % W, cy = Math.round(p.y);
+      if (Math.abs(p.x - Math.round(p.x)) < 0.4 && Math.abs(p.y - cy) < 0.4) {
+        var c = grid[cy][(cx + W) % W];
+        if (c === "." || c === "o") {
+          grid[cy][(cx + W) % W] = " "; left--; setScore(score + (c === "o" ? 50 : 10));
+          if (c === "o") { fright = 7; ghosts.forEach(function (g) { if (g.st === "normal") { g.fright = 7; g.dx = -g.dx; g.dy = -g.dy; } }); ghosts.eaten = 0; }
+        }
+      }
+      if (fright > 0) { fright -= dt; ghosts.forEach(function (g) { if (g.fright > 0) g.fright = fright; }); if (fright <= 0) { fright = 0; ghosts.forEach(function (g) { g.fright = 0; }); } }
+      ghosts.forEach(function (g) { updateGhost(g, dt, sp); });
+      // collisions
+      for (var i = 0; i < ghosts.length; i++) {
+        var g = ghosts[i]; if (g.st === "eyes" || g.st === "house") continue;
+        if (Math.hypot(g.x - p.x, g.y - p.y) < 0.62) {
+          if (g.fright > 0) { g.st = "eyes"; g.fright = 0; ghosts.eaten = (ghosts.eaten || 0) + 1; setScore(score + 200 * Math.pow(2, Math.min(3, ghosts.eaten - 1))); }
+          else { state = "dying"; stateT = 1.2; p.dieT = 0; return; }
+        }
+      }
+      if (left <= 0) { state = "cleared"; stateT = 1.8; }
+    }
+
+    // ---------- drawing ----------
+    function px(x) { return x * T + T / 2; }
+    function drawMaze() {
+      ctx.fillStyle = "#120E0F"; ctx.fillRect(0, 0, W * T, H * T);
+      ctx.lineWidth = Math.max(2, T * 0.09); ctx.lineCap = "round"; ctx.strokeStyle = "#F26624";
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+        var c = MAP[y][x];
+        if (c === "#") {
+          ctx.fillStyle = "#1f1617"; ctx.fillRect(x * T, y * T, T, T);
+          var e = [[0, -1, x * T, y * T, (x + 1) * T, y * T], [0, 1, x * T, (y + 1) * T, (x + 1) * T, (y + 1) * T], [-1, 0, x * T, y * T, x * T, (y + 1) * T], [1, 0, (x + 1) * T, y * T, (x + 1) * T, (y + 1) * T]];
+          e.forEach(function (d) { var nx = x + d[0], ny = y + d[1]; var n = (ny < 0 || ny >= H || nx < 0 || nx >= W) ? "#" : MAP[ny][nx]; if (n !== "#" && !(n === " " && voidMap[ny] && voidMap[ny][nx])) { ctx.beginPath(); ctx.moveTo(d[2], d[3]); ctx.lineTo(d[4], d[5]); ctx.stroke(); } });
+        } else if (c === "-") { ctx.fillStyle = "#F2F2E9"; ctx.fillRect(x * T, y * T + T * 0.42, T, T * 0.16); }
+      }
+    }
+    function pint(cx, cy, w, h) {
+      ctx.fillStyle = "#F4B740"; ctx.beginPath(); ctx.moveTo(cx - w / 2, cy - h / 2); ctx.lineTo(cx + w / 2, cy - h / 2); ctx.lineTo(cx + w * 0.36, cy + h / 2); ctx.lineTo(cx - w * 0.36, cy + h / 2); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = "#FFF8E9"; ctx.fillRect(cx - w / 2, cy - h / 2 - h * 0.12, w, h * 0.3);
+    }
+    function drawPellets(t) {
+      for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+        var c = grid[y][x];
+        if (c === ".") pint(px(x), px(y), T * 0.26, T * 0.34);
+        else if (c === "o") { var s = 1 + 0.12 * Math.sin(t * 6); pint(px(x), px(y), T * 0.56 * s, T * 0.7 * s); }
+      }
+    }
+    function drawBurger(cx, cy, r, mouth, ang) {
+      ctx.save(); ctx.beginPath();
+      if (mouth > 0.03) { ctx.moveTo(cx, cy); ctx.arc(cx, cy, r, ang + mouth, ang + Math.PI * 2 - mouth); ctx.closePath(); } else ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.clip();
+      var bands = [["#E58A3A", 0, .40], ["#6BA34A", .40, .50], ["#4a2a1c", .50, .68], ["#F4B740", .68, .75], ["#E58A3A", .75, 1]];
+      bands.forEach(function (b) { ctx.fillStyle = b[0]; ctx.fillRect(cx - r, cy - r + 2 * r * b[1], 2 * r, 2 * r * (b[2] - b[1]) + 0.5); });
+      ctx.fillStyle = "#FFF1D6"; [[-.35, -.62], [0, -.74], [.35, -.62], [-.18, -.46], [.2, -.45]].forEach(function (s) { ctx.beginPath(); ctx.ellipse(cx + s[0] * r, cy + s[1] * r, r * .09, r * .05, 0, 0, 7); ctx.fill(); });
+      ctx.restore();
+      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(cx + r * 0.12, cy - r * 0.28, r * 0.17, 0, 7); ctx.fill();
+      ctx.fillStyle = "#1B1617"; ctx.beginPath(); ctx.arc(cx + r * 0.16, cy - r * 0.27, r * 0.08, 0, 7); ctx.fill();
+    }
+    function drawGhost(g, t) {
+      var cx = px(g.x), cy = px(g.y) + (g.st === "house" ? Math.sin(g.bob || 0) * T * .05 : 0), r = T * 0.42;
+      if (g.st !== "eyes") {
+        var fr = g.fright > 0, flash = fr && g.fright < 2 && Math.floor(t * 6) % 2;
+        ctx.fillStyle = fr ? (flash ? "#F2F2E9" : "#2B3F7A") : g.color;
+        ctx.beginPath(); ctx.moveTo(cx - r, cy + r); ctx.lineTo(cx - r, cy); ctx.arc(cx, cy, r, Math.PI, 0); ctx.lineTo(cx + r, cy + r);
+        var wv = 4, sw = (2 * r) / wv, ph = Math.floor(t * 8) % 2;
+        for (var i = 0; i < wv; i++) { var x0 = cx + r - i * sw; ctx.lineTo(x0 - sw / 2, cy + r - (((i + ph) % 2) ? r * .3 : 0)); ctx.lineTo(x0 - sw, cy + r); }
+        ctx.closePath(); ctx.fill();
+      }
+      if (g.fright > 0 && g.st !== "eyes") {
+        ctx.fillStyle = "#F2F2E9"; ctx.beginPath(); ctx.arc(cx - r * .35, cy - r * .15, r * .13, 0, 7); ctx.arc(cx + r * .35, cy - r * .15, r * .13, 0, 7); ctx.fill();
+      } else {
+        var ox = (g.dx || 0) * r * .12, oy = (g.dy || 0) * r * .12;
+        [-1, 1].forEach(function (s) { ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.ellipse(cx + s * r * .38, cy - r * .15, r * .26, r * .32, 0, 0, 7); ctx.fill(); ctx.fillStyle = "#1B1617"; ctx.beginPath(); ctx.arc(cx + s * r * .38 + ox, cy - r * .12 + oy, r * .13, 0, 7); ctx.fill(); });
+      }
+    }
+    function drawText(txt, color) { ctx.fillStyle = color || "#F4B740"; ctx.font = "900 " + Math.round(T * 0.8) + "px Fraunces, Georgia, serif"; ctx.textAlign = "center"; ctx.fillText(txt, W * T / 2, px(11) + T * .25); }
+    function draw(t) {
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      drawMaze(); drawPellets(t);
+      if (state === "dying") { var k = Math.min(1, 1 - stateT / 1.2); drawBurger(px(player.x), px(player.y), T * 0.44 * (1 - k * 0.2), 0.05 + k * 3, player.ang); }
+      else { ghosts.forEach(function (g) { drawGhost(g, t); }); drawBurger(px(player.x), px(player.y), T * 0.44, state === "ready" ? 0.3 : player.mouth, player.ang); }
+      if (state === "ready") drawText("READY!");
+      if (state === "cleared") drawText("LEVEL CLEARED!", "#F2F2E9");
+    }
+
+    // ---------- loop + input ----------
+    var last = 0, acc = 0, paused = false, started = false;
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      var dt = Math.min(0.05, (ts - last) / 1000 || 0); last = ts;
+      if (started && !paused && state !== "over") { acc += dt; while (acc >= 1 / 60) { update(1 / 60); acc -= 1 / 60; } }
+      draw(ts / 1000);
+    }
+    function setDir(name) { if (!DIRS[name]) return; player.wx = DIRS[name][0]; player.wy = DIRS[name][1]; }
+    addEventListener("keydown", function (e) {
+      var m = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right", w: "up", s: "down", a: "left", d: "right", W: "up", S: "down", A: "left", D: "right" }[e.key];
+      if (m) { if (started) { setDir(m); } e.preventDefault(); return; }
+      if (e.key === "p" || e.key === "P") { if (started && state !== "over") { paused = !paused; if (paused) showOv("Paused", "Press P or Play to carry on.", "Resume", false); else ov.hidden = true; } }
+      if ((e.key === "Enter" || e.key === " ") && !ov.hidden && document.activeElement !== go) { e.preventDefault(); go.click(); }
+    });
+    go.addEventListener("click", function () {
+      if (paused) { paused = false; ov.hidden = true; return; }
+      started = true; newGame();
+    });
+    document.querySelectorAll("#gm-pad button").forEach(function (b) { b.addEventListener("pointerdown", function (e) { e.preventDefault(); if (started) setDir(b.getAttribute("data-d")); }); });
+    var sx = 0, sy = 0;
+    cv.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    cv.addEventListener("touchend", function (e) { var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy; if (Math.max(Math.abs(dx), Math.abs(dy)) < 22 || !started) return; setDir(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : (dy > 0 ? "down" : "up")); }, { passive: true });
+    document.addEventListener("visibilitychange", function () { if (document.hidden && started && !paused && state !== "over") { paused = true; showOv("Paused", "Tap Resume to carry on.", "Resume", false); } });
+    addEventListener("resize", fit);
+
+    buildVoid(); resetBoard(); homeDist = bfsFrom(9, 9); fit(); level = 1; lives = 3; setLives(); resetActors(); state = "ready"; stateT = 1e9;
+    requestAnimationFrame(frame);
+    window.__bbgame = { get state() { return state; }, get score() { return score; }, get left() { return left; }, player: function () { return player; }, ghosts: function () { return ghosts; } };
+  })();
+  </script>
+
+<div class="sc-wrap">
+  <footer class="bb-foot">
+        <img class="bb-foot__mark" src="assets/brand/bb-stacked.png" width="353" height="500" alt="Burger Brewery" loading="lazy">
+        <ul>
+          <li><a href="about.html">Our Story</a></li>
+          <li><button type="button" data-open="dlg-team">Join the Team</button></li>
+          <li><button type="button" data-open="dlg-franchise">Franchise with Us</button></li>
+          <li><a href="assets/burger-brewery-koramangala-menu.pdf" target="_blank" rel="noopener">Menu (PDF)</a></li>
+        </ul>
+        <div class="bb-social">
+          <a class="bb-social__a" data-link="instagramUrl" href="https://www.instagram.com/burgerbrewery_official/" target="_blank" rel="noopener" aria-label="Burger Brewery on Instagram, @burgerbrewery_official"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg></a>
+          <!-- TODO: set linkedinUrl in config/site.js. The LinkedIn icon stays hidden until then. -->
+          <a class="bb-social__a" data-link="linkedinUrl" href="#" target="_blank" rel="noopener" aria-label="Burger Brewery on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" fill="currentColor"/><path d="M7.2 10.2h2.3V17H7.2zM8.35 6.6a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM11 10.2h2.2v.95c.4-.7 1.3-1.15 2.3-1.15 2 0 2.6 1.25 2.6 3.1V17h-2.3v-3.4c0-.9-.2-1.6-1.1-1.6-1 0-1.4.7-1.4 1.7V17H11z" fill="var(--bb-black)"/></svg></a>
+        </div>
+        <small>© 2026 Burger Brewery. Please drink responsibly.</small>
+      </footer>
+</div>
+</main>
+<!-- Franchise with Us -->
+<dialog class="bb-dialog" id="dlg-franchise" aria-labelledby="fr-h">
+  <div class="bb-dialog__in">
+    <button class="bb-dialog__x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="fr-h">Franchise with Us</h2>
+    <p>Bring Burger Brewery to your city. We’re building India’s favourite burger and beer table, one city at a time, and we’re choosy about who builds it with us. Tell us about you.</p>
+    <form class="bb-form" method="post" action="#" data-form="franchise">
+      <div class="row2">
+        <div class="bb-field"><label for="fr-name">Your name</label><input id="fr-name" name="name" autocomplete="name" required></div>
+        <div class="bb-field"><label for="fr-city">City</label><input id="fr-city" name="city" autocomplete="address-level2" required></div>
+      </div>
+      <div class="row2">
+        <div class="bb-field"><label for="fr-phone">Phone</label><input id="fr-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="bb-field"><label for="fr-email">Email</label><input id="fr-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="bb-field"><label for="fr-inv">Investment range</label>
+        <select id="fr-inv" name="investment" required><option value="">Choose one</option><option>Under ₹50 lakh</option><option>₹50 lakh to ₹1 crore</option><option>Over ₹1 crore</option><option>Not sure yet</option></select></div>
+      <div class="bb-field"><label for="fr-msg">Anything else?</label><textarea id="fr-msg" name="message"></textarea></div>
+      <p class="bb-form__status" role="status" aria-live="polite"></p>
+      <div><button class="bb-btn" type="submit">Send enquiry</button></div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Join the Team -->
+<dialog class="bb-dialog" id="dlg-team" aria-labelledby="tm-h">
+  <div class="bb-dialog__in">
+    <button class="bb-dialog__x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="tm-h">Join the Team</h2>
+    <p>Kitchen, floor or bar. If a rushed burger bothers you, we should talk.</p>
+    <form class="bb-form" method="post" action="#" enctype="multipart/form-data" data-form="team">
+      <div class="row2">
+        <div class="bb-field"><label for="tm-name">Your name</label><input id="tm-name" name="name" autocomplete="name" required></div>
+        <div class="bb-field"><label for="tm-role">Role</label>
+          <select id="tm-role" name="role" required><option value="">Choose one</option><option>Kitchen</option><option>Floor and service</option><option>Bar</option><option>Management</option></select></div>
+      </div>
+      <div class="row2">
+        <div class="bb-field"><label for="tm-phone">Phone</label><input id="tm-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="bb-field"><label for="tm-email">Email</label><input id="tm-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="bb-field"><label for="tm-city">Preferred outlet or city</label><input id="tm-city" name="city" value="Koramangala, Bangalore"></div>
+      <p class="bb-form__status" role="status" aria-live="polite"></p>
+      <div><button class="bb-btn" type="submit">Send application</button></div>
+    </form>
+  </div>
+</dialog>
+
+
+<script src="config/site.js?v=8ebda23a"></script>
+<script>
+  /* ---------- Our Team: built from config/site.js (team), sorted A to Z; empty fields are not shown ---------- */
+  (function () {
+    var sec = document.getElementById("team"), list = sec && sec.querySelector("[data-team]");
+    var team = (window.BB_CONFIG && window.BB_CONFIG.team) || [];
+    if (!sec || !list || !team.length) return;
+    function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt) n.textContent = txt; return n; }
+    team.slice().sort(function (a, b) { return String(a.sort || a.name).localeCompare(String(b.sort || b.name)); }).forEach(function (m) {
+      var li = el("li", "bb-member"), ph = el("div", "bb-member__ph");
+      if (m.photo) { var img = document.createElement("img"); img.src = m.photo; img.alt = m.name + (m.role ? ", " + m.role : ""); img.width = 800; img.height = 800; img.loading = "lazy"; img.decoding = "async"; ph.appendChild(img); }
+      else { ph.classList.add("is-mono"); var mo = el("span", "bb-member__mono", (m.name.replace(/^Chef\s+/i, "").charAt(0) || "").toUpperCase()); mo.setAttribute("aria-hidden", "true"); ph.appendChild(mo); }
+      if (m.link) { var a = el("a", "bb-member__ring"); a.href = m.link; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("aria-label", m.name + " on LinkedIn"); a.appendChild(ph); li.appendChild(a); } else { var r = el("div", "bb-member__ring"); r.appendChild(ph); li.appendChild(r); }
+      if (m.line) li.appendChild(el("p", "bb-member__line", "\u201C" + m.line + "\u201D"));
+      li.appendChild(el("h3", "", m.name));
+      if (m.role) li.appendChild(el("p", "bb-member__role", m.role));
+      if (m.area) li.appendChild(el("p", "bb-member__area", m.area));
+      if (m.bio) li.appendChild(el("p", "bb-member__bio", m.bio));
+      if (m.prev && m.prev.length) li.appendChild(el("p", "bb-member__prev", "Previously: " + m.prev.join(", ")));
+      if (m.pairing) { var pr = el("p", "bb-member__pair"); pr.appendChild(el("span", "", "Goes with")); pr.appendChild(document.createTextNode(m.pairing)); li.appendChild(pr); }
+      list.appendChild(li);
+    });
+    sec.hidden = false;
+    // scroll style: each profile eases in as it arrives, and its portrait drifts slightly against the scroll
+    var rm = matchMedia("(prefers-reduced-motion: reduce)").matches, items = [].slice.call(list.children);
+    if (rm || !("IntersectionObserver" in window)) { items.forEach(function (n) { n.classList.add("is-in"); }); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }); }, { threshold: 0.2 });
+    items.forEach(function (n) { n.classList.add("is-armed"); io.observe(n); });
+    var ticking = false;
+    function drift() { ticking = false; var vh = innerHeight; items.forEach(function (n) { var r = n.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; var p = (r.top + r.height / 2 - vh / 2) / vh; n.style.setProperty("--drift", (p * -36).toFixed(1) + "px"); }); }
+    addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true }); drift();
+  })();
+
+</script>
+<script>
+(function () {
+  "use strict";
+  var CFG = window.BB_CONFIG || {};
+  var has = function (v) { return v !== null && v !== undefined && v !== ""; };
+  document.querySelectorAll("[data-link]").forEach(function (a) { var u = CFG[a.getAttribute("data-link")]; if (has(u)) a.href = u; else a.hidden = true; });
+  var nav = document.querySelector(".bb-nav"), toggle = document.querySelector(".bb-burgerbtn");
+  toggle.addEventListener("click", function () { var o = nav.classList.toggle("is-open"); toggle.setAttribute("aria-expanded", o); toggle.setAttribute("aria-label", o ? "Close navigation" : "Open navigation"); });
+  var btn = document.querySelector(".bb-loc > button"), menu = document.getElementById("loc-menu");
+  function set(o) { btn.setAttribute("aria-expanded", String(o)); menu.hidden = !o; }
+  btn.addEventListener("click", function (e) { e.stopPropagation(); set(menu.hidden); });
+  document.addEventListener("click", function (e) { if (!menu.hidden && !menu.contains(e.target)) set(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+  menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { set(false); nav.classList.remove("is-open"); }); });
+  document.querySelectorAll("[data-open]").forEach(function (b) { b.addEventListener("click", function () { var d = document.getElementById(b.getAttribute("data-open")); if (d && !d.open) d.showModal(); }); });
+  document.querySelectorAll("dialog [data-close]").forEach(function (b) { b.addEventListener("click", function () { b.closest("dialog").close(); }); });
+  document.querySelectorAll("form[data-form]").forEach(function (f) {
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = f.querySelector(".bb-form__status");
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      var g = function (n) { return f.elements[n] ? f.elements[n].value.trim() : ""; };
+      var row = { kind: f.getAttribute("data-form"), name: g("name"), phone: g("phone"), email: g("email"), city: g("city") || null, investment: g("investment") || null, role: g("role") || null, message: g("message") || null };
+      var first = row.name.split(" ")[0] || "there", btn = f.querySelector('[type="submit"]');
+      if (!window.BB_SEND) { status.textContent = "This form isn’t available right now. Please message us on Instagram @burgerbrewery_official."; return; }
+      btn.disabled = true; status.textContent = "Sending…";
+      window.BB_SEND("enquiries", row).then(function () { status.textContent = "Thanks, " + first + ". We’ve received your details."; f.reset(); })
+        .catch(function () { status.textContent = "That didn’t go through. Check your connection and try again, or message us on Instagram @burgerbrewery_official."; })
+        .then(function () { btn.disabled = false; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
