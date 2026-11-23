@@ -64,7 +64,7 @@ def header(p):  # p = "" on index, "index.html" on other pages
       <li><a class="bb-nav__link" href="{p}#craft-on-tap">Craft on Tap</a></li>
       <li><a class="bb-nav__link" href="{p}#drops">Drops</a></li>
       <li><a class="bb-nav__link" href="team.html">Our Team</a></li>
-      <li><a class="bb-nav__link" href="{p}#club">Membership</a></li>
+      <li><a class="bb-nav__link" href="{p}#club">Loyalty Points</a></li>
       <li class="bb-loc">
         <button class="bb-nav__link" type="button" aria-expanded="false" aria-controls="loc-menu">Locations <span class="bb-loc__caret" aria-hidden="true"></span></button>
         <ul class="bb-loc__menu" id="loc-menu" hidden>

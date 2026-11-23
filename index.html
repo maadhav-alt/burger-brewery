@@ -990,7 +990,7 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
       <li><a class="bb-nav__link" href="#craft-on-tap">Craft on Tap</a></li>
       <li><a class="bb-nav__link" href="#drops">Drops</a></li>
       <li><a class="bb-nav__link" href="team.html">Our Team</a></li>
-      <li><a class="bb-nav__link" href="#club">Membership</a></li>
+      <li><a class="bb-nav__link" href="#club">Loyalty Points</a></li>
       <li class="bb-loc">
         <button class="bb-nav__link" type="button" aria-expanded="false" aria-controls="loc-menu">Locations <span class="bb-loc__caret" aria-hidden="true"></span></button>
         <ul class="bb-loc__menu" id="loc-menu" hidden>
@@ -1399,11 +1399,11 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
   <section id="club" class="bb-club g-black" aria-labelledby="club-h" hidden>
     <div class="sc-wrap bb-club__in">
       <div class="bb-club__copy">
-        <p class="bb-label">Burger Brewery Club</p>
+        <p class="bb-label">Burger Brewery Club · Loyalty Points</p>
         <h2 id="club-h">You were coming back anyway. Now it <em>pays</em>.</h2>
         <p class="bb-club__lead" data-club-earn></p>
         <a class="bb-btn" data-club-link href="#" target="_blank" rel="noopener">Check my points</a>
-        <p class="bb-club__small">Check your balance and live offers any time.</p>
+        <p class="bb-club__small">See your points, their value and any live offers.</p>
       </div>
       <div class="bb-club__card">
         <ol class="bb-club__ladder" data-club-ladder aria-label="Club reward levels"></ol>
@@ -2156,7 +2156,7 @@ ScrollCraft.mount(document.body);
     var sec = document.getElementById("club"), L = window.BB_CONFIG && window.BB_CONFIG.loyalty;
     if (!sec || !L || !L.checkUrl || !(L.tiers || []).length) return;
     sec.querySelector("[data-club-link]").href = L.checkUrl;
-    sec.querySelector("[data-club-earn]").textContent = "Every night at the table adds up. " + (L.earn || "") + ", and when you’ve saved enough, the next round is on us. Well, partly.";
+    sec.querySelector("[data-club-earn]").textContent = "Earn 1 point for every rupee you spend. Save up and take money off your next bill, in-store.";
     var ol = sec.querySelector("[data-club-ladder]");
     L.tiers.forEach(function (t) { var li = document.createElement("li"); li.innerHTML = t.points + "<small>PTS</small>" + (L.showRewardValues && t.off ? "<em class=\"bb-club__val\">= \u20B9" + t.off + " off</em>" : ""); ol.appendChild(li); });
     var ul = sec.querySelector("[data-club-terms]");

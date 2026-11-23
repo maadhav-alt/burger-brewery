@@ -3,7 +3,7 @@
     var sec = document.getElementById("club"), L = window.BB_CONFIG && window.BB_CONFIG.loyalty;
     if (!sec || !L || !L.checkUrl || !(L.tiers || []).length) return;
     sec.querySelector("[data-club-link]").href = L.checkUrl;
-    sec.querySelector("[data-club-earn]").textContent = "Every night at the table adds up. " + (L.earn || "") + ", and when you’ve saved enough, the next round is on us. Well, partly.";
+    sec.querySelector("[data-club-earn]").textContent = "Earn 1 point for every rupee you spend. Save up and take money off your next bill, in-store.";
     var ol = sec.querySelector("[data-club-ladder]");
     L.tiers.forEach(function (t) { var li = document.createElement("li"); li.innerHTML = t.points + "<small>PTS</small>" + (L.showRewardValues && t.off ? "<em class=\"bb-club__val\">= \u20B9" + t.off + " off</em>" : ""); ol.appendChild(li); });
     var ul = sec.querySelector("[data-club-terms]");
