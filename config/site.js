@@ -6,7 +6,7 @@
  */
 
 // TODO VERIFY: rating must match the live Google listing (https://maps.app.goo.gl/BrSWiB4urYfC66M5A)
-var GOOGLE_RATING = 4.5;
+var GOOGLE_RATING = 4.6;
 
 // Forms save to Supabase (tables community_signups and enquiries). The publishable key is meant to be public:
 // row-level security lets it ADD rows only, never read, change or delete them. Never put a secret key in this file.

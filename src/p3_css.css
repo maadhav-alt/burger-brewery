@@ -475,3 +475,22 @@ html.is-loading .bb-hero h1 .w > span, html.is-loading .bb-hero h1 .beer::after,
 .bb-club__terms { list-style: none; margin: 1.25rem 0 0; padding: 0; font: 700 .88rem/1.45 var(--sc-font-text); display: grid; gap: .3rem; }
 .bb-club__terms li::before { content: "• "; }
 .bb-club__val { display: block; margin-top: .45rem; font: 800 clamp(.92rem, 1.3vw, 1.05rem)/1.2 var(--sc-font-text); font-style: normal; letter-spacing: 0; }
+
+/* hero: two Google reviews replace the "It's Hearty" sticker */
+.bb-hero .bb-quotes { position: absolute; z-index: 3; right: 5vw; bottom: 9vh; width: clamp(280px, 24vw, 350px); display: grid; gap: 16px; }
+.bb-q { margin: 0; padding: 16px 20px 15px; background: var(--bb-cream); color: var(--bb-black); border-radius: 18px; box-shadow: 0 18px 40px -16px rgba(0,0,0,.6); }
+.bb-q--a { rotate: -1.6deg; }
+.bb-q--b { rotate: 1.2deg; margin-left: 22px; }
+.bb-q__stars { color: var(--bb-orange); font-size: 1rem; letter-spacing: .14em; line-height: 1; }
+.bb-q blockquote { margin: 9px 0 0; font: italic 700 clamp(1rem, 1.15vw, 1.12rem)/1.35 var(--sc-font-display); }
+.bb-q figcaption { margin-top: 10px; font: 800 .8rem/1.2 var(--sc-font-text); letter-spacing: .04em; }
+.bb-q figcaption span { font-weight: 600; color: #4d4648; }
+@media (max-width: 1100px) and (min-width: 761px) { .bb-hero .bb-quotes { width: 250px; } .bb-q--b { margin-left: 0; } }
+@media (max-width: 760px) {
+  .bb-hero .bb-quotes { position: relative; right: auto; bottom: auto; width: auto; padding: 0 var(--sc-gutter) 28px; gap: 12px; transform: none !important; }
+  .bb-q--a, .bb-q--b { rotate: 0deg; margin-left: 0; }
+}
+.bb-q { position: relative; transition: transform 250ms var(--sc-ease-out), box-shadow 250ms; }
+.bb-q figcaption a { color: inherit; text-decoration: underline; text-decoration-color: var(--bb-orange); text-underline-offset: 3px; }
+.bb-q figcaption a::after { content: ""; position: absolute; inset: 0; border-radius: 18px; }
+@media (hover: hover) and (pointer: fine) { .bb-q:hover { transform: translateY(-3px); box-shadow: 0 24px 44px -16px rgba(0,0,0,.7); } }
