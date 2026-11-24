@@ -22,6 +22,9 @@ css_dlg   = between("/* ---------- dialogs ---------- */", "@media (prefers-redu
 # ---------- reusable HTML ----------
 symbols  = between("<!-- the seven layers", "<header")
 together = between("  <!-- 8 · DO TOGETHER -->", "  <!-- 9 · THE ROOM -->")
+together = together.replace('        <ul class="bb-flights" data-sc-in>', '        <div class="bb-tg__row">\n        <ul class="bb-flights" data-sc-in>', 1)
+together = together.replace('        </ul>\n      </div>', '        </ul>\n        <figure class="bb-tg__vid"><video muted loop playsinline controls controlslist="nodownload" preload="none" poster="assets/video/its-a-match-poster.webp" data-src="assets/video/its-a-match.mp4" width="540" height="960" aria-label="An 8-second clip: a smash burger and a pint of lager, with the line Every burger deserves a good beer. Muted; press the speaker for sound."></video></figure>\n        </div>\n      </div>', 1)
+assert "bb-tg__vid" in together
 together = together.replace('src="assets/brand/stamp-do-together.png"', 'src="assets/brand/stamp-do-together.webp"')
 together = together.replace('<img src="assets/photos/do-together-platter.jpg" width="1125" height="2000" loading="lazy"',
   '<img src="assets/photos/resp/do-together-platter-960.jpg" srcset="assets/photos/resp/do-together-platter-480.webp 480w, assets/photos/resp/do-together-platter-960.webp 960w" sizes="(max-width: 860px) 92vw, 40vw" width="960" height="1707" loading="lazy" decoding="async"')

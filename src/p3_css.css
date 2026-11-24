@@ -518,3 +518,9 @@ a.bb-dt:focus-visible { outline: 3px solid var(--bb-orange); outline-offset: 4px
 @media (hover: hover) and (pointer: fine) { .bb-c4__how:hover .bb-how { transform: scale(1.05) rotate(-1.5deg); animation-play-state: paused; } }
 @media (max-width: 520px) { .bb-c4--how .bb-c4__fig { aspect-ratio: 1 / 1; } .bb-how { width: min(58%, 220px); } .bb-how__arrow { width: 32px; left: -28px; } }
 @media (prefers-reduced-motion: reduce) { .bb-how, .bb-how__arrow, .bb-how__play::after { animation: none; } }
+
+/* Do Together: the "It's a Match" clip beside the flights list */
+.bb-tg__row { display: grid; grid-template-columns: minmax(0, 1fr) clamp(170px, 15vw, 220px); gap: clamp(1.25rem, 2.6vw, 2.25rem); align-items: start; }
+.bb-tg__vid { margin: 0; transform: rotate(-2deg); }
+.bb-tg__vid video { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border: 6px solid var(--bb-black); border-radius: 28px; background: #1B1617; box-shadow: 0 24px 40px -22px rgba(35,31,32,.8); }
+@media (max-width: 860px) { .bb-tg__row { grid-template-columns: 1fr; } .bb-tg__vid { width: min(62vw, 250px); justify-self: center; margin-top: 8px; } }
