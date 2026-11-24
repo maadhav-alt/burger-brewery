@@ -130,14 +130,15 @@ LAZY_JS = '''<script>
 </script>
 '''
 
-PAGES = {"game.html": ("Burger vs Beer · Burger Brewery", "A little game from Burger Brewery.", "g-black", "p3_game.html"),
+PAGES = {"ghee-roast-pull.html": ("How the BLR Ghee Roast Pull is made · Burger Brewery", "A short video of how the BLR Ghee Roast Pull is made at Burger Brewery.", "g-black", "p3_ghee.html"),
+         "game.html": ("Burger vs Beer · Burger Brewery", "A little game from Burger Brewery.", "g-black", "p3_game.html"),
          "about.html": ("About Burger Brewery · Burger and craft beer restaurant in Bengaluru", "Burger Brewery is a burger and craft beer restaurant in Bengaluru. Every burger is built to be paired with a craft beer. Meet the founder and the story.", "g-cream", "p3_about.html"),
          "team.html": ("Our Team · Burger Brewery", "Meet the people behind Burger Brewery.", "g-cream", "p3_team.html"),
 }
 def page_tpl(out):
     t, dsc, cls, frag = PAGES[out]
     s = open("src/tplP.html", encoding="utf-8").read()
-    if out == "game.html": s = s.replace("<title>", '<meta name="robots" content="noindex, nofollow">\n<title>', 1)
+    if out in ("game.html", "ghee-roast-pull.html"): s = s.replace("<title>", '<meta name="robots" content="noindex, nofollow">\n<title>', 1)
     return (s.replace("/*TITLE*/", t).replace("/*DESC*/", dsc).replace("/*BODYCLS*/", cls)
              .replace("/*CSS_PAGES*/", open("src/p3_pagescss.css", encoding="utf-8").read())
              .replace("<!--MAIN-->", open("src/" + frag, encoding="utf-8").read())
